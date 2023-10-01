@@ -1,0 +1,14 @@
+.mainsection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.mainsection h4 {
+  font-style: italic;
+  font-weight: 300;
+  font-size: 2em;
+  width: 55%;
+}
