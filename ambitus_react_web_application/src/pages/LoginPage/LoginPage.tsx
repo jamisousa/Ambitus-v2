@@ -4,6 +4,7 @@ import styles from "./LoginPage.module.css";
 import colors from "../../utils/colors/colors.module.css";
 import {useEffect } from 'react';
 import { useTheme } from '../../utils/contexts/globalThemeContext';
+import PlantsDetail from '../../components/PlantsDetail/PlantsDetail';
 
 function LoginPage() {
 
@@ -21,6 +22,7 @@ function LoginPage() {
       <div className={`${styles.mainsection} ${colors.lthemebackground}`}>
         <AccessNavbar/>
         <AccessMainText/>
+        <PlantsDetail/>
       </div>
     )
   }

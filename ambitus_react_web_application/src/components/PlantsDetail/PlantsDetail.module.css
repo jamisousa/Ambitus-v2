@@ -1,0 +1,16 @@
+.mainsection {
+  display: flex;
+  flex-direction: column;
+}
+
+.leftplant {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.rightplant {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
