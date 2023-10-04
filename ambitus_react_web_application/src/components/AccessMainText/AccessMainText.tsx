@@ -3,9 +3,8 @@ import greenbrand from '../../resources/img/ambitusName-compressed.svg';
 import { useTheme } from '../../utils/contexts/globalThemeContext';
 import whitebrand from '../../resources/img/lightAmbitusName-compressed.svg';
 import LoginForm from '../LoginForm/LoginForm';
-import {AccessMainTextProps} from '../../types/AccessMainTextProps'; 
 
-const AccessMainText = (props: AccessMainTextProps) =>{
+const AccessMainText = () =>{
 
     const {currentTheme} = useTheme();
 

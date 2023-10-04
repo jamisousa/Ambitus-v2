@@ -1,7 +1,125 @@
-.mainsection {
+.mainsection h1 {
   text-align: center;
+  font-size: 1.6em;
+  padding: 1em 3em;
+  margin-top: -3em;
 }
 
-.mainsection h1 {
-  font-size: 1.75em;
+.mainsection {
+  height: 25em;
+}
+
+.fieldssection {
+  width: 25em;
+  padding: 1em 3em;
+}
+
+.inputContainer {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.loginlabel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  text-align: left;
+  margin-left: 1em;
+}
+
+.formfield {
+  width: 94%;
+  padding: 2em 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+  background-color: transparent;
+  border: 0.1em solid black;
+  border-radius: 0.5em;
+}
+
+.formfield:focus {
+  border-color: #007bff;
+}
+
+.formfield:focus + .loginlabel,
+.formfield:not(:placeholder-shown) + .loginlabel {
+  top: -15px;
+  font-size: 12px;
+  color: var(--theme-green);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1.4em;
+  background-color: var(--theme-green);
+  border-radius: 0.5em;
+  font-weight: bolder;
+  font-size: 1em;
+  color: var(--theme-white);
+}
+
+.submitSocialButton {
+  width: 100%;
+  padding: 1.4em;
+  background-color: transparent;
+  border: 1px solid var(--theme-green);
+  border-radius: 0.5em;
+  font-weight: bolder;
+  font-size: 1em;
+  color: var(--theme-green);
+}
+
+.submitfields > * {
+  margin-top: 1em;
+}
+
+.submitfields a {
+  text-align: center;
+  color: var(--theme-green);
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: 1em;
+}
+
+.submitfields h5 {
+  text-align: center;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.iconContainer {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.eyeIcon {
+  cursor: pointer;
+}
+
+.googleLoginContainer {
+  display: flex;
+  align-items: center;
+}
+
+.googleImage {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  margin-left: 5.5em;
+}
+
+.submitSocialButton {
+  padding: 1.4em;
+  background-color: transparent;
+  border: 1px solid var(--theme-green);
+  border-radius: 0.5em;
+  font-weight: bolder;
+  font-size: 1em;
+  color: var(--theme-green);
 }
