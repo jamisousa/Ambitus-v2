@@ -1,0 +1,38 @@
+:root {
+  --ltheme-background: #fefae0;
+  --ltheme-darkgray: #292525;
+
+  --dtheme-background: #292525;
+  --dtheme-green: #6f9200;
+
+  --theme-green: #6f9200;
+  --theme-white: #fefae0;
+}
+
+/*shared colors*/
+.themegreentext {
+  color: var(--theme-green);
+}
+
+.themegreenbackground {
+  background-color: var(--theme-green);
+}
+
+.themewhitetext {
+  color: var(--theme-white);
+}
+
+.themegraytext {
+  color: var(--ltheme-darkgray);
+}
+
+/*light theme colors*/
+.lthemebackground {
+  background-color: var(--ltheme-background);
+}
+
+/*dark theme colors*/
+
+.dthemebackground {
+  background-color: var(--dtheme-background);
+}
