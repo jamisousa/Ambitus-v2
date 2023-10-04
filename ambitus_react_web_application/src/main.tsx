@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import LoginPage from './pages/LoginPage/LoginPage.tsx';
 import { ThemeProvider } from './utils/contexts/globalThemeContext.tsx';
+import SignUpPage from './pages/SignUpPage/SignUpPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignUpPage />,
   },
 ]);
 

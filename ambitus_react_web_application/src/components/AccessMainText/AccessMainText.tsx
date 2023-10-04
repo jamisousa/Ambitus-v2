@@ -3,8 +3,10 @@ import greenbrand from '../../resources/img/ambitusName-compressed.svg';
 import { useTheme } from '../../utils/contexts/globalThemeContext';
 import whitebrand from '../../resources/img/lightAmbitusName-compressed.svg';
 import LoginForm from '../LoginForm/LoginForm';
+import { AccessMainTextProps } from '../../types/FormType';
+import SignUpForm from '../SignUpForm/SignUpForm';
 
-const AccessMainText = () =>{
+const AccessMainText = (props: AccessMainTextProps) => {
 
     const {currentTheme} = useTheme();
 
@@ -16,12 +18,12 @@ const AccessMainText = () =>{
                 <img src={currentTheme == "light" ? greenbrand : whitebrand}/>
                 <h4 className={textStyle}>Tornando o mundo um lugar melhor hoje </h4>
             </div>
+
             <div className={styles.formsection}>
-                <LoginForm/>
+                {props.formType[0] == 'login' ?  <LoginForm/> : <SignUpForm/>}
             </div>
         </div>
     )
-
 }
 
 export default AccessMainText;
