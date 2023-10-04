@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import styles from "./LoginForm.module.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { override } from "../../utils/spinner/spinner";
@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import image from "../../resources/img/google.png";
+import { useNavigate } from "react-router-dom";
+import { validEmail, validPassword } from "../../utils/regex/Regex";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
@@ -13,12 +15,38 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
+ 
+
+  //check regex before redirect
+  //password must contain at least a letter and a number
+  const validateInformation = () => {
+    console.log(email);
+    console.log(password);
+    if (!validEmail.test(email) || !validPassword.test(password) || password.length < 1 || email.length < 1 || password == "" || email == "") {
+      setError(true);
+      setLoading(false);
+      return false;
+   }
+    setError(false);
+    setLoading(false);
+    console.log("Validated");
+    return true;
+  }
 
   const loginHandler = () => {
-    //TODO: call services and login
+    //TODO: call services and login after validation
     setLoading(true);
     setTimeout(() => {
-      setLoading(false);
+      const validation = validateInformation();
+      if(validation){
+        console.log("Validation successful");
+        navigate("/dashboard");
+        setLoading(false);
+      }
     }, 2000);
   };
 
@@ -32,20 +60,6 @@ const LoginForm = () => {
 
   const toggleShowPassword = () => {
     return setShowPassword(!showPassword);
-  };
-
-  useEffect(() => {
-    if (passwordInputRef.current) {
-      passwordInputRef?.current?.blur();
-    }
-  }, []);
-
-  const handlePasswordFocus = () => {
-    setIsPasswordFocused(true);
-  };
-
-  const handlePasswordBlur = () => {
-    setIsPasswordFocused(false);
   };
 
   return (
@@ -71,6 +85,7 @@ const LoginForm = () => {
                   type="email"
                   id="email"
                   placeholder=" "
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <label className={styles.loginlabel} htmlFor="email">
                   E-mail
@@ -88,8 +103,6 @@ const LoginForm = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   ref={passwordInputRef}
-                  onFocus={handlePasswordFocus}
-                  onBlur={handlePasswordBlur}
                 />
 
                 <label className={styles.loginlabel} htmlFor="password">
@@ -111,12 +124,15 @@ const LoginForm = () => {
               </div>
             </div>
 
+            {error && <div className={styles.errorindicator}>Verifique seus dados e tente novamente.</div>}
+
             <div className={styles.submitfields}>
               <input
                 className={styles.submitButton}
                 type="submit"
                 value="Entrar com e-mail"
                 onClick={loginHandler}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <div className={styles.googleLoginContainer}>
                 <input
@@ -137,6 +153,7 @@ const LoginForm = () => {
             </div>
           </form>
         )}
+        
       </div>
     </div>
   );
