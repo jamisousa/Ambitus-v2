@@ -19,30 +19,36 @@ const LoginForm = () => {
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
- 
 
   //check regex before redirect
   //password must contain at least a letter and a number
   const validateInformation = () => {
     console.log(email);
     console.log(password);
-    if (!validEmail.test(email) || !validPassword.test(password) || password.length < 1 || email.length < 1 || password == "" || email == "") {
+    if (
+      !validEmail.test(email) ||
+      !validPassword.test(password) ||
+      password.length < 1 ||
+      email.length < 1 ||
+      password == "" ||
+      email == ""
+    ) {
       setError(true);
       setLoading(false);
       return false;
-   }
+    }
     setError(false);
     setLoading(false);
     console.log("Validated");
     return true;
-  }
+  };
 
   const loginHandler = () => {
     //TODO: call services and login after validation
     setLoading(true);
     setTimeout(() => {
       const validation = validateInformation();
-      if(validation){
+      if (validation) {
         console.log("Validation successful");
         navigate("/dashboard");
         setLoading(false);
@@ -81,7 +87,7 @@ const LoginForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={styles.formfield}
+                  className={error ? styles.errorformfield : styles.formfield}
                   type="email"
                   id="email"
                   placeholder=" "
@@ -95,9 +101,11 @@ const LoginForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={`${styles.formfield} ${
-                    showPassword ? styles.showPassword : ""
-                  } ${isPasswordFocused ? styles.focused : ""}`}
+                  className={`${
+                    error ? styles.errorformfield : styles.formfield
+                  } ${showPassword ? styles.showPassword : ""} ${
+                    isPasswordFocused ? styles.focused : ""
+                  }`}
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
@@ -124,7 +132,7 @@ const LoginForm = () => {
               </div>
             </div>
 
-            {error && <div className={styles.errorindicator}>Verifique seus dados e tente novamente.</div>}
+            {error && <div className={styles.errorInformation}><h5>Verifique suas informações e tente novamente.</h5></div>}
 
             <div className={styles.submitfields}>
               <input
@@ -153,7 +161,6 @@ const LoginForm = () => {
             </div>
           </form>
         )}
-        
       </div>
     </div>
   );
