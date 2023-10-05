@@ -1,8 +1,8 @@
-import { BrowserRouter, Link } from "react-router-dom";
+import {Link } from "react-router-dom";
 import styles from "./LoginForm.module.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { override } from "../../utils/spinner/spinner";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import image from "../../resources/img/google.png";
@@ -23,8 +23,6 @@ const LoginForm = () => {
   //check regex before redirect
   //password must contain at least a letter and a number
   const validateInformation = () => {
-    console.log(email);
-    console.log(password);
     if (
       !validEmail.test(email) ||
       !validPassword.test(password) ||

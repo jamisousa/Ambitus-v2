@@ -1,11 +1,12 @@
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import styles from "./SignUpForm.module.css";
 import image from "../../resources/img/google.png";
+import SignUpModal from "../SignUpModal/SignUpModal";
 
 const SignUpForm = () => {
   const [loading, setLoading] = useState(false);
@@ -13,17 +14,31 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [error, setError] = useState(false);
+  const [gender, setGender] = useState('');
+  const genders = ["Masculino", "Feminino", "Outro"];
+  const navigate = useNavigate();
+
+  //portal control
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const signUpHandler = () => {
-    //TODO: call modal
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    //TODO: check information before opening modal
+    openModal();
   };
 
   const signUpSocialHandler = () => {
-    //TODO: call modal
+    //TODO: check information before opening modal
+    openModal();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -40,6 +55,58 @@ const SignUpForm = () => {
 
   return (
     <div className={styles.mainsection}>
+      {isModalOpen && (
+        <SignUpModal isOpen={isModalOpen} onClose={closeModal}>
+          <button onClick={closeModal} className={styles.modalclosebutton}>
+              X
+            </button>
+          <h4>Informações complementares</h4>
+          <section className={styles.addphotosection}>
+            <FontAwesomeIcon
+              icon={faCamera}
+              size="2xl"
+              style={{ color: "#9ab34d" }}
+            />
+            <h5>Adicionar foto de perfil</h5>
+          </section>
+          <div className={styles.fieldgroup}>
+            <div className={styles.inputContainer}>
+              <input
+                className={styles.formfield}
+                type="date"
+                id="date"
+                placeholder=" "
+                onChange={(e) => setBirthDate(e.target.value)}
+              />
+              <label className={styles.signuplabel} htmlFor="date">
+                Data de nascimento
+              </label>
+            </div>
+          </div>
+
+          <div className={styles.fieldgroup}>
+            <div className={styles.inputContainer}>
+              <label className={styles.signuplabel}>
+                Como você se identifica
+              </label>
+              <select
+                className={styles.modalformfield}
+                id="gender"
+                onChange={(e) => setGender(e.target.value)}
+                value={gender}
+              >
+                <option value=""></option>
+                {genders.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </SignUpModal>
+      )}
+
       <h1>Que bom que está aqui!</h1>
 
       <div className={styles.fieldssection}>
@@ -62,7 +129,7 @@ const SignUpForm = () => {
                   id="name"
                   placeholder=" "
                 />
-                <label className={styles.loginlabel} htmlFor="name">
+                <label className={styles.signuplabel} htmlFor="name">
                   Nome
                 </label>
               </div>
@@ -75,7 +142,7 @@ const SignUpForm = () => {
                   id="email"
                   placeholder=" "
                 />
-                <label className={styles.loginlabel} htmlFor="email">
+                <label className={styles.signuplabel} htmlFor="email">
                   E-mail
                 </label>
               </div>
@@ -89,7 +156,7 @@ const SignUpForm = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <label className={styles.loginlabel} htmlFor="password">
+                <label className={styles.signuplabel} htmlFor="password">
                   Senha
                 </label>
                 <span
@@ -117,7 +184,7 @@ const SignUpForm = () => {
                   value={repeatPassword}
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
-                <label className={styles.loginlabel} htmlFor="repeat-password">
+                <label className={styles.signuplabel} htmlFor="repeat-password">
                   Repetir senha
                 </label>
                 <span
@@ -143,7 +210,7 @@ const SignUpForm = () => {
                 value="Cadastrar"
                 onClick={signUpHandler}
               />
-              <div className={styles.googleLoginContainer}>
+              <div className={styles.googleSignUpContainer}>
                 <input
                   className={styles.submitSocialButton}
                   type="submit"
