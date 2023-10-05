@@ -7,6 +7,7 @@ import { override } from "../../utils/spinner/spinner";
 import styles from "./SignUpForm.module.css";
 import image from "../../resources/img/google.png";
 import SignUpModal from "../SignUpModal/SignUpModal";
+import { validEmail, validName, validPassword } from "../../utils/regex/Regex";
 
 const SignUpForm = () => {
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,8 @@ const SignUpForm = () => {
   const [birthDate, setBirthDate] = useState("");
   const [error, setError] = useState(false);
   const [gender, setGender] = useState('');
+  const [fullname, setFullName] = useState('');
+  const [email, setEmail] = useState('');
   const genders = ["Masculino", "Feminino", "Outro"];
   const navigate = useNavigate();
 
@@ -31,18 +34,42 @@ const SignUpForm = () => {
     setIsModalOpen(false);
   };
 
-  const signUpHandler = () => {
-    //TODO: check information before opening modal
-    openModal();
+  const validateInformation = () => {
+    console.log(fullname);
+    console.log(email);
+    console.log(password);
+    console.log(repeatPassword);
+    setLoading(true);
+    if (!validEmail.test(email) || validName.test(fullname) || !validPassword.test(password) || !validPassword.test(repeatPassword) || password != repeatPassword) {
+      setLoading(false);
+      setError(true);
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  const signUpHandler = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    const validation = validateInformation();
+    if(validation){
+      setLoading(false);
+      setError(false);
+      openModal();
+    }else{
+      setError(true);
+    }
   };
 
   const signUpSocialHandler = () => {
-    //TODO: check information before opening modal
-    openModal();
-    setLoading(true);
-    setTimeout(() => {
+    const validation = validateInformation();    
+    if(validation){
       setLoading(false);
-    }, 2000);
+      setError(false);
+      openModal();
+    }else{
+      setError(true);
+    }
   };
 
   const toggleShowPassword = () => {
@@ -72,7 +99,7 @@ const SignUpForm = () => {
           <div className={styles.fieldgroup}>
             <div className={styles.inputContainer}>
               <input
-                className={styles.formfield}
+                className={error ? styles.errorformfield : styles.formfield}
                 type="date"
                 id="date"
                 placeholder=" "
@@ -90,7 +117,7 @@ const SignUpForm = () => {
                 Como você se identifica
               </label>
               <select
-                className={styles.modalformfield}
+                className={error ? styles.errorformfield : styles.modalformfield}
                 id="gender"
                 onChange={(e) => setGender(e.target.value)}
                 value={gender}
@@ -124,10 +151,11 @@ const SignUpForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={styles.formfield}
+                  className={error ? styles.errorformfield : styles.formfield}
                   type="name"
                   id="name"
                   placeholder=" "
+                  onChange={(e)=> setFullName(e.target.value)}
                 />
                 <label className={styles.signuplabel} htmlFor="name">
                   Nome
@@ -137,10 +165,11 @@ const SignUpForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={styles.formfield}
+                  className={error ? styles.errorformfield : styles.formfield}
                   type="email"
                   id="email"
                   placeholder=" "
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <label className={styles.signuplabel} htmlFor="email">
                   E-mail
@@ -150,7 +179,7 @@ const SignUpForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={styles.formfield}
+                  className={error ? styles.errorformfield : styles.formfield}
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
@@ -178,7 +207,7 @@ const SignUpForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={styles.formfield}
+                  className={error ? styles.errorformfield : styles.formfield}
                   type={showRepeatPassword ? "text" : "password"}
                   id="repeat-password"
                   value={repeatPassword}
@@ -202,6 +231,8 @@ const SignUpForm = () => {
                 </span>
               </div>
             </div>
+
+            {error && <div className={styles.errorInformation}><h5>Verifique suas informações e tente novamente.</h5></div>}
 
             <div className={styles.submitfields}>
               <input

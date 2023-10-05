@@ -4,7 +4,7 @@ import styles from './SignUpModal.module.css';
 
 const modalRoot = document.getElementById('modal-root')!;
 
-const SignUpModal = ({ isOpen, onClose, children }:ModalProps) => {
+const SignUpModal = ({ isOpen, children }:ModalProps) => {
     if (!isOpen) return null;
 
     return ReactDOM.createPortal(
