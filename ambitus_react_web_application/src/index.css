@@ -28,11 +28,6 @@ button {
 }
 
 /* Definindo uma fonte base (opcional) */
-body {
-  font-family: Arial, sans-serif;
-}
-
-/* Definindo o tamanho da fonte base (opcional) */
-html {
-  font-size: 16px;
+* {
+  font-family: "Nunito", sans-serif;
 }
