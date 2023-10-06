@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(165, 163, 146, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,16 +38,37 @@
   color: var(--theme-green);
 }
 
+.modal div {
+  width: 20em;
+}
+
+.modal h6 {
+  font-size: 0.8em;
+  color: red;
+}
+
 .modal section {
-  border-radius: 100%;
   padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
   width: 7.5em;
+  height: 7.5em;
   text-align: center;
   margin: 2em auto;
   border: 1px solid var(--theme-green);
   cursor: pointer;
 }
 
-.modal div {
-  width: 20em;
+.modal section img {
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal section:not(:has(img)) svg {
+  display: block;
 }

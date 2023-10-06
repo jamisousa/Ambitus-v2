@@ -5,4 +5,6 @@ export const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\\.[a-z
 
  //name and last name must start with a uppercase
  //needs to be separate with a blank space
- export const validName = new RegExp("^[a-zA-Z]{3,}( {1,2}[a-zA-Z]{3,}){0,}$");
+ export const validName = /^[a-zA-Z\s]+$/;
+
+ export const validDate = /^\d{4}-\d{2}-\d{2}$/;

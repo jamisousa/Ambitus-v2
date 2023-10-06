@@ -1,143 +1,259 @@
 import { faCamera, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import styles from "./SignUpForm.module.css";
 import image from "../../resources/img/google.png";
 import SignUpModal from "../SignUpModal/SignUpModal";
-import { validEmail, validName, validPassword } from "../../utils/regex/Regex";
+import {
+  validDate,
+  validEmail,
+  validName,
+  validPassword,
+} from "../../utils/regex/Regex";
 
 const SignUpForm = () => {
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [repeatPassword, setRepeatPassword] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [error, setError] = useState(false);
-  const [gender, setGender] = useState('');
-  const [fullname, setFullName] = useState('');
-  const [email, setEmail] = useState('');
+  const [formData, setFormData] = useState({
+    loading: false,
+    showPassword: false,
+    password: "",
+    showRepeatPassword: false,
+    repeatPassword: "",
+    birthDate: "",
+    error: false,
+    gender: "",
+    fullname: "",
+    email: "",
+    modalError: false,
+    selectedImage: "",
+    isModalOpen: false,
+  });
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const genders = ["Masculino", "Feminino", "Outro"];
   const navigate = useNavigate();
 
   //portal control
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const openModal = () => {
-    setIsModalOpen(true);
+    setFormData((prevData) => ({ ...prevData, isModalOpen: true }));
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setFormData((prevData) => ({ ...prevData, isModalOpen: false }));
   };
 
+  //validate initial information before modal opens
   const validateInformation = () => {
-    console.log(fullname);
-    console.log(email);
-    console.log(password);
-    console.log(repeatPassword);
-    setLoading(true);
-    if (!validEmail.test(email) || validName.test(fullname) || !validPassword.test(password) || !validPassword.test(repeatPassword) || password != repeatPassword) {
-      setLoading(false);
-      setError(true);
+    const trimmedFullName = formData.fullname.trim();
+    setFormData((prevData) => ({ ...prevData, loading: true }));
+    if (
+      !validEmail.test(formData.email) ||
+      !validName.test(trimmedFullName) ||
+      !validPassword.test(formData.password) ||
+      !validPassword.test(formData.repeatPassword) ||
+      formData.password !== formData.repeatPassword
+    ) {
+      setFormData((prevData) => ({ ...prevData, loading: false, error: true }));
       return false;
-    }else{
+    } else {
       return true;
     }
-  }
+  };
 
-  const signUpHandler = (e: { preventDefault: () => void; }) => {
+  //file upload information
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      setFormData((prevData) => ({
+        ...prevData,
+        selectedImage: URL.createObjectURL(file),
+      }));
+    }
+  };
+
+  //validates additional information (modal information)
+  const validateAdditionalInformation = () => {
+    setFormData((prevData) => ({ ...prevData, loading: true }));
+    const initialValidation = validateInformation();
+    if (initialValidation) {
+      const cleanedBirthDate = formData.birthDate.replace(/[^0-9-]/g, "");
+
+      if (
+        !validDate.test(cleanedBirthDate) ||
+        formData.gender.length < 1 ||
+        formData.selectedImage.length < 1
+      ) {
+        setFormData((prevData) => ({
+          ...prevData,
+          loading: false,
+          modalError: true,
+        }));
+      } else {
+        navigate("/login");
+      }
+    }
+    setFormData((prevData) => ({ ...prevData, loading: false }));
+  };
+
+  //before modal open
+  const signUpHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setFormData((prevData) => ({ ...prevData, loading: true }));
     const validation = validateInformation();
-    if(validation){
-      setLoading(false);
-      setError(false);
+    if (validation) {
+      setFormData((prevData) => ({
+        ...prevData,
+        loading: false,
+        error: false,
+      }));
       openModal();
-    }else{
-      setError(true);
+    } else {
+      setFormData((prevData) => ({ ...prevData, error: true }));
     }
+    setFormData((prevData) => ({ ...prevData, loading: false }));
   };
 
-  const signUpSocialHandler = () => {
-    const validation = validateInformation();    
-    if(validation){
-      setLoading(false);
-      setError(false);
-      openModal();
-    }else{
-      setError(true);
-    }
+  //before modal open
+  const signUpSocialHandler = (e: { preventDefault: () => void }) => {
+    //TODO: add social login instead of normal validation
+    e.preventDefault();
+    setFormData((prevData) => ({ ...prevData, loading: true }));
+    setTimeout(() => {
+      setFormData((prevData) => ({ ...prevData, loading: false }));
+    }, 2000);
   };
 
+  //password toggles
   const toggleShowPassword = () => {
-    return setShowPassword(!showPassword);
+    setFormData((prevData) => ({
+      ...prevData,
+      showPassword: !prevData.showPassword,
+    }));
   };
 
   const toggleShowRepeatPassword = () => {
-    return setShowRepeatPassword(!showRepeatPassword);
+    setFormData((prevData) => ({
+      ...prevData,
+      showRepeatPassword: !prevData.showRepeatPassword,
+    }));
   };
 
   return (
     <div className={styles.mainsection}>
-      {isModalOpen && (
-        <SignUpModal isOpen={isModalOpen} onClose={closeModal}>
+      {formData.isModalOpen && (
+        <SignUpModal isOpen={formData.isModalOpen} onClose={closeModal}>
           <button onClick={closeModal} className={styles.modalclosebutton}>
-              X
-            </button>
+            X
+          </button>
           <h4>Informações complementares</h4>
-          <section className={styles.addphotosection}>
-            <FontAwesomeIcon
-              icon={faCamera}
-              size="2xl"
-              style={{ color: "#9ab34d" }}
-            />
-            <h5>Adicionar foto de perfil</h5>
-          </section>
-          <div className={styles.fieldgroup}>
-            <div className={styles.inputContainer}>
-              <input
-                className={error ? styles.errorformfield : styles.formfield}
-                type="date"
-                id="date"
-                placeholder=" "
-                onChange={(e) => setBirthDate(e.target.value)}
-              />
-              <label className={styles.signuplabel} htmlFor="date">
-                Data de nascimento
-              </label>
-            </div>
-          </div>
 
-          <div className={styles.fieldgroup}>
-            <div className={styles.inputContainer}>
-              <label className={styles.signuplabel}>
-                Como você se identifica
-              </label>
-              <select
-                className={error ? styles.errorformfield : styles.modalformfield}
-                id="gender"
-                onChange={(e) => setGender(e.target.value)}
-                value={gender}
+          {formData.loading ? (
+            <ClipLoader
+              color={"#000"}
+              loading={true}
+              size={100}
+              cssOverride={override}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          ) : (
+            <>
+              <section
+                className={styles.addphotosection}
+                onClick={() => fileInputRef.current?.click()}
+                style={{ padding: formData.selectedImage ? 0 : "1em" }}
               >
-                <option value=""></option>
-                {genders.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+                {formData.selectedImage ? (
+                  <img src={formData.selectedImage} alt="Selected Profile" />
+                ) : (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faCamera}
+                      size="2xl"
+                      style={{ color: "#9ab34d" }}
+                    />
+                    <h5>Adicionar foto de perfil</h5>
+                  </>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileUpload(e)}
+                  style={{ display: "none" }}
+                  ref={fileInputRef}
+                />
+              </section>
+
+              <div className={styles.fieldgroup}>
+                <div className={styles.inputContainer}>
+                  <input
+                    className={styles.formfield}
+                    type="date"
+                    id="date"
+                    placeholder=" "
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        birthDate: e.target.value,
+                      })
+                    }
+                  />
+                  <label className={styles.signuplabel} htmlFor="date">
+                    Data de nascimento
+                  </label>
+                </div>
+              </div>
+
+              <div className={styles.fieldgroup}>
+                <div className={styles.inputContainer}>
+                  <label className={styles.signuplabel}>
+                    Como você se identifica
+                  </label>
+                  <select
+                    className={styles.modalformfield}
+                    id="gender"
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        gender: e.target.value,
+                      })
+                    }
+                    value={formData.gender}
+                  >
+                    <option value=""></option>
+                    {genders.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {formData.modalError && (
+                <h6>Preencha todos os dados e tente novamente.</h6>
+              )}
+
+              <div className={styles.submitfields}>
+                <input
+                  className={styles.submitButton}
+                  type="submit"
+                  value="Finalizar Cadastro"
+                  onClick={validateAdditionalInformation}
+                />
+              </div>
+            </>
+          )}
         </SignUpModal>
       )}
 
       <h1>Que bom que está aqui!</h1>
 
       <div className={styles.fieldssection}>
-        {loading ? (
+        {formData.loading ? (
           <ClipLoader
             color={"#000"}
             loading={true}
@@ -151,11 +267,18 @@ const SignUpForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={error ? styles.errorformfield : styles.formfield}
+                  className={
+                    formData.error ? styles.errorformfield : styles.formfield
+                  }
                   type="name"
                   id="name"
                   placeholder=" "
-                  onChange={(e)=> setFullName(e.target.value)}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      fullname: e.target.value,
+                    })
+                  }
                 />
                 <label className={styles.signuplabel} htmlFor="name">
                   Nome
@@ -165,11 +288,18 @@ const SignUpForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={error ? styles.errorformfield : styles.formfield}
+                  className={
+                    formData.error ? styles.errorformfield : styles.formfield
+                  }
                   type="email"
                   id="email"
                   placeholder=" "
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      email: e.target.value,
+                    })
+                  }
                 />
                 <label className={styles.signuplabel} htmlFor="email">
                   E-mail
@@ -179,11 +309,18 @@ const SignUpForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={error ? styles.errorformfield : styles.formfield}
-                  type={showPassword ? "text" : "password"}
+                  className={
+                    formData.error ? styles.errorformfield : styles.formfield
+                  }
+                  type={formData.showPassword ? "text" : "password"}
                   id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      password: e.target.value,
+                    })
+                  }
                 />
                 <label className={styles.signuplabel} htmlFor="password">
                   Senha
@@ -192,7 +329,7 @@ const SignUpForm = () => {
                   className={styles.iconContainer}
                   onClick={toggleShowPassword}
                 >
-                  {showPassword ? (
+                  {formData.showPassword ? (
                     <FontAwesomeIcon icon={faEye} />
                   ) : (
                     <FontAwesomeIcon
@@ -207,11 +344,18 @@ const SignUpForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={error ? styles.errorformfield : styles.formfield}
-                  type={showRepeatPassword ? "text" : "password"}
+                  className={
+                    formData.error ? styles.errorformfield : styles.formfield
+                  }
+                  type={formData.showRepeatPassword ? "text" : "password"}
                   id="repeat-password"
-                  value={repeatPassword}
-                  onChange={(e) => setRepeatPassword(e.target.value)}
+                  value={formData.repeatPassword}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      repeatPassword: e.target.value,
+                    })
+                  }
                 />
                 <label className={styles.signuplabel} htmlFor="repeat-password">
                   Repetir senha
@@ -220,7 +364,7 @@ const SignUpForm = () => {
                   className={styles.iconContainer}
                   onClick={toggleShowRepeatPassword}
                 >
-                  {showRepeatPassword ? (
+                  {formData.showRepeatPassword ? (
                     <FontAwesomeIcon icon={faEye} />
                   ) : (
                     <FontAwesomeIcon
@@ -232,7 +376,11 @@ const SignUpForm = () => {
               </div>
             </div>
 
-            {error && <div className={styles.errorInformation}><h5>Verifique suas informações e tente novamente.</h5></div>}
+            {formData.error && (
+              <div className={styles.errorInformation}>
+                <h5>Verifique suas informações e tente novamente.</h5>
+              </div>
+            )}
 
             <div className={styles.submitfields}>
               <input
