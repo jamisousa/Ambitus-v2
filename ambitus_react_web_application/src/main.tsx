@@ -9,6 +9,7 @@ import {
 import LoginPage from './pages/LoginPage/LoginPage.tsx';
 import { ThemeProvider } from './utils/contexts/globalThemeContext.tsx';
 import SignUpPage from './pages/SignUpPage/SignUpPage.tsx';
+import IntroductionPage from './pages/IntroductionPage/IntroductionPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUpPage />,
+  },
+  {
+    path: "/introduction",
+    element: <IntroductionPage />,
   },
 ]);
 

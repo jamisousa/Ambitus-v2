@@ -7,6 +7,7 @@ import PlantsDetail from "../../components/PlantsDetail/PlantsDetail";
 
 const SignUpPage = () => {
 
+    //theme control
     const { currentTheme} = useTheme();
 
     useEffect(() => {

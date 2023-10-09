@@ -8,6 +8,7 @@ import PlantsDetail from '../../components/PlantsDetail/PlantsDetail';
 
 function LoginPage() {
 
+   //theme control
   const { currentTheme} = useTheme();
 
   useEffect(() => {

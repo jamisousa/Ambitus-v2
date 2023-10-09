@@ -27,7 +27,23 @@ button {
   vertical-align: baseline;
 }
 
-/* Definindo uma fonte base (opcional) */
 * {
   font-family: "Nunito", sans-serif;
+}
+
+/*Carousel 3rd party control*/
+.carousel .control-dots .dot {
+  margin-top: 2em !important;
+}
+
+.carousel .control-dots .dot.selected {
+  background-color: var(--theme-green) !important;
+}
+
+.carousel .control-dots .dot {
+  background-color: #cccccc !important;
+}
+
+.carousel .control-dots .dot::before {
+  color: #ffffff !important;
 }

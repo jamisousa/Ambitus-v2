@@ -92,7 +92,7 @@ const SignUpForm = () => {
           modalError: true,
         }));
       } else {
-        navigate("/login");
+        navigate("/introduction");
       }
     }
     setFormData((prevData) => ({ ...prevData, loading: false }));

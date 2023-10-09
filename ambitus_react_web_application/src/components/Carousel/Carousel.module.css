@@ -1,0 +1,20 @@
+.carouselsection {
+  width: 35%;
+  height: 25%;
+  margin: auto;
+}
+
+.carouselsection div h1 {
+  padding: 1em 2em;
+}
+
+.carouselsection div h2 {
+  font-weight: 500;
+}
+
+.loadersection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
