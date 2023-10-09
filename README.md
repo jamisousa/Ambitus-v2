@@ -111,11 +111,11 @@ No link abaixo, você pode acessar a coleção de endpoints da API:
 
 <h4> 🔎 Como rodar testes de componente - Cypress </h4>
 
-<p>Com o repositório clonado e dependências instaladas, no terminal, execute o seguinte comando para abrir o Cypress:</p>
+<p>Com o repositório WEB clonado e dependências instaladas, no terminal, execute o seguinte comando para abrir o Cypress:</p>
 <pre>
   npx cypress open
 </pre>
-<p>Após, o Cypress irá executar sua interface gráfica. Com isso, você poderá verificar toda a cobertura de testes de componente do projeto. </p>
+<p>Após, o Cypress irá executar sua interface gráfica. Com isso, você poderá selecionar o navegador de sua preferência para verificar toda a cobertura de testes de componente do projeto. </p>
 
 <br>
 
