@@ -21,7 +21,7 @@ function LoginPage() {
     return (
 
       <div className={`${styles.mainsection} ${colors.lthemebackground}`}>
-        <AccessNavbar/>
+        <AccessNavbar navbarType={'clean'} />
         <AccessMainText formType={['login']} />
         <PlantsDetail/>
       </div>

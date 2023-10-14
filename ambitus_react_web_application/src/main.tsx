@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage/LoginPage.tsx';
 import { ThemeProvider } from './utils/contexts/globalThemeContext.tsx';
 import SignUpPage from './pages/SignUpPage/SignUpPage.tsx';
 import IntroductionPage from './pages/IntroductionPage/IntroductionPage.tsx';
+import DashboardPage from './pages/DashboardPage/DashboardPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/introduction",
     element: <IntroductionPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
   },
 ]);
 

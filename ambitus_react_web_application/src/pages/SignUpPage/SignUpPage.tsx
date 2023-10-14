@@ -20,7 +20,7 @@ const SignUpPage = () => {
     return (
 
         <div className={`${colors.lthemebackground}`}>
-          <AccessNavbar/>
+          <AccessNavbar navbarType={'clean'}/>
           <AccessMainText formType={['signup']}/>
           <PlantsDetail/>
         </div>
