@@ -1,4 +1,5 @@
 import { getDashContent } from "../../utils/contexts/dashboardAction";
+import EventsList from "../EventsList/EventsList";
 
 const DashboardContent = () => {
 
@@ -6,7 +7,7 @@ const DashboardContent = () => {
 
     return(
         <>
-            {currentContent == 'events' ? <p>Render events here</p> : <p>Render something else here</p>}
+            {currentContent == 'events' ? <EventsList/> : <p>Render something else here</p>}
         </>
 
     );

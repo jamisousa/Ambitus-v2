@@ -1,0 +1,19 @@
+.chipsection button {
+  border-radius: 2em;
+  background-color: transparent;
+  border: 1px solid var(--theme-green);
+  height: fit-content;
+  width: 15em;
+  color: var(--theme-green);
+  font-weight: bolder;
+}
+
+.chipsection h5 {
+  color: var(--theme-green);
+}
+
+.chipbackground {
+  background: rgb(111, 146, 0, 0.2);
+  border: transparent;
+  border-radius: 2em;
+}
