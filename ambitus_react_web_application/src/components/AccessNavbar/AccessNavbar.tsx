@@ -2,13 +2,15 @@ import styles from './AccessNavbar.module.css';
 import image from '../../resources/img/navbar.svg';
 import { useTheme } from '../../utils/contexts/globalThemeContext';
 import colors from '../../utils/colors/colors.module.css';
-import { NavbarProps } from '../../types/FormType';
+import { NavbarProps } from '../../types/NavbarType';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faCircleUser, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { getDashContent } from '../../utils/contexts/dashboardAction';
 
 const AccessNavbar = (props: NavbarProps) => {
   const { currentTheme } = useTheme();
+  const { setCurrentContent } = getDashContent();
 
   const navbarcolor =
     currentTheme == 'light'
@@ -29,6 +31,10 @@ const AccessNavbar = (props: NavbarProps) => {
     }
 
     setIconStates(updatedIconStates);
+
+    //TODO: change context based on what was clicked here
+    iconName == 'calendar' ? setCurrentContent('events') : '';
+    
   };
 
   return (
