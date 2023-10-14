@@ -5,4 +5,5 @@ export type ChipProps = {
   clickAction: (e: MouseEvent<HTMLButtonElement>) => void;
   showCancelIcon: boolean;
   showBackground: boolean;
+  isSelected: boolean;
 };

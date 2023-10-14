@@ -6,14 +6,24 @@
   width: 15em;
   color: var(--theme-green);
   font-weight: bolder;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8em;
+  align-items: center;
+  font-size: 14px;
 }
 
 .chipsection h5 {
   color: var(--theme-green);
+  margin: 0;
 }
 
 .chipbackground {
   background: rgb(111, 146, 0, 0.2);
   border: transparent;
   border-radius: 2em;
+}
+
+.chipsection {
+  display: flex;
 }

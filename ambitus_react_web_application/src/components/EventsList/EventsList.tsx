@@ -5,20 +5,20 @@ import {
   faClipboard,
 } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "../SearchBar/SearchBar";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { MouseEvent, SetStateAction, useState } from "react";
 import Chip from "../Chip/Chip";
 
 const EventsList = () => {
   const [searchValue, setSearchValue] = useState("");
   const [isChipSelected, setIsChipSelected] = useState(false);
+  const [selectedChips, setSelectedChips] = useState<string[]>([]);
 
-  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //TODO: search by name and update events listing.
+  const searchHandler = (e: { target: { value: SetStateAction<string> } }) => {
     setSearchValue(e.target.value);
   };
 
-  const chipHandle = (e: MouseEvent<HTMLElement>) => {
-    //TODO: search event by chip name.
+  const chipHandle = (chipTitle: string) => {
+    setSelectedChips([chipTitle]);
   };
 
   return (
@@ -46,33 +46,38 @@ const EventsList = () => {
         <div className={styles.chipsection}>
           <Chip
             title={"Reflorestamento"}
-            clickAction={chipHandle}
-            showCancelIcon={isChipSelected}
-            showBackground={isChipSelected}
+            clickAction={() => chipHandle("Reflorestamento")}
+            isSelected={selectedChips.includes("Reflorestamento")}
+            showCancelIcon={selectedChips.includes("Reflorestamento")}
+            showBackground={selectedChips.includes("Reflorestamento")}
           />
           <Chip
             title={"Reciclagem"}
-            clickAction={chipHandle}
-            showCancelIcon={isChipSelected}
-            showBackground={isChipSelected}
+            clickAction={() => chipHandle("Reciclagem")}
+            isSelected={selectedChips.includes("Reciclagem")}
+            showCancelIcon={selectedChips.includes("Reciclagem")}
+            showBackground={selectedChips.includes("Reciclagem")}
           />
           <Chip
             title={"Limpeza de ambientes"}
-            clickAction={chipHandle}
-            showCancelIcon={isChipSelected}
-            showBackground={isChipSelected}
+            clickAction={() => chipHandle("Limpeza de ambientes")}
+            isSelected={selectedChips.includes("Limpeza de ambientes")}
+            showCancelIcon={selectedChips.includes("Limpeza de ambientes")}
+            showBackground={selectedChips.includes("Limpeza de ambientes")}
           />
           <Chip
             title={"Conscientização"}
-            clickAction={chipHandle}
-            showCancelIcon={isChipSelected}
-            showBackground={isChipSelected}
+            clickAction={() => chipHandle("Conscientização")}
+            isSelected={selectedChips.includes("Conscientização")}
+            showCancelIcon={selectedChips.includes("Conscientização")}
+            showBackground={selectedChips.includes("Conscientização")}
           />
           <Chip
             title={"Conservação"}
-            clickAction={chipHandle}
-            showCancelIcon={isChipSelected}
-            showBackground={isChipSelected}
+            clickAction={() => chipHandle("Conservação")}
+            isSelected={selectedChips.includes("Conservação")}
+            showCancelIcon={selectedChips.includes("Conservação")}
+            showBackground={selectedChips.includes("Conservação")}
           />
         </div>
       </div>
