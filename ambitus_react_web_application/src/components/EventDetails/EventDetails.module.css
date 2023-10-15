@@ -1,0 +1,149 @@
+.fullcontent {
+  background: url("../../resources/img/dashboard-green-bg2.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0px -5em;
+  height: 100vh;
+  width: 100%;
+}
+.maincontent {
+  padding: 1.5em 15em;
+}
+
+.contentfirstblock {
+  padding-top: 2em;
+}
+
+.header {
+  font-weight: 300;
+  color: var(--theme-white);
+  text-align: center;
+  margin: auto;
+  padding-top: 4em;
+}
+
+.header button {
+  position: relative;
+  right: 50em;
+  bottom: 2.5em;
+  border-radius: 100%;
+  padding: 1em;
+  width: 3.5%;
+  background-color: var(--ltheme-background);
+}
+
+.header button svg {
+  height: 1.5em;
+}
+
+.cardimage {
+  max-width: 25%;
+  border-radius: 0.5em;
+}
+
+.cardimage img {
+  width: 100%;
+  border-radius: 0.5em;
+  border: 2px solid var(--theme-green);
+}
+
+.cardtitle {
+  margin-top: 1.5em;
+}
+
+.cardlocation {
+  display: flex;
+  display: flex;
+  align-items: center;
+}
+
+.cardlocation h4 {
+  color: #595957;
+}
+
+.carddate {
+  display: flex;
+  align-items: center;
+  margin-top: -1.5em;
+}
+
+.carddate h4 {
+  color: #595957;
+}
+
+.cardauthor {
+  display: flex;
+  align-items: center;
+  margin-top: -1.5em;
+}
+
+.cardauthor h4 {
+  color: #595957;
+}
+
+.cardauthor span {
+  color: var(--theme-green);
+}
+
+.primaryfirstblock svg {
+  height: 1.5em;
+  margin-right: 1em;
+  width: 2em;
+}
+
+.primaryinformation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.primarysecondblock {
+  padding-right: 10em;
+}
+
+.primarysecondblock button {
+  padding: 1.5em;
+  color: var(--theme-green);
+  width: 25em;
+  background-color: rgb(111, 146, 0, 0.3);
+  border-radius: 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.primarysecondblock button svg {
+  margin-right: 0.5em;
+}
+
+.bottombuttontext {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  margin-top: 0.2em;
+  text-align: center;
+  color: var(--theme-green);
+}
+
+.bottombuttontext svg {
+  margin-right: 0.5em;
+}
+
+.primarysecondblock {
+  padding-right: 10em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.primarysecondblock button {
+  padding: 1.5em;
+  color: var(--theme-green);
+  width: 25em;
+  background-color: rgb(111, 146, 0, 0.3);
+  border-radius: 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.primarysecondblock button svg {
+  margin-right: 0.5em;
+}

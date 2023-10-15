@@ -13,7 +13,8 @@
 }
 
 .cardimage img {
-  width: 8em;
+  max-width: 8em;
+  max-height: 8em;
   margin-right: 1em;
   margin-top: 0.5em;
   border: 2px solid var(--theme-green);

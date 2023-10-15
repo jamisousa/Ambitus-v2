@@ -10,7 +10,7 @@ import {
 const EventCard = (props: EventCardProps) => {
   return (
     <div className={styles.fullsection}>
-      <div className={styles.cardcontent}>
+      <div className={styles.cardcontent} onClick={props.clickAction}>
         <div className={styles.cardimage}>
           <img src={props.eventInfo.image} />
         </div>

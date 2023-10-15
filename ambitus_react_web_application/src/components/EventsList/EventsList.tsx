@@ -8,9 +8,10 @@ import SearchBar from "../SearchBar/SearchBar";
 import { MouseEvent, SetStateAction, useState } from "react";
 import Chip from "../Chip/Chip";
 import { EventCardType } from "../../types/EventCardType";
-import mockImage from "../../resources/img/ambitusName-compressed.svg";
+import mockImage from "../../resources/img/mockimage.jpeg";
 import EventCard from "../EventCard/EventCard";
 import placeholderImage from "../../resources/img/lightAmbitusName-compressed.svg";
+import { getDashContent } from "../../utils/contexts/dashboardAction";
 
 const EventsList = () => {
   //TODO: remove this after api implementation
@@ -55,6 +56,13 @@ const EventsList = () => {
 
   const chipHandle = (chipTitle: string) => {
     setSelectedChips([chipTitle]);
+  };
+
+  const { setCurrentContent } = getDashContent();
+
+  const placeholderHandle = () => {
+    console.log("handle");
+    setCurrentContent("event-details");
   };
 
   return (
@@ -128,6 +136,7 @@ const EventsList = () => {
                   category: ev.category,
                   image: ev.image ? ev.image : placeholderImage,
                 }}
+                clickAction={placeholderHandle}
               />
             );
           })}
