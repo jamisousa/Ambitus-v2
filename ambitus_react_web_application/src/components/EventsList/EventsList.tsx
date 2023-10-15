@@ -7,8 +7,44 @@ import {
 import SearchBar from "../SearchBar/SearchBar";
 import { MouseEvent, SetStateAction, useState } from "react";
 import Chip from "../Chip/Chip";
+import { EventCardType } from "../../types/EventCardType";
+import mockImage from "../../resources/img/ambitusName-compressed.svg";
+import EventCard from "../EventCard/EventCard";
+import placeholderImage from "../../resources/img/lightAmbitusName-compressed.svg";
 
 const EventsList = () => {
+  //TODO: remove this after api implementation
+  const eventsMock = [
+    {
+      title: "Teste de evento",
+      location: "Teste de local",
+      date: "2023-10-10",
+      category: "Category",
+      image: mockImage,
+    },
+    {
+      title: "Teste de evento 2",
+      location: "Teste de local",
+      date: "2023-10-10",
+      category: "Category",
+      image: mockImage,
+    },
+    {
+      title: "Teste de evento 3",
+      location: "Teste de local",
+      date: "2023-10-10",
+      category: "Category",
+      image: mockImage,
+    },
+    {
+      title: "Teste de evento 4",
+      location: "Teste de local",
+      date: "2023-10-10",
+      category: "Category",
+      image: mockImage,
+    },
+  ];
+
   const [searchValue, setSearchValue] = useState("");
   const [isChipSelected, setIsChipSelected] = useState(false);
   const [selectedChips, setSelectedChips] = useState<string[]>([]);
@@ -79,6 +115,22 @@ const EventsList = () => {
             showCancelIcon={selectedChips.includes("Conservação")}
             showBackground={selectedChips.includes("Conservação")}
           />
+        </div>
+
+        <div className={`${styles.cardssection} ${styles["events-container"]}`}>
+          {eventsMock.map((ev) => {
+            return (
+              <EventCard
+                eventInfo={{
+                  title: ev.title,
+                  location: ev.location,
+                  date: ev.date,
+                  category: ev.category,
+                  image: ev.image ? ev.image : placeholderImage,
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

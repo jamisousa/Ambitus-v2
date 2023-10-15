@@ -1,16 +1,16 @@
 .chipsection button {
   border-radius: 2em;
   background-color: transparent;
-  border: 1px solid var(--theme-green);
+  border: 2px solid var(--theme-green);
   height: fit-content;
-  width: 15em;
+  width: 14em;
   color: var(--theme-green);
   font-weight: bolder;
   display: flex;
   justify-content: space-between;
   padding: 0.8em;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .chipsection h5 {

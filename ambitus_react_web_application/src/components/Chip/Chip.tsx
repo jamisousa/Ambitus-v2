@@ -11,7 +11,7 @@ const Chip = (props: ChipProps) => {
   return (
     <div className={classControl}>
       <button onClick={props.clickAction} className={styles.chipbutton}>
-        <h5>{props.title}</h5>
+        {props.title}
         {props.showCancelIcon && (
           <FontAwesomeIcon icon={faXmark} style={{ color: "#343941" }} />
         )}
