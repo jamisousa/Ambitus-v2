@@ -147,3 +147,48 @@
 .primarysecondblock button svg {
   margin-right: 0.5em;
 }
+
+.descriptionsection {
+  border: 1px solid var(--theme-green);
+  border-radius: 0.5em;
+  margin-top: 2em;
+}
+.descriptionbody {
+  color: var(--ltheme-darkgray);
+  padding: 1.2em;
+}
+
+.descriptionbody h2 {
+  padding-bottom: 0.5em;
+}
+
+.greenroundedcard {
+  margin-top: 1.2em;
+  background-color: rgb(111, 146, 0, 0.3);
+  color: var(--theme-green);
+  border-radius: 1em;
+  width: fit-content;
+  padding: 0em 2em;
+  margin-bottom: 2em;
+}
+
+.couponblock {
+  display: flex;
+  align-items: center;
+}
+
+.couponblock > * {
+  margin-right: 1em;
+}
+
+.couponblock h3 {
+  line-height: 2em;
+  color: var(--theme-green);
+}
+
+.participantssection {
+  border: 1px solid var(--theme-green);
+  border-radius: 0.5em;
+  margin-top: 2em;
+  padding: 1.2em;
+}

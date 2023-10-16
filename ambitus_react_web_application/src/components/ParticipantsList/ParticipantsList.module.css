@@ -1,0 +1,53 @@
+.fullsection {
+  color: var(--ltheme-darkgray);
+}
+
+.participantsheader {
+  display: flex;
+  align-items: center;
+}
+
+.participantsnumber {
+  display: flex;
+  align-items: center;
+}
+
+.participantsheader h2:nth-child(1) {
+  margin-right: 1.5em;
+}
+
+.participantsheader h3 {
+  margin-left: 0.5em;
+}
+
+.greenroundedcard {
+  margin-top: 0.5em;
+  background-color: rgb(111, 146, 0, 0.3);
+  color: var(--theme-green);
+  border-radius: 0.5em;
+  width: fit-content;
+  padding: 0em 2em;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.greenroundedcard svg {
+  margin-right: 0.5em;
+}
+
+.participantCard {
+  padding-top: 2em;
+  display: flex;
+}
+
+.participantCard img {
+  border-radius: 100%;
+  width: 5em;
+  height: 5em;
+}
+
+.participantinfo {
+  margin-left: 1em;
+  padding-top: 0.5em;
+}
