@@ -6,7 +6,7 @@ import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import styles from "./SignUpForm.module.css";
 import image from "../../resources/img/google.png";
-import SignUpModal from "../SignUpModal/SignUpModal";
+import Modal from "../Modal/Modal";
 import {
   validDate,
   validEmail,
@@ -144,7 +144,7 @@ const SignUpForm = () => {
   return (
     <div className={styles.mainsection}>
       {formData.isModalOpen && (
-        <SignUpModal isOpen={formData.isModalOpen} onClose={closeModal}>
+        <Modal isOpen={formData.isModalOpen} onClose={closeModal}>
           <button onClick={closeModal} className={styles.modalclosebutton}>
             X
           </button>
@@ -247,7 +247,7 @@ const SignUpForm = () => {
               </div>
             </>
           )}
-        </SignUpModal>
+        </Modal>
       )}
 
       <h1>Que bom que está aqui!</h1>
