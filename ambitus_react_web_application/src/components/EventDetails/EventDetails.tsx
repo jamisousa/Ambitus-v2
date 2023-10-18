@@ -16,8 +16,9 @@ import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import Modal from "../Modal/Modal";
+import { EventProps } from "../../types/EventType";
 
-const EventDetails = () => {
+const EventDetails = (props: EventProps) => {
   //TODO: change button state if user is already subscribed or not
   const { setCurrentContent } = getDashContent();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,6 +41,16 @@ const EventDetails = () => {
     //TODO: call api & cancel subscription; change button text
     closeModal();
   };
+
+  //TODO: remove this mock
+  const mockParticipants = [
+    {
+      name: "Test",
+      level: 0,
+      image:
+        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpxhere.com%2Fpt%2Fphoto%2F125784&psig=AOvVaw2N0n6ohIjfd9CzhIfbSlbe&ust=1697678663208000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjHr_-3_oEDFQAAAAAdAAAAABAD",
+    },
+  ];
 
   return (
     <>
@@ -97,6 +108,7 @@ const EventDetails = () => {
             </button>
           </div>
           {/*first block of content (photo, title, description, location, author, button)*/}
+          {/*TODO -- add props image*/}
           <div className={styles.contentfirstblock}>
             <div className={styles.cardimage}>
               <img src={mockImage} />
@@ -104,21 +116,21 @@ const EventDetails = () => {
             <div className={styles.primaryinformation}>
               <div className={styles.primaryfirstblock}>
                 <div className={styles.cardtitle}>
-                  <h1>Mock title</h1>
+                  <h1>{props.eventinfo.title}</h1>
                 </div>
                 <div className={styles.cardlocation}>
                   <FontAwesomeIcon
                     icon={faLocationDot}
                     style={{ color: "#292525" }}
                   />
-                  <h4>Mock location</h4>
+                  <h4>{props.eventinfo.location}</h4>
                 </div>
                 <div className={styles.carddate}>
                   <FontAwesomeIcon
                     icon={faCalendarMinus}
                     style={{ color: "#292525" }}
                   />
-                  <h4>10-10-2023</h4>
+                  <h4>{props.eventinfo.date}</h4>
                 </div>
                 <div className={styles.cardauthor}>
                   <FontAwesomeIcon
@@ -126,7 +138,7 @@ const EventDetails = () => {
                     style={{ color: "#292525" }}
                   />
                   <h4>
-                    Responsável: <span>Mock author</span>
+                    Responsável: <span>{props.eventinfo.author}</span>
                   </h4>
                 </div>
               </div>
@@ -145,25 +157,12 @@ const EventDetails = () => {
               </div>
             </div>
           </div>
+          {/*TODO: add props for event rewards*/}
           {/*start description*/}
           <div className={styles.descriptionsection}>
             <div className={styles.descriptionbody}>
               <h2>Descrição</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Officiis quisquam fugit molestias assumenda odit minima nihil
-                suscipit, delectus iste nulla eum. Provident quis impedit nihil
-                officiis quidem atque quasi? Doloribus qui laboriosam ducimus
-                dolorem asperiores beatae ullam. Quis quam ratione laborum fugit
-                perferendis quaerat ipsam praesentium modi tempora beatae ipsa
-                qui maxime, molestiae accusantium culpa fuga. Sint magnam eos,
-                nulla doloremque laudantium accusantium reprehenderit dolorum
-                eaque ipsa placeat sapiente quam suscipit facere officiis vitae
-                nisi reiciendis in autem odit tempora fuga quibusdam. Tenetur
-                nulla voluptate eligendi veritatis? Laborum, placeat
-                necessitatibus nostrum pariatur tempora amet qui minus officiis
-                magnam, aliquid saepe.
-              </p>
+              <p>{props.eventinfo.description}</p>
               <div className={styles.greenroundedcard}>
                 <h3>Category mock</h3>
               </div>
@@ -187,7 +186,7 @@ const EventDetails = () => {
           </div>
           {/*participants section*/}
           <div className={styles.participantssection}>
-            <ParticipantsList />
+            <ParticipantsList participantsInfo={mockParticipants} />
           </div>
 
           <div className={styles.cancelbutton}>

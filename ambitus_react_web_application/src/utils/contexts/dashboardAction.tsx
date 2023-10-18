@@ -4,7 +4,7 @@ type DashContent = "events" | "event-details";
 
 interface DashContextType {
   currentContent: DashContent;
-  setCurrentContent: (theme: DashContent) => void;
+  setCurrentContent: (content: DashContent) => void;
 }
 
 const DashContext = createContext<DashContextType | undefined>(undefined);
