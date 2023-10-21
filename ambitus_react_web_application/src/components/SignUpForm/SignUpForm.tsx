@@ -13,6 +13,7 @@ import {
   validName,
   validPassword,
 } from "../../utils/regex/Regex";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -34,6 +35,7 @@ const SignUpForm = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const genders = ["Masculino", "Feminino", "Outro"];
   const navigate = useNavigate();
+  const { currentTheme } = useTheme();
 
   //portal control
   const openModal = () => {
@@ -141,8 +143,21 @@ const SignUpForm = () => {
     }));
   };
 
+  //styles
+  const formStyle = formData.error
+    ? styles.errorformfield
+    : currentTheme == "light"
+    ? styles.formfield
+    : `${styles.formfield} ${styles.darkformattributes}`;
+
+  const textStyle = `${styles.mainsection} ${
+    currentTheme === "light" ? styles.lighttext : styles.darktext
+  }`;
+
+  const svgStyle = currentTheme == "light" ? "#000" : "#FFF";
+
   return (
-    <div className={styles.mainsection}>
+    <div className={`${styles.mainsection} ${textStyle}`}>
       {formData.isModalOpen && (
         <Modal isOpen={formData.isModalOpen} onClose={closeModal}>
           <button onClick={closeModal} className={styles.modalclosebutton}>
@@ -330,11 +345,12 @@ const SignUpForm = () => {
                   onClick={toggleShowPassword}
                 >
                   {formData.showPassword ? (
-                    <FontAwesomeIcon icon={faEye} />
+                    <FontAwesomeIcon icon={faEye} style={{ color: svgStyle }} />
                   ) : (
                     <FontAwesomeIcon
                       icon={faEyeSlash}
                       className={styles.eyeIcon}
+                      style={{ color: svgStyle }}
                     />
                   )}
                 </span>
@@ -365,11 +381,12 @@ const SignUpForm = () => {
                   onClick={toggleShowRepeatPassword}
                 >
                   {formData.showRepeatPassword ? (
-                    <FontAwesomeIcon icon={faEye} />
+                    <FontAwesomeIcon icon={faEye} style={{ color: svgStyle }} />
                   ) : (
                     <FontAwesomeIcon
                       icon={faEyeSlash}
                       className={styles.eyeIcon}
+                      style={{ color: svgStyle }}
                     />
                   )}
                 </span>

@@ -14,7 +14,8 @@
 .darktext h3,
 .darktext h4,
 .darktext h5,
-.darktext label {
+.darktext label,
+.darktext input {
   color: var(--theme-white);
 }
 .mainsection h1 {

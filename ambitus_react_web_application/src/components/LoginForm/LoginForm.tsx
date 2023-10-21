@@ -114,6 +114,8 @@ const LoginForm = () => {
     showPassword ? styles.showPassword : ""
   } ${isPasswordFocused ? styles.focused : ""}`;
 
+  const svgStyle = currentTheme == "light" ? "#000" : "#FFF";
+
   return (
     <div
       className={`${styles.mainsection} ${
@@ -168,11 +170,12 @@ const LoginForm = () => {
                   onClick={toggleShowPassword}
                 >
                   {showPassword ? (
-                    <FontAwesomeIcon icon={faEye} />
+                    <FontAwesomeIcon icon={faEye} style={{ color: svgStyle }} />
                   ) : (
                     <FontAwesomeIcon
                       icon={faEyeSlash}
                       className={styles.eyeIcon}
+                      style={{ color: svgStyle }}
                     />
                   )}
                 </span>
