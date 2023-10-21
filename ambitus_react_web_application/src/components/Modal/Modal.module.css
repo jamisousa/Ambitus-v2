@@ -72,3 +72,65 @@
 .modal section:not(:has(img)) svg {
   display: block;
 }
+
+.darkmodal {
+  text-align: center;
+  background-color: var(--dtheme-background);
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.darkmodal button {
+  background-color: #fefae0;
+  cursor: pointer;
+  padding: 0.1em 0.2em;
+  float: right;
+  font-weight: bolder;
+  font-size: 1em;
+  border-radius: 1em;
+  color: var(--theme-green);
+}
+
+.darkmodal h4 {
+  font-size: 1.2em;
+}
+
+.darkmodal h5 {
+  color: var(--theme-green);
+}
+
+.darkmodal div {
+  width: 20em;
+}
+
+.darkmodal h6 {
+  font-size: 0.8em;
+  color: red;
+}
+
+.darkmodal section {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: 7.5em;
+  height: 7.5em;
+  text-align: center;
+  margin: 2em auto;
+  border: 1px solid var(--theme-green);
+  cursor: pointer;
+}
+
+.darkmodal section img {
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.darkmodal section:not(:has(img)) svg {
+  display: block;
+}

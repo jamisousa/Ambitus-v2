@@ -22,7 +22,7 @@ const ParticipantsList = (props: ParticipantProps) => {
             </div>
             <div className={styles.participantstiles}>
               <div className={styles.participantCard}>
-                <img src={mockImage} />
+                <img src={p.image ? p.image : mockImage} />
                 <div className={styles.participantinfo}>
                   <h3>{p.name}</h3>
                   <div className={styles.greenroundedcard}>

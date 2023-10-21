@@ -1,21 +1,28 @@
-import styles from './AccessNavbar.module.css';
-import image from '../../resources/img/navbar.svg';
-import { useTheme } from '../../utils/contexts/globalThemeContext';
-import colors from '../../utils/colors/colors.module.css';
-import { NavbarProps } from '../../types/NavbarType';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDays, faCircleUser, faHouse } from '@fortawesome/free-solid-svg-icons';
-import { getDashContent } from '../../utils/contexts/dashboardAction';
+import styles from "./AccessNavbar.module.css";
+import image from "../../resources/img/navbar.svg";
+import darkImage from "../../resources/img/navbar-dark.svg";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
+import colors from "../../utils/colors/colors.module.css";
+import { NavbarProps } from "../../types/NavbarType";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendarDays,
+  faCircleUser,
+  faHouse,
+} from "@fortawesome/free-solid-svg-icons";
+import { getDashContent } from "../../utils/contexts/dashboardAction";
 
 const AccessNavbar = (props: NavbarProps) => {
   const { currentTheme } = useTheme();
   const { setCurrentContent } = getDashContent();
 
   const navbarcolor =
-    currentTheme == 'light'
+    currentTheme == "light"
       ? `${styles.mainsection} ${colors.lthemebackground}`
       : `${styles.mainsection} ${colors.dthemebackground}`;
+
+  const navbarImage = currentTheme == "light" ? image : darkImage;
 
   const [iconStates, setIconStates] = useState<{ [key: string]: boolean }>({
     house: true,
@@ -33,38 +40,34 @@ const AccessNavbar = (props: NavbarProps) => {
     setIconStates(updatedIconStates);
 
     //TODO: change context based on what was clicked here
-    iconName == 'calendar' ? setCurrentContent('events') : '';
-    
+    iconName == "calendar" ? setCurrentContent("events") : "";
   };
 
-  return (
-    props.navbarType == 'clean' ? (
-      <div className={navbarcolor}>
-        <img src={image} />
+  return props.navbarType == "clean" ? (
+    <div className={navbarcolor}>
+      <img src={navbarImage} />
+    </div>
+  ) : (
+    <div className={`${navbarcolor} ${styles.navbarsection}`}>
+      <img src={image} />
+      <div className={styles.icongroup}>
+        <FontAwesomeIcon
+          icon={faHouse}
+          style={{ color: iconStates.house ? "#6f9200" : "#817b71" }}
+          onClick={() => toggleIconColor("house")}
+        />
+        <FontAwesomeIcon
+          icon={faCalendarDays}
+          style={{ color: iconStates.calendar ? "#6f9200" : "#817b71" }}
+          onClick={() => toggleIconColor("calendar")}
+        />
+        <FontAwesomeIcon
+          icon={faCircleUser}
+          style={{ color: iconStates.user ? "#6f9200" : "#817b71" }}
+          onClick={() => toggleIconColor("user")}
+        />
       </div>
-    ) : (
-      <div className={`${navbarcolor} ${styles.navbarsection}`}>
-        <img src={image} />
-        <div className={styles.icongroup}>
-          <FontAwesomeIcon
-            icon={faHouse}
-            style={{ color: iconStates.house ? '#6f9200' : '#817b71' }}
-            onClick={() => toggleIconColor('house')}
-          />
-          <FontAwesomeIcon
-            icon={faCalendarDays}
-            style={{ color: iconStates.calendar ? '#6f9200' : '#817b71' }}
-            onClick={() => toggleIconColor('calendar')}
-          />
-          <FontAwesomeIcon
-            icon={faCircleUser}
-            style={{ color: iconStates.user ? '#6f9200' : '#817b71' }}
-            onClick={() => toggleIconColor('user')}
-          />
-        </div>
-      </div>
-
-    )
+    </div>
   );
 };
 

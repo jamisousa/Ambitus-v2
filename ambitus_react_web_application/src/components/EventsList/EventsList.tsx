@@ -12,8 +12,11 @@ import mockImage from "../../resources/img/mockimage.jpeg";
 import EventCard from "../EventCard/EventCard";
 import placeholderImage from "../../resources/img/lightAmbitusName-compressed.svg";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const EventsList = () => {
+  const { currentTheme } = useTheme();
+
   //TODO: remove this after api implementation
   const eventsMock = [
     {

@@ -1,4 +1,4 @@
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./LoginForm.module.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { override } from "../../utils/spinner/spinner";
@@ -8,6 +8,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import image from "../../resources/img/google.png";
 import { useNavigate } from "react-router-dom";
 import { validEmail, validPassword } from "../../utils/regex/Regex";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
@@ -19,10 +20,45 @@ const LoginForm = () => {
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
+  const { currentTheme } = useTheme();
+
+  const loginUrl = "";
+
+  const handleLoginRequest = () => {
+    const bodyData = {
+      email,
+      senha: password,
+    };
+
+    fetch(loginUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyData),
+    })
+      .then((response) => {
+        console.log(response);
+        setLoading(true);
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        navigate("/dashboard");
+        return response.json() as Promise<any>;
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        //TODO: error handling
+      });
+  };
 
   //check regex before redirect
   //password must contain at least a letter and a number
-  const validateInformation = () => {
+  const validateInformation = (e: any) => {
+    e.preventDefault();
     if (
       !validEmail.test(email) ||
       !validPassword.test(password) ||
@@ -38,21 +74,22 @@ const LoginForm = () => {
     setError(false);
     setLoading(false);
     console.log("Validated");
+    handleLoginRequest();
     return true;
   };
 
-  const loginHandler = () => {
-    //TODO: call services and login after validation
-    setLoading(true);
-    setTimeout(() => {
-      const validation = validateInformation();
-      if (validation) {
-        console.log("Validation successful");
-        navigate("/dashboard");
-        setLoading(false);
-      }
-    }, 2000);
-  };
+  // const loginHandler = () => {
+  //   //TODO: call services and login after validation
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     const validation = validateInformation();
+  //     if (validation) {
+  //       console.log("Validation successful");
+  //       navigate("/dashboard");
+  //       setLoading(false);
+  //     }
+  //   }, 2000);
+  // };
 
   const loginSocialHandler = () => {
     //TODO: call services and login w/ social media
@@ -66,8 +103,24 @@ const LoginForm = () => {
     return setShowPassword(!showPassword);
   };
 
+  //styles
+  const formStyle = error
+    ? styles.errorformfield
+    : currentTheme == "light"
+    ? styles.formfield
+    : `${styles.formfield} ${styles.darkformattributes}`;
+
+  const passwordFieldStyle = `${formStyle} ${
+    showPassword ? styles.showPassword : ""
+  } ${isPasswordFocused ? styles.focused : ""}`;
+
   return (
-    <div className={styles.mainsection}>
+    <div
+      className={`${styles.mainsection} ${
+        currentTheme === "light" ? styles.lighttext : styles.darktext
+      }`}
+      id="maindiv"
+    >
       <h1>Que bom que está de volta!</h1>
 
       <div className={styles.fieldssection}>
@@ -85,7 +138,7 @@ const LoginForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={error ? styles.errorformfield : styles.formfield}
+                  className={formStyle}
                   type="email"
                   id="email"
                   placeholder=" "
@@ -99,11 +152,7 @@ const LoginForm = () => {
             <div className={styles.fieldgroup}>
               <div className={styles.inputContainer}>
                 <input
-                  className={`${
-                    error ? styles.errorformfield : styles.formfield
-                  } ${showPassword ? styles.showPassword : ""} ${
-                    isPasswordFocused ? styles.focused : ""
-                  }`}
+                  className={passwordFieldStyle}
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
@@ -130,14 +179,18 @@ const LoginForm = () => {
               </div>
             </div>
 
-            {error && <div className={styles.errorInformation}><h5>Verifique suas informações e tente novamente.</h5></div>}
+            {error && (
+              <div className={styles.errorInformation}>
+                <h5>Verifique suas informações e tente novamente.</h5>
+              </div>
+            )}
 
             <div className={styles.submitfields}>
               <input
                 className={styles.submitButton}
                 type="submit"
                 value="Entrar com e-mail"
-                onClick={loginHandler}
+                onClick={validateInformation}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <div className={styles.googleLoginContainer}>

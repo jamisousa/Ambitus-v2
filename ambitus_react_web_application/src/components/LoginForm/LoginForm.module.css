@@ -1,3 +1,22 @@
+.lighttext p,
+.lighttext h1,
+.lighttext h2,
+.lighttext h3,
+.lighttext h4,
+.lighttext h5,
+.lighttext label {
+  color: var(--ltheme-darkgray);
+}
+
+.darktext p,
+.darktext h1,
+.darktext h2,
+.darktext h3,
+.darktext h4,
+.darktext h5,
+.darktext label {
+  color: var(--theme-white);
+}
 .mainsection h1 {
   text-align: center;
   font-size: 1.6em;
@@ -49,6 +68,10 @@
   top: -15px;
   font-size: 12px;
   color: var(--theme-green);
+}
+
+.darkformattributes {
+  border: 0.1em solid var(--theme-white);
 }
 
 .submitButton {

@@ -11,7 +11,7 @@
 }
 
 .mainsection h1 {
-  color: white;
+  color: var(--theme-white);
 }
 
 .cardssection {
@@ -31,6 +31,7 @@
 .maincard h3 {
   font-weight: 500;
   margin-top: 0.5em;
+  color: var(--ltheme-darkgray);
 }
 .maincard:nth-child(1) {
   margin-right: 2em;
