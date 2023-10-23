@@ -8,6 +8,7 @@ import styles from "./Carousel.module.css";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const IntroCarousel = () => {
   const navigate = useNavigate();
@@ -37,8 +38,13 @@ const IntroCarousel = () => {
     },
   ];
 
+  //styles
+  const { currentTheme } = useTheme();
+  const textStyle =
+    currentTheme === "light" ? styles.whitetext : styles.darktext;
+
   return (
-    <div className={styles.carouselsection}>
+    <div className={`${styles.carouselsection} ${textStyle}`}>
       {loading ? (
         <div className={styles.loadersection}>
           <ClipLoader

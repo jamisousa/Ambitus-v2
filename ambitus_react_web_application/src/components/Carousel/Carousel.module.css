@@ -18,3 +18,17 @@
   align-items: center;
   height: 50vh;
 }
+
+.whitetext p,
+.whitetext h1,
+.whitetext h2,
+.whitetext h3 {
+  color: black;
+}
+
+.darktext p,
+.darktext h1,
+.darktext h2,
+.darktext h3 {
+  color: var(--theme-white);
+}
