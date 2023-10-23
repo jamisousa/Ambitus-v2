@@ -68,8 +68,12 @@ const EventsList = () => {
     setCurrentContent("event-details");
   };
 
+  //style
+  const textStyle =
+    currentTheme === "light" ? styles.whitetext : styles.darktext;
+
   return (
-    <div className={styles.fullsection}>
+    <div className={`${styles.fullsection} ${textStyle}`}>
       <div className={styles.mainsection}>
         <h1>Eventos</h1>
         <div className={styles.cardssection}>

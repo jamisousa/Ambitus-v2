@@ -6,10 +6,19 @@ import {
   faChevronRight,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const EventCard = (props: EventCardProps) => {
+  const { currentTheme } = useTheme();
+
+  //style
+  const textStyle =
+    currentTheme === "light" ? styles.whitetext : styles.darktext;
+
+  const svgStyle = currentTheme === "light" ? "#292525" : "#FFFF";
+
   return (
-    <div className={styles.fullsection}>
+    <div className={`${styles.fullsection} ${textStyle}`}>
       <div className={styles.cardcontent} onClick={props.clickAction}>
         <div className={styles.cardimage}>
           <img src={props.eventInfo.image} />
@@ -19,16 +28,13 @@ const EventCard = (props: EventCardProps) => {
             <h2>{props.eventInfo.title}</h2>
           </div>
           <div className={styles.cardlocation}>
-            <FontAwesomeIcon
-              icon={faLocationDot}
-              style={{ color: "#292525" }}
-            />
+            <FontAwesomeIcon icon={faLocationDot} style={{ color: svgStyle }} />
             <h4>{props.eventInfo.location}</h4>
           </div>
           <div className={styles.carddate}>
             <FontAwesomeIcon
               icon={faCalendarMinus}
-              style={{ color: "#292525" }}
+              style={{ color: svgStyle }}
             />
             <h4>{props.eventInfo.date}</h4>
           </div>

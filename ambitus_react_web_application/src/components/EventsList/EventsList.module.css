@@ -10,7 +10,25 @@
   padding: 5em 15em;
 }
 
-.mainsection h1 {
+.whitetext h1,
+.whitetext h2,
+.whitetext h3,
+.whitetext h4,
+.whitetext h5,
+.whitetext h6,
+.whitetext p,
+.whitetext label {
+  color: black;
+}
+
+.darktext h1,
+.darktext h2,
+.darktext h3,
+.darktext h4,
+.darktext h5,
+.darktext h6,
+.darktext p,
+.darktext label {
   color: var(--theme-white);
 }
 
