@@ -1,4 +1,3 @@
-.whitetext h1,
 .whitetext h2,
 .whitetext h4,
 .whitetext h5,
@@ -19,7 +18,7 @@
 .darktext h6,
 .darktext p,
 .darktext label {
-  color: var(--theme-white) !important;
+  color: var(--ltheme-background) !important;
 }
 
 .fullsection {

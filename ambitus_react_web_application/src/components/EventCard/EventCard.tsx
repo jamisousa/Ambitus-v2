@@ -15,7 +15,7 @@ const EventCard = (props: EventCardProps) => {
   const textStyle =
     currentTheme === "light" ? styles.whitetext : styles.darktext;
 
-  const svgStyle = currentTheme === "light" ? "#292525" : "#FFFF";
+  const svgStyle = currentTheme === "light" ? "#292525" : "#fefae0";
 
   return (
     <div className={`${styles.fullsection} ${textStyle}`}>

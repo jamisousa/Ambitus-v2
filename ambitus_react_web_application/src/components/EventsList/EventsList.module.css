@@ -10,7 +10,6 @@
   padding: 5em 15em;
 }
 
-.whitetext h1,
 .whitetext h2,
 .whitetext h3,
 .whitetext h4,
@@ -19,6 +18,10 @@
 .whitetext p,
 .whitetext label {
   color: black;
+}
+
+.whitetext h1 {
+  color: var(--theme-white) !important;
 }
 
 .darktext h1,
