@@ -22,11 +22,13 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { currentTheme } = useTheme();
 
-  const loginUrl = "";
+  const loginUrl =
+    "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/login";
 
   const handleLoginRequest = () => {
+    setLoading(true);
     const bodyData = {
-      email,
+      email: email,
       senha: password,
     };
 
@@ -42,17 +44,19 @@ const LoginForm = () => {
         setLoading(true);
         if (!response.ok) {
           throw new Error(response.statusText);
+        } else {
+          navigate("/dashboard");
         }
-        navigate("/dashboard");
+
         return response.json() as Promise<any>;
       })
       .then((data) => {
         console.log(data);
       })
-      .catch((error) => {
-        console.log(error);
-        //TODO: error handling
+      .catch(() => {
+        setError(true);
       });
+    setLoading(false);
   };
 
   //check regex before redirect
@@ -77,19 +81,6 @@ const LoginForm = () => {
     handleLoginRequest();
     return true;
   };
-
-  // const loginHandler = () => {
-  //   //TODO: call services and login after validation
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     const validation = validateInformation();
-  //     if (validation) {
-  //       console.log("Validation successful");
-  //       navigate("/dashboard");
-  //       setLoading(false);
-  //     }
-  //   }, 2000);
-  // };
 
   const loginSocialHandler = () => {
     //TODO: call services and login w/ social media
