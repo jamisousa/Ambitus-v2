@@ -32,7 +32,7 @@
 .darktext h6,
 .darktext p,
 .darktext label {
-  color: var(--theme-white);
+  color: var(--ltheme-background);
 }
 
 .cardssection {

@@ -10,6 +10,17 @@
   padding: 1.5em 15em;
 }
 
+.darktext h1,
+.darktext h2,
+.darktext h3,
+.darktext h4,
+.darktext h5,
+.darktext h6,
+.darktext p,
+.darktext label {
+  color: var(--ltheme-background) !important;
+}
+
 .contentfirstblock {
   padding-top: 2em;
 }

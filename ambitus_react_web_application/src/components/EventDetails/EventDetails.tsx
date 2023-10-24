@@ -17,12 +17,14 @@ import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import Modal from "../Modal/Modal";
 import { EventProps } from "../../types/EventType";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const EventDetails = (props: EventProps) => {
   //TODO: change button state if user is already subscribed or not
   const { setCurrentContent } = getDashContent();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { currentTheme } = useTheme();
 
   const handleContext = () => {
     setCurrentContent("events");
@@ -51,6 +53,11 @@ const EventDetails = (props: EventProps) => {
         "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpxhere.com%2Fpt%2Fphoto%2F125784&psig=AOvVaw2N0n6ohIjfd9CzhIfbSlbe&ust=1697678663208000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjHr_-3_oEDFQAAAAAdAAAAABAD",
     },
   ];
+
+  //style
+  const textStyle =
+    currentTheme === "light" ? styles.whitetext : styles.darktext;
+  const svgStyle = currentTheme === "light" ? "#292525" : "#fefae0";
 
   return (
     <>
@@ -96,7 +103,7 @@ const EventDetails = (props: EventProps) => {
         </div>
       )}
 
-      <div className={styles.fullcontent}>
+      <div className={`${styles.fullcontent} ${textStyle}`}>
         <div className={styles.maincontent}>
           <div className={styles.header}>
             <h3>DETALHES DO EVENTO</h3>
@@ -121,21 +128,21 @@ const EventDetails = (props: EventProps) => {
                 <div className={styles.cardlocation}>
                   <FontAwesomeIcon
                     icon={faLocationDot}
-                    style={{ color: "#292525" }}
+                    style={{ color: svgStyle }}
                   />
                   <h4>{props.eventinfo.location}</h4>
                 </div>
                 <div className={styles.carddate}>
                   <FontAwesomeIcon
                     icon={faCalendarMinus}
-                    style={{ color: "#292525" }}
+                    style={{ color: svgStyle }}
                   />
                   <h4>{props.eventinfo.date}</h4>
                 </div>
                 <div className={styles.cardauthor}>
                   <FontAwesomeIcon
                     icon={faCircleUser}
-                    style={{ color: "#292525" }}
+                    style={{ color: svgStyle }}
                   />
                   <h4>
                     Responsável: <span>{props.eventinfo.author}</span>
