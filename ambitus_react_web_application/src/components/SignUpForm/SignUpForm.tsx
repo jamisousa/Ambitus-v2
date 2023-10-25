@@ -46,6 +46,40 @@ const SignUpForm = () => {
     setFormData((prevData) => ({ ...prevData, isModalOpen: false }));
   };
 
+  //file upload information
+  // const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+
+  //   if (file) {
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       selectedImage: URL.createObjectURL(file),
+  //     }));
+  //   }
+  // };
+
+  //file upload handle
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        if (event.target) {
+          const base64Data = event.target.result as string;
+
+          setFormData((prevData) => ({
+            ...prevData,
+            selectedImage: base64Data,
+          }));
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   //validate initial information before modal opens
   const validateInformation = () => {
     const trimmedFullName = formData.fullname.trim();
@@ -64,25 +98,12 @@ const SignUpForm = () => {
     }
   };
 
-  //file upload information
-  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (file) {
-      setFormData((prevData) => ({
-        ...prevData,
-        selectedImage: URL.createObjectURL(file),
-      }));
-    }
-  };
-
   //validates additional information (modal information)
   const validateAdditionalInformation = () => {
     setFormData((prevData) => ({ ...prevData, loading: true }));
     const initialValidation = validateInformation();
     if (initialValidation) {
       const cleanedBirthDate = formData.birthDate.replace(/[^0-9-]/g, "");
-
       if (
         !validDate.test(cleanedBirthDate) ||
         formData.gender.length < 1 ||
@@ -94,7 +115,7 @@ const SignUpForm = () => {
           modalError: true,
         }));
       } else {
-        navigate("/introduction");
+        handleSignUpRequest();
       }
     }
     setFormData((prevData) => ({ ...prevData, loading: false }));
@@ -141,6 +162,71 @@ const SignUpForm = () => {
       ...prevData,
       showRepeatPassword: !prevData.showRepeatPassword,
     }));
+  };
+
+  const calcAge = (birthDate: string): number => {
+    const userBirthDate = new Date(formData.birthDate);
+    const currentDate = new Date();
+
+    const userYear = userBirthDate.getFullYear();
+    const currentYear = currentDate.getFullYear();
+
+    let age = currentYear - userYear;
+
+    const userMonth = userBirthDate.getMonth();
+    const userDay = userBirthDate.getDate();
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate();
+
+    if (
+      currentMonth < userMonth ||
+      (currentMonth === userMonth && currentDay < userDay)
+    ) {
+      age--;
+    }
+
+    return age;
+  };
+
+  //call sign up request
+  const loginUrl =
+    "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/cadastro";
+
+  const handleSignUpRequest = () => {
+    setFormData((prevData) => ({ ...prevData, loading: true }));
+
+    const age = calcAge(formData.birthDate);
+
+    const bodyData = {
+      nome: formData.fullname,
+      idade: age,
+      sexo: formData.gender[0],
+      email: formData.email,
+      senha: formData.password,
+      image: formData.selectedImage,
+    };
+
+    fetch(loginUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyData),
+    })
+      .then((response) => {
+        setFormData((prevData) => ({ ...prevData, loading: true }));
+
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        } else {
+          navigate("/introduction");
+        }
+        return response.json() as Promise<any>;
+      })
+      .catch((e) => {
+        setFormData((prevData) => ({ ...prevData, error: true }));
+      });
+    setFormData((prevData) => ({ ...prevData, loading: false }));
   };
 
   //styles

@@ -22,6 +22,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { currentTheme } = useTheme();
 
+  //call login request
   const loginUrl =
     "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/login";
 
@@ -40,18 +41,19 @@ const LoginForm = () => {
       body: JSON.stringify(bodyData),
     })
       .then((response) => {
-        console.log(response);
         setLoading(true);
         if (!response.ok) {
-          throw new Error(response.statusText);
+          setError(true);
+          setLoading(false);
         } else {
           navigate("/dashboard");
         }
-
         return response.json() as Promise<any>;
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user_image", data.image);
+        localStorage.setItem("user_name", data.name);
       })
       .catch(() => {
         setError(true);
@@ -77,7 +79,6 @@ const LoginForm = () => {
     }
     setError(false);
     setLoading(false);
-    console.log("Validated");
     handleLoginRequest();
     return true;
   };
