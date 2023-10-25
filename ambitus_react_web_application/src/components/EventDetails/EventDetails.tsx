@@ -12,19 +12,21 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
 import ParticipantsList from "../ParticipantsList/ParticipantsList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import Modal from "../Modal/Modal";
-import { EventProps } from "../../types/EventType";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
 
-const EventDetails = (props: EventProps) => {
+const EventDetails = (props: any) => {
   //TODO: change button state if user is already subscribed or not
   const { setCurrentContent } = getDashContent();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { currentTheme } = useTheme();
+
+  const { id, image, titulo, descricao, local, data, organizador, tipo } =
+    props.eventinfo;
 
   const handleContext = () => {
     setCurrentContent("events");
@@ -118,26 +120,33 @@ const EventDetails = (props: EventProps) => {
           {/*TODO -- add props image*/}
           <div className={styles.contentfirstblock}>
             <div className={styles.cardimage}>
-              <img src={mockImage} />
+              {image ? (
+                <img
+                  src={`data:image/png;base64, ${image}`}
+                  alt="Imagem do evento"
+                />
+              ) : (
+                <img src={mockImage} alt="Imagem de mock" />
+              )}
             </div>
             <div className={styles.primaryinformation}>
               <div className={styles.primaryfirstblock}>
                 <div className={styles.cardtitle}>
-                  <h1>{props.eventinfo.title}</h1>
+                  <h1>{titulo}</h1>
                 </div>
                 <div className={styles.cardlocation}>
                   <FontAwesomeIcon
                     icon={faLocationDot}
                     style={{ color: svgStyle }}
                   />
-                  <h4>{props.eventinfo.location}</h4>
+                  <h4>{local}</h4>
                 </div>
                 <div className={styles.carddate}>
                   <FontAwesomeIcon
                     icon={faCalendarMinus}
                     style={{ color: svgStyle }}
                   />
-                  <h4>{props.eventinfo.date}</h4>
+                  <h4>{data}</h4>
                 </div>
                 <div className={styles.cardauthor}>
                   <FontAwesomeIcon
@@ -145,7 +154,7 @@ const EventDetails = (props: EventProps) => {
                     style={{ color: svgStyle }}
                   />
                   <h4>
-                    Responsável: <span>{props.eventinfo.author}</span>
+                    Responsável: <span>{organizador.email}</span>
                   </h4>
                 </div>
               </div>
@@ -169,9 +178,9 @@ const EventDetails = (props: EventProps) => {
           <div className={styles.descriptionsection}>
             <div className={styles.descriptionbody}>
               <h2>Descrição</h2>
-              <p>{props.eventinfo.description}</p>
+              <p>{descricao}</p>
               <div className={styles.greenroundedcard}>
-                <h3>Category mock</h3>
+                <h3>{tipo}</h3>
               </div>
               <div className={styles.rewardsblock}>
                 <h2>Recompensas</h2>

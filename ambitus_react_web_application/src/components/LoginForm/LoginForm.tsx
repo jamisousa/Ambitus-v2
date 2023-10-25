@@ -23,6 +23,7 @@ const LoginForm = () => {
   const { currentTheme } = useTheme();
 
   //call login request
+
   const loginUrl =
     "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/login";
 
@@ -46,19 +47,21 @@ const LoginForm = () => {
           setError(true);
           setLoading(false);
         } else {
-          navigate("/dashboard");
+          return response.json() as Promise<any>;
         }
-        return response.json() as Promise<any>;
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user_image", data.image);
         localStorage.setItem("user_name", data.name);
+        navigate("/dashboard");
       })
       .catch(() => {
         setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   //check regex before redirect

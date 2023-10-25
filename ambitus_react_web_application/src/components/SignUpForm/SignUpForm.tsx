@@ -46,18 +46,6 @@ const SignUpForm = () => {
     setFormData((prevData) => ({ ...prevData, isModalOpen: false }));
   };
 
-  //file upload information
-  // const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-
-  //   if (file) {
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       selectedImage: URL.createObjectURL(file),
-  //     }));
-  //   }
-  // };
-
   //file upload handle
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -189,7 +177,7 @@ const SignUpForm = () => {
   };
 
   //call sign up request
-  const loginUrl =
+  const signUpUrl =
     "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/cadastro";
 
   const handleSignUpRequest = () => {
@@ -206,7 +194,7 @@ const SignUpForm = () => {
       image: formData.selectedImage,
     };
 
-    fetch(loginUrl, {
+    fetch(signUpUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,12 +1,11 @@
-export interface EventType {
-  title: String;
-  description: String;
-  location: String;
-  date: String;
-  author: String;
-  image: String;
-}
-
 export type EventProps = {
-  eventinfo: EventType;
+  eventinfo: {
+    id: number;
+    data: string;
+    descricao: string;
+    local: string;
+    organizador: string;
+    tipo: string;
+    titulo: string;
+  };
 };
