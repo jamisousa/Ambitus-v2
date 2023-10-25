@@ -51,7 +51,7 @@ const LoginForm = () => {
         return response.json() as Promise<any>;
       })
       .then((data) => {
-        console.log(data);
+        localStorage.setItem("token", data.token);
       })
       .catch(() => {
         setError(true);
