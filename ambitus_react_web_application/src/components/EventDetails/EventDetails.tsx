@@ -20,10 +20,12 @@ import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const EventDetails = (props: any) => {
   //TODO: change button state if user is already subscribed or not
-  const { setCurrentContent } = getDashContent();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [participantsData, setParticipantsData] = useState([]);
   const { currentTheme } = useTheme();
+  const { setCurrentContent } = getDashContent();
 
   const { id, image, titulo, descricao, local, data, organizador, tipo } =
     props.eventinfo;
@@ -46,15 +48,44 @@ const EventDetails = (props: any) => {
     closeModal();
   };
 
-  //TODO: remove this mock
-  const mockParticipants = [
-    {
-      name: "Test",
-      level: 0,
-      image:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpxhere.com%2Fpt%2Fphoto%2F125784&psig=AOvVaw2N0n6ohIjfd9CzhIfbSlbe&ust=1697678663208000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMjHr_-3_oEDFQAAAAAdAAAAABAD",
-    },
-  ];
+  //fetch participants
+  const fetchParticipantsURL = `http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/participantes/${id}`;
+
+  const handleFetchParticipants = () => {
+    setLoading(true);
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetch(fetchParticipantsURL, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((response) => {
+          setLoading(true);
+          if (!response.ok) {
+            setError(true);
+            setLoading(true);
+          }
+          return response.json() as Promise<any>;
+        })
+        .then((data) => {
+          setParticipantsData(data.participantes);
+        })
+        .catch(() => {
+          setError(true);
+        });
+      setLoading(true);
+    } else {
+      setError(true);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchParticipants();
+  }, []);
 
   //style
   const textStyle =
@@ -202,7 +233,7 @@ const EventDetails = (props: any) => {
           </div>
           {/*participants section*/}
           <div className={styles.participantssection}>
-            <ParticipantsList participantsInfo={mockParticipants} />
+            <ParticipantsList participantsInfo={participantsData} />
           </div>
 
           <div className={styles.cancelbutton}>
