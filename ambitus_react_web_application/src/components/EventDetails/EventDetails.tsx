@@ -19,10 +19,11 @@ import Modal from "../Modal/Modal";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const EventDetails = (props: any) => {
-  //TODO: change button state if user is already subscribed or not
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const [participantsData, setParticipantsData] = useState([]);
   const { currentTheme } = useTheme();
   const { setCurrentContent } = getDashContent();
@@ -43,9 +44,46 @@ const EventDetails = (props: any) => {
     setIsModalOpen(false);
   };
 
+  //cancel subscription
   const handleCancelSubscription = () => {
     //TODO: call api & cancel subscription; change button text
     closeModal();
+  };
+
+  //subscribe
+  const subscribeUrl = `http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/inscricao/${id}`;
+  const handleSubscribe = () => {
+    setButtonLoading(true);
+    const token = localStorage.getItem("token");
+    console.log("Token", token);
+    console.log("ID", id);
+    if (token) {
+      fetch(subscribeUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((response) => {
+          setButtonLoading(true);
+          if (!response.ok) {
+            setError(true);
+            setButtonLoading(false);
+            setIsSubscribed(false);
+          }
+          return response.json() as Promise<any>;
+        })
+        .then((data) => {
+          setIsSubscribed(true);
+        })
+        .catch(() => {
+          setError(true);
+        });
+      setButtonLoading(true);
+    } else {
+      setError(true);
+    }
   };
 
   //fetch participants
@@ -190,12 +228,24 @@ const EventDetails = (props: any) => {
                 </div>
               </div>
               <div className={styles.primarysecondblock}>
-                <button>
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    style={{ color: "#6f9200" }}
-                  />
-                  Já inscrito
+                <button onClick={handleSubscribe}>
+                  {buttonLoading ? (
+                    "loading...."
+                  ) : (
+                    <>
+                      {isSubscribed ? (
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faCheck}
+                            style={{ color: "#6f9200" }}
+                          />
+                          Já inscrito
+                        </div>
+                      ) : (
+                        <div>Inscrever-se</div>
+                      )}
+                    </>
+                  )}
                 </button>
                 <div className={styles.bottombuttontext}>
                   <FontAwesomeIcon icon={faStar} style={{ color: "#6f9200" }} />

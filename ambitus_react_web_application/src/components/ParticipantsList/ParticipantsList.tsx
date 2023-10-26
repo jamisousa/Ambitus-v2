@@ -8,16 +8,17 @@ const ParticipantsList = (props: any) => {
 
   return (
     <div className={styles.fullsection}>
+      <div className={styles.participantstitle}>
+        <h2>Participantes</h2>
+        <div className={styles.participantsnumber}>
+          <FontAwesomeIcon icon={faUsers} style={{ color: "#292525" }} />
+          <h3>{numberOfParticipants}</h3>
+        </div>
+      </div>
       {props.participantsInfo.map((p: any) => {
         return (
           <>
-            <div className={styles.participantsheader}>
-              <h2>Participantes</h2>
-              <div className={styles.participantsnumber}>
-                <FontAwesomeIcon icon={faUsers} style={{ color: "#292525" }} />
-                <h3>{numberOfParticipants}</h3>
-              </div>
-            </div>
+            <div className={styles.participantsheader}></div>
             <div className={styles.participantstiles}>
               <div className={styles.participantCard}>
                 <img src={p.image ? p.image : mockImage} />
