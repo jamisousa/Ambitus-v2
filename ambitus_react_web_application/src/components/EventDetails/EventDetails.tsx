@@ -21,6 +21,7 @@ import { useTheme } from "../../utils/contexts/globalThemeContext";
 const EventDetails = (props: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [participantsLoading, setParticipantsLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [error, setError] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -66,7 +67,6 @@ const EventDetails = (props: any) => {
           return response.json() as Promise<any>;
         })
         .then((data) => {
-          console.log(data);
           const events = data.Eventos;
           const hasEventWithId = events.some(
             (ev: { id: number }) => ev.id === id
@@ -94,8 +94,6 @@ const EventDetails = (props: any) => {
   const handleSubscribe = () => {
     setButtonLoading(true);
     const token = localStorage.getItem("token");
-    console.log("Token", token);
-    console.log("ID", id);
     if (token) {
       fetch(subscribeUrl, {
         method: "PUT",
@@ -113,7 +111,6 @@ const EventDetails = (props: any) => {
           return response.json() as Promise<any>;
         })
         .then((data) => {
-          console.log(data);
           setIsSubscribed(true);
           handleFetchUserEvents();
           handleFetchParticipants();
@@ -129,7 +126,6 @@ const EventDetails = (props: any) => {
       setError(true);
       setButtonLoading(false);
     }
-    setButtonLoading(false);
   };
 
   //cancel subscription
@@ -156,7 +152,6 @@ const EventDetails = (props: any) => {
           return response.json() as Promise<any>;
         })
         .then((data) => {
-          console.log(data);
           setIsSubscribed(false);
           closeModal();
           setButtonLoading(false);
@@ -170,19 +165,16 @@ const EventDetails = (props: any) => {
           handleFetchUserEvents();
           handleFetchParticipants();
         });
-      setButtonLoading(false);
     } else {
       setError(true);
     }
-    setButtonLoading(false);
-    setLoading(false);
   };
 
   //fetch participants
   const fetchParticipantsURL = `http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/participantes/${id}`;
 
   const handleFetchParticipants = () => {
-    setLoading(true);
+    setParticipantsLoading(true);
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -194,21 +186,22 @@ const EventDetails = (props: any) => {
         },
       })
         .then((response) => {
-          setLoading(true);
+          setParticipantsLoading(true);
           if (!response.ok) {
             setError(true);
-            setLoading(true);
+            setParticipantsLoading(true);
           }
           return response.json() as Promise<any>;
         })
         .then((data) => {
-          console.log(data);
           setParticipantsData(data.participantes);
+          setParticipantsLoading(false);
         })
         .catch(() => {
           setError(true);
+          setParticipantsLoading(false);
         });
-      setLoading(false);
+      setParticipantsLoading(false);
     } else {
       setError(true);
     }
@@ -277,7 +270,17 @@ const EventDetails = (props: any) => {
                           icon={faX}
                           style={{ color: "#ff3332" }}
                         />
-                        <h2>Confirmar</h2>
+                        {buttonLoading ? (
+                          <ClipLoader
+                            color={"#6f9200"}
+                            loading={true}
+                            size={20}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                          />
+                        ) : (
+                          <h2>Confirmar</h2>
+                        )}
                       </button>
                     </div>
                   </aside>
@@ -341,7 +344,13 @@ const EventDetails = (props: any) => {
                   <div className={styles.primarysecondblock}>
                     <button onClick={isSubscribed ? () => {} : handleSubscribe}>
                       {buttonLoading ? (
-                        "loading...."
+                        <ClipLoader
+                          color={"#6f9200"}
+                          loading={true}
+                          size={20}
+                          aria-label="Loading Spinner"
+                          data-testid="loader"
+                        />
                       ) : (
                         <>
                           {isSubscribed ? (
@@ -396,15 +405,41 @@ const EventDetails = (props: any) => {
                 </div>
               </div>
               {/*participants section*/}
-              <div className={styles.participantssection}>
-                <ParticipantsList participantsInfo={participantsData} />
-              </div>
+              {participantsLoading && participantsData.length < 1 ? (
+                <ClipLoader
+                  color={"#000"}
+                  loading={true}
+                  size={50}
+                  cssOverride={override}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              ) : (
+                <div className={styles.participantssection}>
+                  <ParticipantsList participantsInfo={participantsData} />
+                </div>
+              )}
 
               {isSubscribed && (
                 <div className={styles.cancelbutton}>
                   <button onClick={openModal}>
-                    <FontAwesomeIcon icon={faX} style={{ color: "#ff3332" }} />
-                    <h2>Cancelar inscrição</h2>
+                    {buttonLoading ? (
+                      <ClipLoader
+                        color={"#6f9200"}
+                        loading={true}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                      />
+                    ) : (
+                      <>
+                        <FontAwesomeIcon
+                          icon={faX}
+                          style={{ color: "#ff3332" }}
+                        />
+                        <h2>Cancelar inscrição</h2>
+                      </>
+                    )}
                   </button>
                 </div>
               )}
