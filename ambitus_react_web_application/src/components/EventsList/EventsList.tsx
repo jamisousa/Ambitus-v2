@@ -12,6 +12,8 @@ import EventCard from "../EventCard/EventCard";
 import placeholderImage from "../../resources/img/lightAmbitusName-compressed.svg";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
+import { ClipLoader } from "react-spinners";
+import { override } from "../../utils/spinner/spinner";
 
 const EventsList = () => {
   const { currentTheme } = useTheme();
@@ -64,7 +66,7 @@ const EventsList = () => {
   const fetchEventsUrl =
     "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos";
   const handleFetchEvents = () => {
-    setEventData((prevData) => ({ ...prevData, loading: true }));
+    setEventData((prevData) => ({ ...prevData, loading: true, error: false })); // Iniciar a requisição
 
     const token = localStorage.getItem("token");
 
@@ -77,22 +79,32 @@ const EventsList = () => {
         },
       })
         .then((response) => {
-          setEventData((prevData) => ({ ...prevData, loading: true }));
           if (!response.ok) {
-            setEventData((prevData) => ({ ...prevData, error: true }));
-            setEventData((prevData) => ({ ...prevData, loading: false }));
+            throw new Error("Erro na requisição");
           }
-          return response.json() as Promise<any>;
+          return response.json();
         })
         .then((data) => {
-          setEventData((prevData) => ({ ...prevData, events: data }));
+          setEventData((prevData) => ({
+            ...prevData,
+            events: data,
+            loading: false,
+          }));
         })
-        .catch(() => {
-          setEventData((prevData) => ({ ...prevData, error: true }));
+        .catch((error) => {
+          console.error(error);
+          setEventData((prevData) => ({
+            ...prevData,
+            error: true,
+            loading: false,
+          }));
         });
-      setEventData((prevData) => ({ ...prevData, loading: true }));
     } else {
-      setEventData((prevData) => ({ ...prevData, error: true }));
+      setEventData((prevData) => ({
+        ...prevData,
+        error: true,
+        loading: false,
+      }));
     }
   };
 
@@ -102,10 +114,13 @@ const EventsList = () => {
 
   //fetch events by category - type
   const handleFetchEventsByType = (selectedType: string | null) => {
-    setEventData((prevData) => ({ ...prevData, loading: true }));
+    setEventData((prevData) => ({
+      ...prevData,
+      loading: true,
+      error: false, // Limpe o erro quando a solicitação começar.
+    }));
 
     const token = localStorage.getItem("token");
-
     const fetchEventsByTypeUrl = `http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/${selectedType}`;
 
     if (token) {
@@ -117,22 +132,31 @@ const EventsList = () => {
         },
       })
         .then((response) => {
-          setEventData((prevData) => ({ ...prevData, loading: true }));
           if (!response.ok) {
-            setEventData((prevData) => ({ ...prevData, error: true }));
-            setEventData((prevData) => ({ ...prevData, loading: false }));
+            throw new Error("Error");
           }
-          return response.json() as Promise<any>;
+          return response.json();
         })
         .then((data) => {
-          setEventData((prevData) => ({ ...prevData, events: data }));
+          setEventData((prevData) => ({
+            ...prevData,
+            events: data,
+            loading: false,
+          }));
         })
-        .catch(() => {
-          setEventData((prevData) => ({ ...prevData, error: true }));
+        .catch((error) => {
+          setEventData((prevData) => ({
+            ...prevData,
+            error: true,
+            loading: false,
+          }));
         });
-      setEventData((prevData) => ({ ...prevData, loading: true }));
     } else {
-      setEventData((prevData) => ({ ...prevData, error: true }));
+      setEventData((prevData) => ({
+        ...prevData,
+        error: true,
+        loading: false,
+      }));
     }
   };
 
@@ -196,23 +220,38 @@ const EventsList = () => {
           />
         </div>
 
-        <div className={`${styles.cardssection} ${styles["events-container"]}`}>
-          {eventData.events.map((event: any) => (
-            <EventCard
-              eventInfo={{
-                title: event.titulo,
-                location: event.local,
-                date: event.data,
-                category: event.tipo,
-                image: event.image
-                  ? `data:image/png;base64,${event.image}`
-                  : placeholderImage,
-              }}
-              clickAction={() => handleSwitchContext(event)}
-              key={event.id}
-            />
-          ))}
-        </div>
+        {eventData.loading ? (
+          <ClipLoader
+            color={"#000"}
+            loading={true}
+            size={100}
+            cssOverride={override}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        ) : (
+          <div
+            className={`${styles.cardssection} ${styles["events-container"]}`}
+          >
+            {eventData.events.map((event: any) => (
+              <EventCard
+                eventInfo={{
+                  title: event.titulo,
+                  location: event.local,
+                  date: event.data,
+                  category: event.tipo,
+                  image: event.image
+                    ? `data:image/png;base64,${event.image}`
+                    : placeholderImage,
+                }}
+                clickAction={() => handleSwitchContext(event)}
+                key={event.id}
+              />
+            ))}
+
+            {eventData.events.length < 1 && <h4>Nenhum evento encontrado.</h4>}
+          </div>
+        )}
       </div>
     </div>
   );
