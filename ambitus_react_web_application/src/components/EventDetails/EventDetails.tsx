@@ -49,8 +49,6 @@ const EventDetails = (props: any) => {
   const handleFetchUserEvents = () => {
     setLoading(true);
     const token = localStorage.getItem("token");
-    console.log("Token", token);
-    console.log("ID", id);
     if (token) {
       fetch(getEventsUrl, {
         method: "GET",
@@ -68,6 +66,7 @@ const EventDetails = (props: any) => {
           return response.json() as Promise<any>;
         })
         .then((data) => {
+          console.log(data);
           const events = data.Eventos;
           const hasEventWithId = events.some(
             (ev: { id: number }) => ev.id === id
@@ -106,7 +105,6 @@ const EventDetails = (props: any) => {
         },
       })
         .then((response) => {
-          setButtonLoading(true);
           if (!response.ok) {
             setError(true);
             setButtonLoading(false);
@@ -115,21 +113,69 @@ const EventDetails = (props: any) => {
           return response.json() as Promise<any>;
         })
         .then((data) => {
+          console.log(data);
           setIsSubscribed(true);
+          handleFetchUserEvents();
+          handleFetchParticipants();
+          setButtonLoading(false);
         })
         .catch(() => {
           setError(true);
+          handleFetchUserEvents();
+          handleFetchParticipants();
+          setButtonLoading(false);
+        });
+    } else {
+      setError(true);
+      setButtonLoading(false);
+    }
+    setButtonLoading(false);
+  };
+
+  //cancel subscription
+  const cancelSubscriptionUrl = `http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/cancelarInscricao/${id}`;
+
+  const handleCancelSubscription = () => {
+    setButtonLoading(true);
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch(cancelSubscriptionUrl, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((response) => {
+          setButtonLoading(true);
+          if (!response.ok) {
+            setError(true);
+            setButtonLoading(false);
+            closeModal();
+          }
+          return response.json() as Promise<any>;
+        })
+        .then((data) => {
+          console.log(data);
+          setIsSubscribed(false);
+          closeModal();
+          setButtonLoading(false);
+          handleFetchUserEvents();
+          handleFetchParticipants();
+        })
+        .catch(() => {
+          setError(true);
+          closeModal();
+          setButtonLoading(false);
+          handleFetchUserEvents();
+          handleFetchParticipants();
         });
       setButtonLoading(false);
     } else {
       setError(true);
     }
-  };
-
-  //cancel subscription
-  const handleCancelSubscription = () => {
-    //TODO: call api & cancel subscription; change button text
-    closeModal();
+    setButtonLoading(false);
+    setLoading(false);
   };
 
   //fetch participants
@@ -156,6 +202,7 @@ const EventDetails = (props: any) => {
           return response.json() as Promise<any>;
         })
         .then((data) => {
+          console.log(data);
           setParticipantsData(data.participantes);
         })
         .catch(() => {
@@ -251,7 +298,6 @@ const EventDetails = (props: any) => {
                 </button>
               </div>
               {/*first block of content (photo, title, description, location, author, button)*/}
-              {/*TODO -- add props image*/}
               <div className={styles.contentfirstblock}>
                 <div className={styles.cardimage}>
                   {image ? (
