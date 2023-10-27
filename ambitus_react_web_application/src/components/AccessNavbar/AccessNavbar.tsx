@@ -40,7 +40,11 @@ const AccessNavbar = (props: NavbarProps) => {
     setIconStates(updatedIconStates);
 
     //TODO: change context based on what was clicked here
-    iconName == "calendar" ? setCurrentContent("events") : "";
+    iconName == "calendar"
+      ? setCurrentContent("events")
+      : iconName == "user"
+      ? setCurrentContent("profile")
+      : "";
   };
 
   return props.navbarType == "clean" ? (

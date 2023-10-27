@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type DashContent = "events" | "event-details";
+type DashContent = "events" | "event-details" | "profile";
 
 type DashContextType = {
   currentContent: DashContent;
