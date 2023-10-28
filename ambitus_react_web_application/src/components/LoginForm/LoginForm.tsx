@@ -53,7 +53,7 @@ const LoginForm = () => {
       .then((data) => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user_image", data.image);
-        localStorage.setItem("user_name", data.name);
+        localStorage.setItem("user_name", data.nome);
         navigate("/dashboard");
       })
       .catch(() => {

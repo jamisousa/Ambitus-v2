@@ -44,7 +44,15 @@ const EventsList = () => {
   const [selectedChip, setSelectedChip] = useState<string | null>(null);
 
   const chipHandle = (chipTitle: string) => {
-    const formattedChipTitle = formatCategoryString(chipTitle);
+    let formattedChipTitle = "";
+    if (chipTitle == "Conservação") {
+      formattedChipTitle = "CONSERVACAO_DE_ESPECIES";
+    } else if (chipTitle == "Conscientização") {
+      formattedChipTitle = "CONSCIENTIZACAO_E_EDUCACAO";
+    } else {
+      formattedChipTitle = formatCategoryString(chipTitle);
+    }
+
     setSelectedChip(formattedChipTitle);
     handleFetchEventsByType(formattedChipTitle);
   };
