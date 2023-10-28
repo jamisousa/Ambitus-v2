@@ -17,7 +17,7 @@ const ParticipantsList = (props: any) => {
       </div>
       {props.participantsInfo.map((p: any) => {
         return (
-          <>
+          <div key={p.length}>
             <div className={styles.participantsheader}></div>
             <div className={styles.participantstiles}>
               <div className={styles.participantCard}>
@@ -34,7 +34,7 @@ const ParticipantsList = (props: any) => {
                 </div>
               </div>
             </div>
-          </>
+          </div>
         );
       })}
     </div>

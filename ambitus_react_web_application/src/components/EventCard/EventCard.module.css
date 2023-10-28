@@ -81,3 +81,7 @@
   margin-left: 2em;
   margin-top: 20%;
 }
+
+.cardchevroncompressed {
+  display: none;
+}

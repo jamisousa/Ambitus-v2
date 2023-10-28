@@ -208,6 +208,7 @@ const EventDetails = (props: any) => {
   };
 
   useEffect(() => {
+    setCurrentContent("event-details");
     handleFetchUserEvents();
     handleFetchParticipants();
   }, []);

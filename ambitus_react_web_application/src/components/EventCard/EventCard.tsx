@@ -7,15 +7,22 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
+import { getDashContent } from "../../utils/contexts/dashboardAction";
 
 const EventCard = (props: EventCardProps) => {
   const { currentTheme } = useTheme();
+  const { currentContent } = getDashContent();
 
   //style
   const textStyle =
     currentTheme === "light" ? styles.whitetext : styles.darktext;
 
   const svgStyle = currentTheme === "light" ? "#292525" : "#fefae0";
+
+  const chevronStyle =
+    currentContent === "profile"
+      ? styles.cardchevroncompressed
+      : styles.cardchevron;
 
   return (
     <div className={`${styles.fullsection} ${textStyle}`}>
@@ -42,7 +49,7 @@ const EventCard = (props: EventCardProps) => {
             <h3>{props.eventInfo.category}</h3>
           </div>
         </div>
-        <div className={styles.cardchevron}>
+        <div className={chevronStyle}>
           <FontAwesomeIcon icon={faChevronRight} style={{ color: "#9ab34d" }} />
         </div>
       </div>

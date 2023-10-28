@@ -74,7 +74,7 @@ const EventsList = () => {
   const fetchEventsUrl =
     "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos";
   const handleFetchEvents = () => {
-    setEventData((prevData) => ({ ...prevData, loading: true, error: false })); // Iniciar a requisição
+    setEventData((prevData) => ({ ...prevData, loading: true, error: false }));
 
     const token = localStorage.getItem("token");
 
@@ -117,6 +117,7 @@ const EventsList = () => {
   };
 
   useEffect(() => {
+    setCurrentContent("events");
     handleFetchEvents();
   }, []);
 

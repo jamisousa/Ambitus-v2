@@ -4,7 +4,7 @@ import darkImage from "../../resources/img/navbar-dark.svg";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
 import colors from "../../utils/colors/colors.module.css";
 import { NavbarProps } from "../../types/NavbarType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
@@ -15,7 +15,7 @@ import { getDashContent } from "../../utils/contexts/dashboardAction";
 
 const AccessNavbar = (props: NavbarProps) => {
   const { currentTheme } = useTheme();
-  const { setCurrentContent } = getDashContent();
+  const { setCurrentContent, currentContent } = getDashContent();
 
   const navbarcolor =
     currentTheme == "light"
@@ -46,6 +46,16 @@ const AccessNavbar = (props: NavbarProps) => {
       ? setCurrentContent("profile")
       : "";
   };
+
+  useEffect(() => {
+    currentContent === "events"
+      ? toggleIconColor("calendar")
+      : currentContent === "event-details"
+      ? toggleIconColor("calendar")
+      : currentContent === "profile"
+      ? toggleIconColor("user")
+      : "";
+  }, [currentContent]);
 
   return props.navbarType == "clean" ? (
     <div className={navbarcolor}>

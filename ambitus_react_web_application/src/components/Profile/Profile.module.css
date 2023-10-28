@@ -17,8 +17,8 @@
 }
 
 .profileHeader img {
-  width: 12em;
-  height: 12em;
+  width: 13em;
+  height: 13em;
   border-radius: 100%;
   margin-right: 1.5em;
   border: 0.5em solid white;
@@ -155,4 +155,30 @@
   background-color: var(--theme-green);
   border-radius: 20px;
   border: 3px solid var(--theme-white);
+}
+
+.historyheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5em;
+}
+
+.historyheader svg {
+  margin-right: 0.5em;
+  height: 1.5em;
+}
+
+.historyheader h1 {
+  color: var(--theme-darkgray);
+  font-weight: 500;
+}
+
+.historytitle {
+  display: flex;
+  align-items: center;
+}
+
+.eventcardssection {
+  margin-top: -2em;
 }
