@@ -6,8 +6,11 @@ import {
   faCircleInfo,
   faClipboard,
   faClock,
+  faEye,
+  faEyeSlash,
   faGear,
   faMedal,
+  faSquarePen,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
@@ -18,8 +21,11 @@ import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import placeholderImage from "../../resources/img/mockimage.jpeg";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
+import Modal from "../Modal/Modal";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const Profile = () => {
+  //TODO: call api to change profile data
   //TODO: remove this after api call
   const medalsMock = [
     { title: "Iniciante Ambiental", medalIcon: medalPlaceholder },
@@ -41,6 +47,19 @@ const Profile = () => {
     error: false,
     events: [],
   });
+  const [formData, setFormData] = useState({
+    currentEmail: "",
+    newEmail: "",
+    fullname: "",
+    image: "",
+    currentPassword: "",
+    newPassword: "",
+    showCurrentPassword: false,
+    showNewPassword: false,
+    error: "",
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalLoading, setIsModalLoading] = useState(false);
   const maxMedals = 6;
   const medalsToShow = medalsMock.slice(0, maxMedals);
 
@@ -160,103 +179,290 @@ const Profile = () => {
     handleFetchEvents();
   }, [currentContent]);
 
-  return (
-    <div className={styles.fullcontent}>
-      <div className={styles.mainsection}>
-        <div className={styles.profileHeader}>
-          {displayImage}
-          <div className={styles.profileName}>
-            <div className={styles.nameContainer}>
-              <h1>{username} </h1>
-              <div className={styles.lvlcard}>
-                <FontAwesomeIcon icon={faStar} style={{ color: "#6f9200" }} />
-                <h3>Nvl 1</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={styles.cardssection}>
-          <div className={styles.maincard}>
-            <FontAwesomeIcon icon={faMedal} style={{ color: "#669f2d" }} />
-            <h3>Recompensas</h3>
-          </div>
-          <div className={styles.maincard}>
-            <FontAwesomeIcon icon={faGear} style={{ color: "#669f2d" }} />
-            <h3>Configurações</h3>
-          </div>
-        </div>
-      </div>
-      <div className={styles.medalssection}>
-        <div className={styles.mainsection}>
-          <div className={styles.medalsheader}>
-            <div className={styles.medalstitle}>
-              <FontAwesomeIcon icon={faStar} style={{ color: "#FFF" }} />
-              <h1>Medalhas</h1>
-            </div>
-            <div className={styles.medalinfoicon}>
-              <FontAwesomeIcon icon={faCircleInfo} style={{ color: "#FFF" }} />
-            </div>
-          </div>
-          <div className={styles.medalicons}>
-            {medalsMock.map((m, index) => (
-              <div
-                className={`${styles.medal} ${
-                  index >= maxMedals ? styles["hidden-medal"] : ""
-                }`}
-                key={index}
-              >
-                <img src={m.medalIcon} alt={m.title} />
-                <h3>{m.title}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className={styles.eventshistory}>
-        <div className={styles.mainsection}>
-          <div className={styles.historyheader}>
-            <div className={styles.historytitle}>
-              <FontAwesomeIcon icon={faClock} style={{ color: "#292525" }} />
-              <h1>Histórico de eventos</h1>
-            </div>
-          </div>
-          {eventData.loading ? (
-            <ClipLoader
-              color={"#000"}
-              loading={true}
-              size={100}
-              cssOverride={override}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          ) : (
-            <div
-              className={`${styles.eventcardssection} ${styles["events-container"]}`}
-            >
-              {eventData.events.map((event: any) => (
-                <EventCard
-                  eventInfo={{
-                    title: event.titulo,
-                    location: event.local,
-                    date: event.data,
-                    category: event.tipo,
-                    image: event.image
-                      ? `data:image/png;base64,${event.image}`
-                      : placeholderImage,
-                  }}
-                  clickAction={() => handleSwitchContext(event)}
-                  key={event.id}
-                />
-              ))}
+  //portal control
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-              {eventData.events.length < 1 && (
-                <h4>Nenhum evento encontrado.</h4>
-              )}
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  //password toggles
+  const toggleShowCurrentPassword = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      showCurrentPassword: !prevData.showCurrentPassword,
+    }));
+  };
+
+  const toggleShowNewPassword = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      showNewPassword: !prevData.showNewPassword,
+    }));
+  };
+
+  const { currentTheme } = useTheme();
+  const svgStyle = currentTheme == "light" ? "#000" : "#FFF";
+
+  return (
+    <>
+      {isModalOpen ? (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <button onClick={closeModal} className={styles.modalclosebutton}>
+            X
+          </button>
+          <div className={styles.modalfullcontent}>
+            <div className={styles.modalinfo}>
+              <div className={styles.userimageinfo}>
+                {displayImage}
+                <FontAwesomeIcon
+                  icon={faSquarePen}
+                  style={{ color: "#6f9200" }}
+                />
+              </div>
+              <div className={styles.usernameinfo}>
+                <h2>{username}</h2>
+                <FontAwesomeIcon
+                  icon={faSquarePen}
+                  style={{ color: "#6f9200" }}
+                />
+              </div>
             </div>
-          )}
+            <div className={styles.fieldgroup}>
+              <div
+                className={`${styles.inputContainer} ${styles.labelaboveinput}`}
+              >
+                <label className={styles.profilelabel} htmlFor="currentEmail">
+                  E-mail atual
+                </label>
+                <input
+                  className={
+                    formData.error ? styles.errorformfield : styles.formfield
+                  }
+                  type="email"
+                  id="currentEmail"
+                  placeholder=" "
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      currentEmail: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div
+                className={`${styles.inputContainer} ${styles.labelaboveinput}`}
+              >
+                <label className={styles.profilelabel} htmlFor="newEmail">
+                  Novo e-mail
+                </label>
+                <input
+                  className={
+                    formData.error ? styles.errorformfield : styles.formfield
+                  }
+                  type="email"
+                  id="newEmail"
+                  placeholder=" "
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      newEmail: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+
+            <div className={styles.fieldgroup}>
+              <div
+                className={`${styles.inputContainer} ${styles.labelaboveinput}`}
+              >
+                <label className={styles.signuplabel} htmlFor="currentPassword">
+                  Senha atual
+                </label>
+                <div className={styles.passwordContainer}>
+                  <input
+                    className={
+                      formData.error ? styles.errorformfield : styles.formfield
+                    }
+                    type={formData.showCurrentPassword ? "text" : "password"}
+                    id="currentPassword"
+                    value={formData.currentPassword}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        currentPassword: e.target.value,
+                      })
+                    }
+                  />
+                  <div
+                    className={styles.iconContainer}
+                    onClick={toggleShowCurrentPassword}
+                  >
+                    {formData.showCurrentPassword ? (
+                      <FontAwesomeIcon
+                        icon={faEye}
+                        style={{ color: svgStyle }}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        className={styles.eyeIcon}
+                        style={{ color: svgStyle }}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`${styles.inputContainer} ${styles.labelaboveinput}`}
+              >
+                <label className={styles.signuplabel} htmlFor="newPassword">
+                  Nova senha
+                </label>
+                <div className={styles.passwordContainer}>
+                  <input
+                    className={
+                      formData.error ? styles.errorformfield : styles.formfield
+                    }
+                    type={formData.showNewPassword ? "text" : "password"}
+                    id="newPassword"
+                    value={formData.newPassword}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        newPassword: e.target.value,
+                      })
+                    }
+                  />
+                  <div
+                    className={styles.iconContainer}
+                    onClick={toggleShowNewPassword}
+                  >
+                    {formData.showNewPassword ? (
+                      <FontAwesomeIcon
+                        icon={faEye}
+                        style={{ color: svgStyle }}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faEyeSlash}
+                        className={styles.eyeIcon}
+                        style={{ color: svgStyle }}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
+      <div className={styles.fullcontent}>
+        <div className={styles.mainsection}>
+          <div className={styles.profileHeader}>
+            {displayImage}
+            <div className={styles.profileName}>
+              <div className={styles.nameContainer}>
+                <h1>{username} </h1>
+                <div className={styles.lvlcard}>
+                  <FontAwesomeIcon icon={faStar} style={{ color: "#6f9200" }} />
+                  <h3>Nvl 1000</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.cardssection}>
+            <div className={styles.maincard}>
+              <FontAwesomeIcon icon={faMedal} style={{ color: "#669f2d" }} />
+              <h3>Recompensas</h3>
+            </div>
+            <div className={styles.maincard} onClick={openModal}>
+              <FontAwesomeIcon icon={faGear} style={{ color: "#669f2d" }} />
+              <h3>Configurações</h3>
+            </div>
+          </div>
+        </div>
+        <div className={styles.medalssection}>
+          <div className={styles.mainsection}>
+            <div className={styles.medalsheader}>
+              <div className={styles.medalstitle}>
+                <FontAwesomeIcon icon={faStar} style={{ color: "#FFF" }} />
+                <h1>Medalhas</h1>
+              </div>
+              <div className={styles.medalinfoicon}>
+                <FontAwesomeIcon
+                  icon={faCircleInfo}
+                  style={{ color: "#FFF" }}
+                />
+              </div>
+            </div>
+            <div className={styles.medalicons}>
+              {medalsMock.map((m, index) => (
+                <div
+                  className={`${styles.medal} ${
+                    index >= maxMedals ? styles["hidden-medal"] : ""
+                  }`}
+                  key={index}
+                >
+                  <img src={m.medalIcon} alt={m.title} />
+                  <h3>{m.title}</h3>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className={styles.eventshistory}>
+          <div className={styles.mainsection}>
+            <div className={styles.historyheader}>
+              <div className={styles.historytitle}>
+                <FontAwesomeIcon icon={faClock} style={{ color: "#292525" }} />
+                <h1>Histórico de eventos</h1>
+              </div>
+            </div>
+            {eventData.loading ? (
+              <ClipLoader
+                color={"#000"}
+                loading={true}
+                size={100}
+                cssOverride={override}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : (
+              <div
+                className={`${styles.eventcardssection} ${styles["events-container"]}`}
+              >
+                {eventData.events.map((event: any) => (
+                  <EventCard
+                    eventInfo={{
+                      title: event.titulo,
+                      location: event.local,
+                      date: event.data,
+                      category: event.tipo,
+                      image: event.image
+                        ? `data:image/png;base64,${event.image}`
+                        : placeholderImage,
+                    }}
+                    clickAction={() => handleSwitchContext(event)}
+                    key={event.id}
+                  />
+                ))}
+
+                {eventData.events.length < 1 && (
+                  <h4>Nenhum evento encontrado.</h4>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

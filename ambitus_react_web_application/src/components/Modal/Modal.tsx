@@ -4,6 +4,7 @@ import styles from "./Modal.module.css";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
 import colors from "../../utils/colors/colors.module.css";
 import { useEffect } from "react";
+import { getDashContent } from "../../utils/contexts/dashboardAction";
 
 const modalRoot = document.getElementById("modal-root")!;
 
@@ -11,15 +12,23 @@ const Modal = ({ isOpen, children }: ModalProps) => {
   //theme control
   const { currentTheme } = useTheme();
 
-  console.log("Coming from modal.tsx");
-
   const modalStyle = currentTheme === "light" ? styles.modal : styles.darkmodal;
+
+  const { currentContent } = getDashContent();
+  const additionalModalStyle =
+    currentContent === "profile" ? styles.profilemodal : "";
+
+  const backStyle = currentContent === "profile" ? styles.backstyle : "";
 
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
     <div className={styles.modaloverlay}>
-      <div className={modalStyle}>{children}</div>
+      <div className={backStyle}>
+        <div className={`${modalStyle} ${additionalModalStyle}`}>
+          {children}
+        </div>
+      </div>
     </div>,
     modalRoot
   );

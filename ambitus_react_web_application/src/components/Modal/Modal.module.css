@@ -38,10 +38,6 @@
   color: var(--theme-green);
 }
 
-.modal div {
-  width: 20em;
-}
-
 .modal h6 {
   font-size: 0.8em;
   color: red;
@@ -133,4 +129,15 @@
 
 .darkmodal section:not(:has(img)) svg {
   display: block;
+}
+
+.profilemodal {
+  background: url("../../resources/img/dashboard-greenbg.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.backstyle {
+  background-color: var(--theme-white);
+  border-radius: 1em;
 }
