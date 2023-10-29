@@ -1,3 +1,3 @@
 import { ChangeEvent } from "react";
 
-export type SearchBarType = (e: ChangeEvent<HTMLInputElement>) => void;
+export type SearchBarType = (e: any) => void;

@@ -30,6 +30,53 @@ const EventsList = () => {
     setSearchValue(e.target.value);
   };
 
+  const handleFetchSearchEvents = (searchValue: string) => {
+    setEventData((prevData) => ({ ...prevData, loading: true, error: false }));
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetch(fetchEventsUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Erro na requisição");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const filteredEvents = data.filter((event: any) =>
+            event.titulo.toLowerCase().includes(searchValue.toLowerCase())
+          );
+
+          setEventData((prevData) => ({
+            ...prevData,
+            events: filteredEvents,
+            loading: false,
+          }));
+        })
+        .catch((error) => {
+          console.error(error);
+          setEventData((prevData) => ({
+            ...prevData,
+            error: true,
+            loading: false,
+          }));
+        });
+    } else {
+      setEventData((prevData) => ({
+        ...prevData,
+        error: true,
+        loading: false,
+      }));
+    }
+  };
+
   function formatCategoryString(category: string): string {
     const formattedCategory = category
       .normalize("NFD")
@@ -118,15 +165,20 @@ const EventsList = () => {
 
   useEffect(() => {
     setCurrentContent("events");
-    handleFetchEvents();
-  }, []);
+
+    if (searchValue) {
+      handleFetchSearchEvents(searchValue);
+    } else {
+      handleFetchEvents();
+    }
+  }, [searchValue]);
 
   //fetch events by category - type
   const handleFetchEventsByType = (selectedType: string | null) => {
     setEventData((prevData) => ({
       ...prevData,
       loading: true,
-      error: false, // Limpe o erro quando a solicitação começar.
+      error: false,
     }));
 
     const token = localStorage.getItem("token");
@@ -248,10 +300,15 @@ const EventsList = () => {
                   title: event.titulo,
                   location: event.local,
                   date: event.data,
-                  category: event.tipo,
+                  category:
+                    event.tipo == "CONSERVACAO_DE_ESPECIES"
+                      ? "CONSERVAÇÃO"
+                      : event.tipo == "CONSCIENTIZACAO_E_EDUCACAO"
+                      ? "CONSCIENTIZAÇÃO"
+                      : event.tipo,
                   image: event.image
                     ? `data:image/png;base64,${event.image}`
-                    : placeholderImage,
+                    : mockImage,
                 }}
                 clickAction={() => handleSwitchContext(event)}
                 key={event.id}

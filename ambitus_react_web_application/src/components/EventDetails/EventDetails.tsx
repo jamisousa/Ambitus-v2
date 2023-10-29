@@ -385,7 +385,13 @@ const EventDetails = (props: any) => {
                   <h2>Descrição</h2>
                   <p>{descricao}</p>
                   <div className={styles.greenroundedcard}>
-                    <h3>{tipo}</h3>
+                    <h3>
+                      {tipo == "CONSERVACAO_DE_ESPECIES"
+                        ? "CONSERVAÇÃO"
+                        : tipo == "CONSCIENTIZACAO_E_EDUCACAO"
+                        ? "CONSCIENTIZAÇÃO"
+                        : tipo}
+                    </h3>
                   </div>
                   <div className={styles.rewardsblock}>
                     <h2>Recompensas</h2>

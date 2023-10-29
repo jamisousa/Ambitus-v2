@@ -444,7 +444,12 @@ const Profile = () => {
                       title: event.titulo,
                       location: event.local,
                       date: event.data,
-                      category: event.tipo,
+                      category:
+                        event.tipo == "CONSERVACAO_DE_ESPECIES"
+                          ? "CONSERVAÇÃO"
+                          : event.tipo == "CONSCIENTIZACAO_E_EDUCACAO"
+                          ? "CONSCIENTIZAÇÃO"
+                          : event.tipo,
                       image: event.image
                         ? `data:image/png;base64,${event.image}`
                         : placeholderImage,
