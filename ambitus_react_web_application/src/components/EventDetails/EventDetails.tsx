@@ -310,7 +310,11 @@ const EventDetails = (props: any) => {
                       alt="Imagem do evento"
                     />
                   ) : (
-                    <img src={mockImage} alt="Imagem de mock" />
+                    <img
+                      src={mockImage}
+                      alt="Imagem de mock"
+                      draggable="false"
+                    />
                   )}
                 </div>
                 <div className={styles.primaryinformation}>

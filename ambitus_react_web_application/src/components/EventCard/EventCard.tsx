@@ -28,7 +28,7 @@ const EventCard = (props: EventCardProps) => {
     <div className={`${styles.fullsection} ${textStyle}`}>
       <div className={styles.cardcontent} onClick={props.clickAction}>
         <div className={styles.cardimage}>
-          <img src={props.eventInfo.image} />
+          <img src={props.eventInfo.image} draggable="false" />
         </div>
         <div className={styles.cardinformation}>
           <div className={styles.cardtitle}>

@@ -256,7 +256,11 @@ const SignUpForm = () => {
                 style={{ padding: formData.selectedImage ? 0 : "1em" }}
               >
                 {formData.selectedImage ? (
-                  <img src={formData.selectedImage} alt="Selected Profile" />
+                  <img
+                    src={formData.selectedImage}
+                    alt="Selected Profile"
+                    draggable="false"
+                  />
                 ) : (
                   <>
                     <FontAwesomeIcon

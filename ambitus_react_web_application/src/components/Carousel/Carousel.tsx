@@ -68,17 +68,17 @@ const IntroCarousel = () => {
             showIndicators={true}
           >
             <div>
-              <img src={carousel1} alt="Imagem Carrosel 1" />
+              <img src={carousel1} alt="Imagem Carrosel 1" draggable="false" />
               <h1>{carouselPlaceholders[0].title}</h1>
               <h2>{carouselPlaceholders[0].descripton}</h2>
             </div>
             <div>
-              <img src={carousel2} alt="Imagem Carrosel 2" />
+              <img src={carousel2} alt="Imagem Carrosel 2" draggable="false" />
               <h1>{carouselPlaceholders[0].title}</h1>
               <h2>{carouselPlaceholders[0].descripton}</h2>
             </div>
             <div>
-              <img src={carousel3} alt="Imagem Carrosel 3" />
+              <img src={carousel3} alt="Imagem Carrosel 3" draggable="false" />
               <h1>{carouselPlaceholders[0].title}</h1>
               <h2>{carouselPlaceholders[0].descripton}</h2>
             </div>

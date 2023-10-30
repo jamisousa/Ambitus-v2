@@ -12,6 +12,7 @@ import {
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
+import { useNavigate } from "react-router-dom";
 
 const AccessNavbar = (props: NavbarProps) => {
   const { currentTheme } = useTheme();
@@ -57,13 +58,27 @@ const AccessNavbar = (props: NavbarProps) => {
       : "";
   }, [currentContent]);
 
+  const navigate = useNavigate();
+
   return props.navbarType == "clean" ? (
     <div className={navbarcolor}>
-      <img src={navbarImage} />
+      <img
+        src={navbarImage}
+        draggable="false"
+        onClick={() => {
+          navigate("/login");
+        }}
+      />
     </div>
   ) : (
     <div className={`${navbarcolor} ${styles.navbarsection}`}>
-      <img src={image} />
+      <img
+        src={image}
+        draggable="false"
+        onClick={() => {
+          navigate("/dashboard");
+        }}
+      />
       <div className={styles.icongroup}>
         <FontAwesomeIcon
           icon={faHouse}

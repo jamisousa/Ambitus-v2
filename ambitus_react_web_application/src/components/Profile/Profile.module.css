@@ -205,7 +205,7 @@
 }
 
 .modalinfo img:hover {
-  border: 0.5em solid var(--theme-green);
+  border: 0.5em solid var(--theme-white);
   transition: ease 0.2s;
 }
 

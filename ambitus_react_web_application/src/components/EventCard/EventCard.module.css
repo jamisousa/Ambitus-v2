@@ -29,6 +29,7 @@
 .cardcontent {
   display: flex;
   text-align: left;
+  cursor: pointer;
 }
 
 .cardinformation {

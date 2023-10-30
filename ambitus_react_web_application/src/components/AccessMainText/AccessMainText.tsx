@@ -14,7 +14,7 @@ const AccessMainText = (props: AccessMainTextProps) => {
   return (
     <div className={`${styles.mainsection}`}>
       <div className={styles.textsection}>
-        <img src={greenbrand} />
+        <img src={greenbrand} draggable="false" />
         <h4 className={textStyle}>Tornando o mundo um lugar melhor hoje </h4>
       </div>
 

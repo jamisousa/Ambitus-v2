@@ -2,8 +2,6 @@ import ReactDOM from "react-dom";
 import { ModalProps } from "../../types/ModalType";
 import styles from "./Modal.module.css";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
-import colors from "../../utils/colors/colors.module.css";
-import { useEffect } from "react";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
 
 const modalRoot = document.getElementById("modal-root")!;

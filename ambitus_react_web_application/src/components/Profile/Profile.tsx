@@ -67,9 +67,9 @@ const Profile = () => {
   const [isEditingUsername, setIsEditingUsername] = useState(false);
 
   const displayImage = image ? (
-    <img src={image} alt="Imagem do usuário" />
+    <img src={image} alt="Imagem do usuário" draggable="false" />
   ) : (
-    <img src={mockImage} alt="Imagem de mock" />
+    <img src={mockImage} alt="Imagem de mock" draggable="false" />
   );
 
   // TODO: fetch events when user is NOT the owner
@@ -464,7 +464,7 @@ const Profile = () => {
                   }`}
                   key={index}
                 >
-                  <img src={m.medalIcon} alt={m.title} />
+                  <img src={m.medalIcon} alt={m.title} draggable="false" />
                   <h3>{m.title}</h3>
                 </div>
               ))}
