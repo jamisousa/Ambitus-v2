@@ -17,6 +17,7 @@
   padding: 2em;
   border-radius: 1em;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  height: 22em;
 }
 
 .modal button {
@@ -51,7 +52,6 @@
   justify-content: center;
   border-radius: 100%;
   width: 7.5em;
-  height: 7.5em;
   text-align: center;
   margin: 2em auto;
   border: 1px solid var(--theme-green);
@@ -67,6 +67,10 @@
 
 .modal section:not(:has(img)) svg {
   display: block;
+}
+
+.profilemodal {
+  height: 30em;
 }
 
 .darkmodal {
