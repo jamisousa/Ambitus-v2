@@ -283,7 +283,9 @@
 
 .usernameinfo input {
   padding: 2em;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   margin-top: 7em;
   color: black;
+  background-color: transparent;
+  border-radius: 0.5em;
 }

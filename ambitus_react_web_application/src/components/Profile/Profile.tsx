@@ -13,7 +13,7 @@ import {
   faSquarePen,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import medalPlaceholder from "../../resources/img/MedalPlaceholder.svg";
 import EventCard from "../EventCard/EventCard";
@@ -53,6 +53,7 @@ const Profile = () => {
     fullname: "",
     newFullname: "",
     image: "",
+    newImage: "",
     currentPassword: "",
     newPassword: "",
     showCurrentPassword: false,
@@ -66,7 +67,7 @@ const Profile = () => {
   const [isEditingUsername, setIsEditingUsername] = useState(false);
 
   const displayImage = image ? (
-    <img src={image} alt="Imagem do evento" />
+    <img src={image} alt="Imagem do usuário" />
   ) : (
     <img src={mockImage} alt="Imagem de mock" />
   );
@@ -208,6 +209,30 @@ const Profile = () => {
   const { currentTheme } = useTheme();
   const svgStyle = currentTheme == "light" ? "#000" : "#FFF";
 
+  //file upload handle
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        if (event.target) {
+          const base64Data = event.target.result as string;
+
+          setFormData((prevData) => ({
+            ...prevData,
+            newImage: base64Data,
+          }));
+
+          localStorage.setItem("user_image", base64Data);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <>
       {isModalOpen ? (
@@ -219,9 +244,17 @@ const Profile = () => {
             <div className={styles.modalinfo}>
               <div className={styles.userimageinfo}>
                 {displayImage}
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleFileUpload}
+                />
                 <FontAwesomeIcon
                   icon={faSquarePen}
                   style={{ color: "#6f9200" }}
+                  onClick={() => document.getElementById("fileInput")?.click()}
                 />
               </div>
               <div className={styles.usernameinfo}>
@@ -388,7 +421,9 @@ const Profile = () => {
             {displayImage}
             <div className={styles.profileName}>
               <div className={styles.nameContainer}>
-                <h1>{username} </h1>
+                <h1>
+                  {formData.newFullname ? formData.newFullname : username}{" "}
+                </h1>
                 <div className={styles.lvlcard}>
                   <FontAwesomeIcon icon={faStar} style={{ color: "#6f9200" }} />
                   <h3>Nvl 1000</h3>
