@@ -280,3 +280,10 @@
   top: -2.5em;
   cursor: pointer;
 }
+
+.usernameinfo input {
+  padding: 2em;
+  border: 1px solid #ccc;
+  margin-top: 7em;
+  color: black;
+}

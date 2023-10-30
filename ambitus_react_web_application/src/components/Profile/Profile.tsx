@@ -51,6 +51,7 @@ const Profile = () => {
     currentEmail: "",
     newEmail: "",
     fullname: "",
+    newFullname: "",
     image: "",
     currentPassword: "",
     newPassword: "",
@@ -62,6 +63,7 @@ const Profile = () => {
   const [isModalLoading, setIsModalLoading] = useState(false);
   const maxMedals = 6;
   const medalsToShow = medalsMock.slice(0, maxMedals);
+  const [isEditingUsername, setIsEditingUsername] = useState(false);
 
   const displayImage = image ? (
     <img src={image} alt="Imagem do evento" />
@@ -223,10 +225,27 @@ const Profile = () => {
                 />
               </div>
               <div className={styles.usernameinfo}>
-                <h2>{username}</h2>
+                {formData.newFullname === "" && !isEditingUsername && (
+                  <h2>{username}</h2>
+                )}
+                {isEditingUsername ? (
+                  <input
+                    type="text"
+                    value={formData.newFullname}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        newFullname: e.target.value,
+                      })
+                    }
+                  />
+                ) : (
+                  <h2>{formData.newFullname}</h2>
+                )}
                 <FontAwesomeIcon
                   icon={faSquarePen}
                   style={{ color: "#6f9200" }}
+                  onClick={() => setIsEditingUsername(!isEditingUsername)}
                 />
               </div>
             </div>
