@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type DashContent = "events" | "event-details" | "profile";
+type DashContent = "events" | "event-details" | "profile" | "home";
 
 type DashContextType = {
   currentContent: DashContent;
@@ -12,7 +12,7 @@ type DashContextType = {
 const DashContext = createContext<DashContextType | undefined>(undefined);
 
 export function DashContentProvider({ children }: { children: ReactNode }) {
-  const [currentContent, setCurrentContent] = useState<DashContent>("events");
+  const [currentContent, setCurrentContent] = useState<DashContent>("home");
   const [currentEvent, setCurrentEvent] = useState<string>("");
   return (
     <DashContext.Provider

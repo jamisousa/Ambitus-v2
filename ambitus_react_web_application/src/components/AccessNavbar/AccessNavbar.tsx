@@ -45,6 +45,8 @@ const AccessNavbar = (props: NavbarProps) => {
       ? setCurrentContent("events")
       : iconName == "user"
       ? setCurrentContent("profile")
+      : iconName == "house"
+      ? setCurrentContent("home")
       : "";
   };
 

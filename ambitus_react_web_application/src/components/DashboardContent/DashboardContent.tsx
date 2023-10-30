@@ -4,6 +4,7 @@ import EventDetails from "../EventDetails/EventDetails";
 import EventsList from "../EventsList/EventsList";
 import Profile from "../Profile/Profile";
 import { useEffect } from "react";
+import DashboardHome from "../DashboardHome/DashboardHome";
 
 const DashboardContent = () => {
   const { currentContent, currentEvent } = getDashContent();
@@ -27,6 +28,8 @@ const DashboardContent = () => {
         <EventDetails eventinfo={currentEvent} />
       ) : currentContent === "profile" ? (
         <Profile />
+      ) : currentContent === "home" ? (
+        <DashboardHome />
       ) : (
         ""
       )}
