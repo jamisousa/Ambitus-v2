@@ -1,0 +1,270 @@
+.fullcontent {
+  background: url("../../resources/img/dashboard-green-bg2.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0px -5em;
+  height: 100vh;
+  width: 100%;
+}
+.maincontent {
+  padding: 1.5em 15em;
+}
+
+.darktext h1,
+.darktext h2,
+.darktext h3,
+.darktext h4,
+.darktext h5,
+.darktext h6,
+.darktext p,
+.darktext label {
+  color: var(--ltheme-background) !important;
+}
+
+.contentfirstblock {
+  padding-top: 2em;
+}
+
+.header {
+  font-weight: 300;
+  color: var(--theme-white);
+  text-align: center;
+  margin: auto;
+  padding-top: 4em;
+}
+
+.header button {
+  position: relative;
+  right: 50em;
+  bottom: 2.5em;
+  border-radius: 100%;
+  padding: 1em;
+  width: 3.5%;
+  background-color: var(--ltheme-background);
+}
+
+.header button svg {
+  height: 1.5em;
+}
+
+.cardimage {
+  max-width: 25%;
+  border-radius: 0.5em;
+}
+
+.cardimage img {
+  width: 100%;
+  border-radius: 0.5em;
+  border: 2px solid var(--theme-green);
+}
+
+.cardtitle {
+  margin-top: 1.5em;
+}
+
+.cardlocation {
+  display: flex;
+  display: flex;
+  align-items: center;
+}
+
+.cardlocation h4 {
+  color: #595957;
+}
+
+.carddate {
+  display: flex;
+  align-items: center;
+  margin-top: -1.5em;
+}
+
+.carddate h4 {
+  color: #595957;
+}
+
+.cardauthor {
+  display: flex;
+  align-items: center;
+  margin-top: -1.5em;
+}
+
+.cardauthor h4 {
+  color: #595957;
+}
+
+.cardauthor span {
+  color: var(--theme-green);
+}
+
+.primaryfirstblock svg {
+  height: 1.5em;
+  margin-right: 1em;
+  width: 2em;
+}
+
+.primaryinformation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.primarysecondblock {
+  padding-right: 10em;
+}
+
+.primarysecondblock button {
+  padding: 1.5em;
+  color: var(--theme-green);
+  width: 25em;
+  background-color: rgb(111, 146, 0, 0.3);
+  border-radius: 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.primarysecondblock button svg {
+  margin-right: 0.5em;
+}
+
+.bottombuttontext {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  margin-top: 0.2em;
+  text-align: center;
+  color: var(--theme-green);
+}
+
+.bottombuttontext svg {
+  margin-right: 0.5em;
+}
+
+.primarysecondblock {
+  padding-right: 10em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.primarysecondblock button {
+  padding: 1.5em;
+  color: var(--theme-green);
+  width: 25em;
+  background-color: rgb(111, 146, 0, 0.3);
+  border-radius: 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.primarysecondblock button svg {
+  margin-right: 0.5em;
+}
+
+.descriptionsection {
+  border: 1px solid var(--theme-green);
+  border-radius: 0.5em;
+  margin-top: 2em;
+}
+.descriptionbody {
+  color: var(--ltheme-darkgray);
+  padding: 1.2em;
+}
+
+.descriptionbody h2 {
+  padding-bottom: 0.5em;
+}
+
+.greenroundedcard {
+  margin-top: 1.2em;
+  background-color: rgb(111, 146, 0, 0.3);
+  color: var(--theme-green);
+  border-radius: 1em;
+  width: fit-content;
+  padding: 0em 2em;
+  margin-bottom: 2em;
+}
+
+.couponblock {
+  display: flex;
+  align-items: center;
+}
+
+.couponblock > * {
+  margin-right: 1em;
+}
+
+.couponblock h3 {
+  line-height: 2em;
+  color: var(--theme-green);
+}
+
+.participantssection {
+  border: 1px solid var(--theme-green);
+  border-radius: 0.5em;
+  margin-top: 2em;
+  padding: 1.2em;
+}
+
+.cancelbutton {
+  margin: auto;
+  text-align: center;
+}
+
+.cancelbutton button {
+  margin-top: 3.5em;
+  padding: 1.5em;
+  border: 1px solid #ff3332;
+  border-radius: 0.5em;
+  width: 35%;
+  display: inline-flex;
+  color: #ff3332;
+  background-color: rgb(255, 46, 46, 0.1);
+  align-items: center;
+  justify-content: center;
+}
+
+.cancelbutton svg {
+  margin-right: 1em;
+}
+
+.confirmcancel {
+  margin: auto;
+  text-align: center;
+}
+
+.confirmcancel button {
+  margin-top: 3.5em;
+  padding: 1em;
+  border: 1px solid #ff3332;
+  border-radius: 0.5em;
+  width: 100%;
+  display: inline-flex;
+  color: #ff3332;
+  background-color: rgb(255, 46, 46, 0.1);
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+}
+
+.confirmcancel svg {
+  margin-right: 1em;
+}
+
+.modalinfo {
+  text-align: left;
+  padding: 1em;
+  font-size: 1.2em;
+}
+
+.modalinfo h3 {
+  color: red;
+}
+
+.modalaside {
+  text-align: left;
+  padding: 1em;
+  font-size: 1.2em;
+  width: 25em;
+}
+.modalaside p:nth-child(2) {
+  padding-top: 0.6em;
+}

@@ -1,11 +1,11 @@
+import { useEffect } from "react";
 import AccessNavbar from "../../components/AccessNavbar/AccessNavbar";
-import PlantsDetail from "../../components/PlantsDetail/PlantsDetail";
+import DashboardContent from "../../components/DashboardContent/DashboardContent";
+import { DashContentProvider } from "../../utils/contexts/dashboardAction";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
 import colors from "../../utils/colors/colors.module.css";
-import { useEffect } from "react";
-import IntroCarousel from "../../components/Carousel/Carousel";
 
-const IntroductionPage = () => {
+const DashboardPage = () => {
   //theme control
   const { currentTheme } = useTheme();
 
@@ -19,12 +19,10 @@ const IntroductionPage = () => {
   }, [currentTheme]);
 
   return (
-    <>
-      <AccessNavbar navbarType={"clean"} />
-      <PlantsDetail />
-      <IntroCarousel />
-    </>
+    <DashContentProvider>
+      <AccessNavbar navbarType={"withIcons"} />
+      <DashboardContent />
+    </DashContentProvider>
   );
 };
-
-export default IntroductionPage;
+export default DashboardPage;

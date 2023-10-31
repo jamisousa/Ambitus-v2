@@ -6,13 +6,14 @@ import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import styles from "./SignUpForm.module.css";
 import image from "../../resources/img/google.png";
-import SignUpModal from "../SignUpModal/SignUpModal";
+import Modal from "../Modal/Modal";
 import {
   validDate,
   validEmail,
   validName,
   validPassword,
 } from "../../utils/regex/Regex";
+import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -34,6 +35,7 @@ const SignUpForm = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const genders = ["Masculino", "Feminino", "Outro"];
   const navigate = useNavigate();
+  const { currentTheme } = useTheme();
 
   //portal control
   const openModal = () => {
@@ -42,6 +44,28 @@ const SignUpForm = () => {
 
   const closeModal = () => {
     setFormData((prevData) => ({ ...prevData, isModalOpen: false }));
+  };
+
+  //file upload handle
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        if (event.target) {
+          const base64Data = event.target.result as string;
+
+          setFormData((prevData) => ({
+            ...prevData,
+            selectedImage: base64Data,
+          }));
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
   //validate initial information before modal opens
@@ -62,25 +86,12 @@ const SignUpForm = () => {
     }
   };
 
-  //file upload information
-  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (file) {
-      setFormData((prevData) => ({
-        ...prevData,
-        selectedImage: URL.createObjectURL(file),
-      }));
-    }
-  };
-
   //validates additional information (modal information)
   const validateAdditionalInformation = () => {
     setFormData((prevData) => ({ ...prevData, loading: true }));
     const initialValidation = validateInformation();
     if (initialValidation) {
       const cleanedBirthDate = formData.birthDate.replace(/[^0-9-]/g, "");
-
       if (
         !validDate.test(cleanedBirthDate) ||
         formData.gender.length < 1 ||
@@ -92,7 +103,7 @@ const SignUpForm = () => {
           modalError: true,
         }));
       } else {
-        navigate("/introduction");
+        handleSignUpRequest();
       }
     }
     setFormData((prevData) => ({ ...prevData, loading: false }));
@@ -141,10 +152,88 @@ const SignUpForm = () => {
     }));
   };
 
+  const calcAge = (birthDate: string): number => {
+    const userBirthDate = new Date(formData.birthDate);
+    const currentDate = new Date();
+
+    const userYear = userBirthDate.getFullYear();
+    const currentYear = currentDate.getFullYear();
+
+    let age = currentYear - userYear;
+
+    const userMonth = userBirthDate.getMonth();
+    const userDay = userBirthDate.getDate();
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate();
+
+    if (
+      currentMonth < userMonth ||
+      (currentMonth === userMonth && currentDay < userDay)
+    ) {
+      age--;
+    }
+
+    return age;
+  };
+
+  //call sign up request
+  const signUpUrl =
+    "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/cadastro";
+
+  const handleSignUpRequest = () => {
+    setFormData((prevData) => ({ ...prevData, loading: true }));
+
+    const age = calcAge(formData.birthDate);
+
+    const bodyData = {
+      nome: formData.fullname,
+      idade: age,
+      sexo: formData.gender[0],
+      email: formData.email,
+      senha: formData.password,
+      image: formData.selectedImage,
+    };
+
+    fetch(signUpUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyData),
+    })
+      .then((response) => {
+        setFormData((prevData) => ({ ...prevData, loading: true }));
+
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        } else {
+          navigate("/introduction");
+        }
+        return response.json() as Promise<any>;
+      })
+      .catch((e) => {
+        setFormData((prevData) => ({ ...prevData, error: true }));
+      });
+    setFormData((prevData) => ({ ...prevData, loading: false }));
+  };
+
+  //styles
+  const formStyle = formData.error
+    ? styles.errorformfield
+    : currentTheme == "light"
+    ? styles.formfield
+    : `${styles.formfield} ${styles.darkformattributes}`;
+
+  const textStyle = `${styles.mainsection} ${
+    currentTheme === "light" ? styles.lighttext : styles.darktext
+  }`;
+
+  const svgStyle = currentTheme == "light" ? "#000" : "#FFF";
+
   return (
-    <div className={styles.mainsection}>
+    <div className={`${styles.mainsection} ${textStyle}`}>
       {formData.isModalOpen && (
-        <SignUpModal isOpen={formData.isModalOpen} onClose={closeModal}>
+        <Modal isOpen={formData.isModalOpen} onClose={closeModal}>
           <button onClick={closeModal} className={styles.modalclosebutton}>
             X
           </button>
@@ -167,7 +256,11 @@ const SignUpForm = () => {
                 style={{ padding: formData.selectedImage ? 0 : "1em" }}
               >
                 {formData.selectedImage ? (
-                  <img src={formData.selectedImage} alt="Selected Profile" />
+                  <img
+                    src={formData.selectedImage}
+                    alt="Selected Profile"
+                    draggable="false"
+                  />
                 ) : (
                   <>
                     <FontAwesomeIcon
@@ -247,7 +340,7 @@ const SignUpForm = () => {
               </div>
             </>
           )}
-        </SignUpModal>
+        </Modal>
       )}
 
       <h1>Que bom que está aqui!</h1>
@@ -331,12 +424,12 @@ const SignUpForm = () => {
                   onClick={toggleShowPassword}
                 >
                   {formData.showPassword ? (
-                    <FontAwesomeIcon data-test="password-toggle" icon={faEye} />
+                    <FontAwesomeIcon icon={faEye} style={{ color: svgStyle }} />
                   ) : (
                     <FontAwesomeIcon
                       icon={faEyeSlash}
                       className={styles.eyeIcon}
-                      data-test="password-second-toggle"
+                      style={{ color: svgStyle }}
                     />
                   )}
                 </span>
@@ -367,11 +460,12 @@ const SignUpForm = () => {
                   onClick={toggleShowRepeatPassword}
                 >
                   {formData.showRepeatPassword ? (
-                    <FontAwesomeIcon icon={faEye} />
+                    <FontAwesomeIcon icon={faEye} style={{ color: svgStyle }} />
                   ) : (
                     <FontAwesomeIcon
                       icon={faEyeSlash}
                       className={styles.eyeIcon}
+                      style={{ color: svgStyle }}
                     />
                   )}
                 </span>

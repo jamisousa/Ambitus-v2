@@ -1,15 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import LoginPage from './pages/LoginPage/LoginPage.tsx';
-import { ThemeProvider } from './utils/contexts/globalThemeContext.tsx';
-import SignUpPage from './pages/SignUpPage/SignUpPage.tsx';
-import IntroductionPage from './pages/IntroductionPage/IntroductionPage.tsx';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from "./pages/LoginPage/LoginPage.tsx";
+import { ThemeProvider } from "./utils/contexts/globalThemeContext.tsx";
+import SignUpPage from "./pages/SignUpPage/SignUpPage.tsx";
+import IntroductionPage from "./pages/IntroductionPage/IntroductionPage.tsx";
+import DashboardPage from "./pages/DashboardPage/DashboardPage.tsx";
+import { DashContentProvider } from "./utils/contexts/dashboardAction.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,12 +27,18 @@ const router = createBrowserRouter([
     path: "/introduction",
     element: <IntroductionPage />,
   },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
+  },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-      <ThemeProvider>
+    <ThemeProvider>
+      <DashContentProvider>
         <RouterProvider router={router} />
-      </ThemeProvider>
-  </React.StrictMode>,
-)
+      </DashContentProvider>
+    </ThemeProvider>
+  </React.StrictMode>
+);

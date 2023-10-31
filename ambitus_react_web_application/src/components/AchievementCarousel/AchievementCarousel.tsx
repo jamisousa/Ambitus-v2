@@ -1,42 +1,33 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
-import carousel1 from "../../resources/img/Carousel1.svg";
-import carousel2 from "../../resources/img/Carousel2.svg";
-import carousel3 from "../../resources/img/Carousel3.svg";
-import styles from "./Carousel.module.css";
+import styles from "./AchievementCarousel.module.css";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
+import medalPlaceholder from "../../resources/img/MedalPlaceholder.svg";
 
-const IntroCarousel = () => {
-  const navigate = useNavigate();
+const AchievementCarousel = () => {
   const [loading, setLoading] = useState(false);
 
   //carousel control
   const [curIndex, setCurIndex] = useState<number>(0);
 
+  const carouselPlaceholders = [
+    { title: "Iniciante Ambiental", medalIcon: medalPlaceholder },
+    { title: "Ativista Compromissado", medalIcon: medalPlaceholder },
+    { title: "Ecológico Experiente", medalIcon: medalPlaceholder },
+    { title: "Protetor da Floresta", medalIcon: medalPlaceholder },
+    { title: "Ecológico Experiente", medalIcon: medalPlaceholder },
+    { title: "Explorador Nato", medalIcon: medalPlaceholder },
+    { title: "Consciente sempre", medalIcon: medalPlaceholder },
+    { title: "Reciclagem de respeito", medalIcon: medalPlaceholder },
+  ];
+
   const handleChangeCurIndex = (index: number) => {
     setCurIndex(index);
-
-    if (curIndex == 2) {
-      setTimeout(() => {
-        setLoading(true);
-        setTimeout(() => {
-          navigate("/login");
-        }, 4000);
-      }, 4000);
-    }
   };
-
-  const carouselPlaceholders = [
-    {
-      title: "Encontre eventos e ações da comunidade!",
-      descripton:
-        "Encontre os eventos e ações da comunidade que estão acontecendo perto de você e participe daqueles que mais te engajam.",
-    },
-  ];
 
   //styles
   const { currentTheme } = useTheme();
@@ -44,7 +35,9 @@ const IntroCarousel = () => {
     currentTheme === "light" ? styles.whitetext : styles.darktext;
 
   return (
-    <div className={`${styles.carouselsection} ${textStyle}`}>
+    <div
+      className={`${styles.carouselsection} ${textStyle} ${styles["carousel-container"]}`}
+    >
       {loading ? (
         <div className={styles.loadersection}>
           <ClipLoader
@@ -67,21 +60,18 @@ const IntroCarousel = () => {
             showThumbs={false}
             showIndicators={true}
           >
-            <div>
-              <img src={carousel1} alt="Imagem Carrosel 1" draggable="false" />
-              <h1>{carouselPlaceholders[0].title}</h1>
-              <h2>{carouselPlaceholders[0].descripton}</h2>
-            </div>
-            <div>
-              <img src={carousel2} alt="Imagem Carrosel 2" draggable="false" />
-              <h1>{carouselPlaceholders[0].title}</h1>
-              <h2>{carouselPlaceholders[0].descripton}</h2>
-            </div>
-            <div>
-              <img src={carousel3} alt="Imagem Carrosel 3" draggable="false" />
-              <h1>{carouselPlaceholders[0].title}</h1>
-              <h2>{carouselPlaceholders[0].descripton}</h2>
-            </div>
+            {carouselPlaceholders.map((i) => {
+              const isLongText = i.title.length > 20;
+              const itemClasses = isLongText
+                ? `${styles.carouselItem} ${styles["long-text"]}`
+                : styles.carouselItem;
+              return (
+                <div className={itemClasses}>
+                  <img src={i.medalIcon} alt="Medalha" draggable="false" />
+                  <h1>{i.title}</h1>
+                </div>
+              );
+            })}
           </Carousel>
           <div className={styles.carouselindicators}>
             {[0, 1, 2].map((index) => (
@@ -99,4 +89,4 @@ const IntroCarousel = () => {
   );
 };
 
-export default IntroCarousel;
+export default AchievementCarousel;

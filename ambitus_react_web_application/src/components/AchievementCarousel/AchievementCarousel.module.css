@@ -1,11 +1,27 @@
 .carouselsection {
-  width: 35%;
-  height: 25%;
   margin: auto;
 }
 
+.carousel-container {
+  margin: 0 auto;
+  max-width: 20%;
+}
+
 .carouselsection div h1 {
-  padding: 1em 2em;
+  padding: 1em;
+  text-align: center;
+  color: var(--theme-white);
+}
+
+.carouselsection div {
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1em;
+}
+
+.carouselsection div.long-text {
+  font-size: 12px;
 }
 
 .carouselsection div h2 {

@@ -1,0 +1,88 @@
+.whitetext h2,
+.whitetext h4,
+.whitetext h5,
+.whitetext h6,
+.whitetext p {
+  color: black;
+}
+
+.darktext h3,
+.whitetext h3 {
+  color: var(--theme-green);
+}
+
+.darktext h1,
+.darktext h2,
+.darktext h4,
+.darktext h5,
+.darktext h6,
+.darktext p,
+.darktext label {
+  color: var(--ltheme-background) !important;
+}
+
+.fullsection {
+  color: #292525;
+  padding: 2em 0em;
+}
+
+.cardcontent {
+  display: flex;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cardinformation {
+  width: 70%;
+}
+
+.cardimage img {
+  max-width: 8em;
+  max-height: 8em;
+  margin-right: 1em;
+  margin-top: 0.5em;
+  border: 2px solid var(--theme-green);
+  border-radius: 1em;
+}
+
+.cardlocation {
+  display: flex;
+  display: flex;
+  align-items: center;
+}
+
+.cardlocation h4 {
+  color: #595957;
+}
+
+.carddate {
+  display: flex;
+  align-items: center;
+  margin-top: -1.5em;
+}
+
+.carddate h4 {
+  color: #595957;
+}
+
+.cardcontent svg {
+  height: 1.5em;
+  margin-right: 1em;
+}
+
+.categorycard {
+  background-color: rgb(111, 146, 0, 0.3);
+  color: var(--theme-green);
+  border-radius: 1em;
+  width: fit-content;
+  padding: 0em 2em;
+}
+
+.cardchevron {
+  margin-left: 2em;
+  margin-top: 20%;
+}
+
+.cardchevroncompressed {
+  display: none;
+}

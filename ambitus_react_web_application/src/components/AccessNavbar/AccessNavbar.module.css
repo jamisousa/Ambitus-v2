@@ -1,3 +1,27 @@
 .mainsection {
   padding: 1em;
 }
+
+.navbarsection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icongroup {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 50%;
+  position: relative;
+}
+
+.icongroup > * {
+  margin-left: 4em;
+  margin-right: 4em;
+}
+
+.icongroup svg {
+  padding: 1em;
+  height: 2em;
+}
