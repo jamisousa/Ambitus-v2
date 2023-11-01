@@ -424,12 +424,17 @@ const SignUpForm = () => {
                   onClick={toggleShowPassword}
                 >
                   {formData.showPassword ? (
-                    <FontAwesomeIcon icon={faEye} style={{ color: svgStyle }} />
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      style={{ color: svgStyle }}
+                      data-test="password-toggle"
+                    />
                   ) : (
                     <FontAwesomeIcon
                       icon={faEyeSlash}
                       className={styles.eyeIcon}
                       style={{ color: svgStyle }}
+                      data-test="password-second-toggle"
                     />
                   )}
                 </span>
