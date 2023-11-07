@@ -432,6 +432,7 @@ const SignUpForm = () => {
                     icon={faEyeSlash}
                       className={styles.eyeIcon}
                       style={{ color: svgStyle }}
+                      data-test="password-second-toggle"
                     />
                   )}
                 </span>
