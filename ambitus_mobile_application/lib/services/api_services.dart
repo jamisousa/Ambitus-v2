@@ -7,7 +7,7 @@ final storage = FlutterSecureStorage();
 Future<http.Response> signUpUser(name, age, gender, email, pwd, image) {
   return http.post(
     Uri.parse(
-        "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/usuario/cadastro"),
+        "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/cadastro"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -25,7 +25,7 @@ Future<http.Response> signUpUser(name, age, gender, email, pwd, image) {
 Future<http.Response> loginUser(email, pwd) {
   return http.post(
     Uri.parse(
-        'http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/usuario/login'),
+        'http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -40,7 +40,7 @@ Future<http.Response> signUpEvent(
     title, description, place, date, time, type, image, token) {
   return http.post(
     Uri.parse(
-        "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos/cadastro"),
+        "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/cadastro"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': token,
@@ -59,7 +59,7 @@ Future<http.Response> signUpEvent(
 
 Future<http.Response> getEvents(String token) async {
   var url = Uri.parse(
-      "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos");
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos");
 
   var response = await http.get(
     url,
@@ -74,7 +74,7 @@ Future<http.Response> getEvents(String token) async {
 
 Future<http.Response> sendEventSubscription(String token, int id) async {
   var url = Uri.parse(
-      "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos/inscricao/$id");
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/inscricao/$id");
 
   var response = await http.put(
     url,
@@ -89,7 +89,7 @@ Future<http.Response> sendEventSubscription(String token, int id) async {
 
 Future<http.Response> getEventByType(String token, String type) async {
   var url = Uri.parse(
-      "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos/$type");
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/$type");
 
   var response = await http.get(
     url,
@@ -104,7 +104,7 @@ Future<http.Response> getEventByType(String token, String type) async {
 
 Future<http.Response> getEventParticipants(String token, int id) async {
   var url = Uri.parse(
-      "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos/participantes/$id");
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/participantes/$id");
 
   var response = await http.get(
     url,
@@ -119,7 +119,7 @@ Future<http.Response> getEventParticipants(String token, int id) async {
 
 Future<http.Response> getUserEvents(String token) async {
   var url = Uri.parse(
-      "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos/meuseventos");
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/meuseventos");
 
   var response = await http.get(
     url,
@@ -134,7 +134,7 @@ Future<http.Response> getUserEvents(String token) async {
 
 Future<http.Response> cancelEventSubscription(String token, int id) async {
   var url = Uri.parse(
-      "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos/cancelarInscricao/$id");
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/cancelarInscricao/$id");
 
   var response = await http.delete(
     url,
@@ -149,7 +149,7 @@ Future<http.Response> cancelEventSubscription(String token, int id) async {
 
 Future<http.Response> deleteEvent(String token, int id) async {
   var url = Uri.parse(
-      "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos/$id");
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/$id");
 
   var response = await http.delete(
     url,
@@ -165,7 +165,7 @@ Future<http.Response> deleteEvent(String token, int id) async {
 Future<http.Response> updateEvent(
     title, description, place, date, time, type, image, token, id) async {
   var url = Uri.parse(
-      "http://ec2-3-20-204-27.us-east-2.compute.amazonaws.com:8080/eventos/editarEvento/$id");
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/editarEvento/$id");
 
   var response = await http.put(url,
       headers: {
