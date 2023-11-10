@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import {
   faCalendarCheck,
-  faClipboard,
   faMedal,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
@@ -22,7 +22,6 @@ const DashboardHome = () => {
   });
 
   //username cut
-
   const username = localStorage.getItem("user_name");
   const space = username?.indexOf(" ");
   let usernameCut = "";
@@ -86,6 +85,10 @@ const DashboardHome = () => {
       }));
     }
   };
+
+  useEffect(() => {
+    handleFetchEvents();
+  }, []);
 
   return (
     <div className={styles.fullcontent}>
