@@ -1,0 +1,86 @@
+.fullsection {
+  background: url("../../resources/img/dashboard-greenbg.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center top;
+  height: 100vh;
+  width: 100%;
+}
+.mainsection {
+  padding: 5em 15em;
+}
+
+.whitetext h2,
+.whitetext h3,
+.whitetext h4,
+.whitetext h5,
+.whitetext h6,
+.whitetext p,
+.whitetext label {
+  color: black;
+}
+
+.whitetext h1 {
+  color: var(--theme-white) !important;
+}
+
+.darktext h1,
+.darktext h2,
+.darktext h3,
+.darktext h4,
+.darktext h5,
+.darktext h6,
+.darktext p,
+.darktext label {
+  color: var(--ltheme-background);
+}
+
+.cardssection {
+  padding-top: 1em;
+  display: flex;
+}
+
+.maincard {
+  background-color: white;
+  padding: 1em;
+  border-radius: 1em;
+  width: 50%;
+}
+.maincard svg {
+  height: 3em;
+}
+.maincard h3 {
+  font-weight: 500;
+  margin-top: 0.5em;
+  color: var(--ltheme-darkgray);
+}
+.maincard:nth-child(1) {
+  margin-right: 2em;
+}
+
+.searchbarsection {
+  padding-top: 3.5em;
+  margin: auto;
+  padding: auto;
+  text-align: center;
+}
+
+.chipsection {
+  padding-top: 1em;
+  display: flex;
+  text-align: center;
+  margin: auto;
+  padding: auto;
+  width: fit-content;
+}
+
+.chipsection > * {
+  margin: 0.5em;
+  text-align: center;
+}
+
+.events-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns */
+  justify-items: center;
+}

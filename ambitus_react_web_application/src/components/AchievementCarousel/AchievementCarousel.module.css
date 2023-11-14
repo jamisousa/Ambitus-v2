@@ -1,0 +1,50 @@
+.carouselsection {
+  margin: auto;
+}
+
+.carousel-container {
+  margin: 0 auto;
+  max-width: 20%;
+}
+
+.carouselsection div h1 {
+  padding: 1em;
+  text-align: center;
+  color: var(--theme-white);
+}
+
+.carouselsection div {
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1em;
+}
+
+.carouselsection div.long-text {
+  font-size: 12px;
+}
+
+.carouselsection div h2 {
+  font-weight: 500;
+}
+
+.loadersection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.whitetext p,
+.whitetext h1,
+.whitetext h2,
+.whitetext h3 {
+  color: black;
+}
+
+.darktext p,
+.darktext h1,
+.darktext h2,
+.darktext h3 {
+  color: var(--theme-white);
+}

@@ -1,0 +1,226 @@
+.lighttext p,
+.lighttext h1,
+.lighttext h2,
+.lighttext h3,
+.lighttext h4,
+.lighttext h5,
+.lighttext label {
+  color: var(--ltheme-darkgray);
+}
+
+.darktext p,
+.darktext h1,
+.darktext h2,
+.darktext h3,
+.darktext h4,
+.darktext h5,
+.darktext label,
+.darktext input {
+  color: var(--theme-white);
+}
+
+.mainsection h1 {
+  text-align: center;
+  font-size: 1.6em;
+  padding: 1em 3em;
+  margin-top: -5em;
+}
+
+.mainsection {
+  height: 25em;
+}
+
+.fieldssection {
+  width: 25em;
+  padding: 1em 3em;
+}
+
+.inputContainer {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.signuplabel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  text-align: left;
+  margin-left: 1em;
+}
+
+.formfield {
+  width: 94%;
+  padding: 2em 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+  background-color: transparent;
+  border: 0.1em solid black;
+  border-radius: 0.5em;
+}
+
+.formfield:focus {
+  border-color: #007bff;
+}
+
+.formfield:focus + .signuplabel {
+  top: -15px;
+  font-size: 12px;
+  color: var(--theme-green);
+}
+
+.modalinputContainer {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.modalformfield {
+  width: 100%;
+  padding: 2em 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+  background-color: transparent;
+  border-radius: 0.5em;
+}
+
+.modalformfield:focus {
+  border-color: #007bff;
+}
+
+.modalformfield:focus + .signuplabel {
+  top: -15px;
+  font-size: 12px;
+  color: var(--theme-green);
+  z-index: 2;
+}
+
+input[type="date"] {
+  width: 92%;
+  padding: 2em 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+  background-color: transparent;
+  border-radius: 0.5em;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1.4em;
+  background-color: var(--theme-green);
+  border-radius: 0.5em;
+  font-weight: bolder;
+  font-size: 1em;
+  color: var(--theme-white);
+}
+
+.submitSocialButton {
+  width: 100%;
+  padding: 1.4em;
+  background-color: transparent;
+  border: 1px solid var(--theme-green);
+  border-radius: 0.5em;
+  font-weight: bolder;
+  font-size: 1em;
+  color: var(--theme-green);
+}
+
+.submitfields > * {
+  margin-top: 1em;
+}
+
+.submitfields a {
+  text-align: center;
+  color: var(--theme-green);
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: 1em;
+}
+
+.submitfields h5 {
+  text-align: center;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.iconContainer {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.eyeIcon {
+  cursor: pointer;
+}
+
+.googleSignUpContainer {
+  display: flex;
+  align-items: center;
+}
+
+.googleImage {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  margin-left: 5em;
+}
+
+.submitSocialButton {
+  padding: 1.4em;
+  background-color: transparent;
+  border: 1px solid var(--theme-green);
+  border-radius: 0.5em;
+  font-weight: bolder;
+  font-size: 1em;
+  color: var(--theme-green);
+}
+
+.errorformfield {
+  width: 94%;
+  padding: 2em 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+  background-color: transparent;
+  border: 0.1em solid red;
+  border-radius: 0.5em;
+  transform: scale(1);
+  animation: pulse 2s;
+}
+
+.errorformfield:focus {
+  border-color: #007bff;
+}
+
+.errorformfield:focus + .signuplabel {
+  top: -15px;
+  font-size: 12px;
+  color: var(--theme-green);
+}
+
+.errorInformation {
+  color: red;
+  text-align: center;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.6);
+  }
+
+  70% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0.1em rgba(255, 0, 0, 0.6);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.6);
+  }
+}

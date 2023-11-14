@@ -1,0 +1,147 @@
+.modaloverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  text-align: center;
+  background-color: #fefae0;
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  height: 22em;
+}
+
+.modal button {
+  background-color: #fefae0;
+  cursor: pointer;
+  padding: 0.1em 0.2em;
+  float: right;
+  font-weight: bolder;
+  font-size: 1em;
+  border-radius: 1em;
+  color: var(--theme-green);
+}
+
+.modal h4 {
+  font-size: 1.2em;
+}
+
+.modal h5 {
+  color: var(--theme-green);
+}
+
+.modal h6 {
+  font-size: 0.8em;
+  color: red;
+}
+
+.modal section {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: 7.5em;
+  text-align: center;
+  margin: 2em auto;
+  border: 1px solid var(--theme-green);
+  cursor: pointer;
+}
+
+.modal section img {
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal section:not(:has(img)) svg {
+  display: block;
+}
+
+.profilemodal {
+  height: 30em;
+}
+
+.darkmodal {
+  text-align: center;
+  background-color: var(--dtheme-background);
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.darkmodal button {
+  background-color: #fefae0;
+  cursor: pointer;
+  padding: 0.1em 0.2em;
+  float: right;
+  font-weight: bolder;
+  font-size: 1em;
+  border-radius: 1em;
+  color: var(--theme-green);
+}
+
+.darkmodal h4 {
+  font-size: 1.2em;
+}
+
+.darkmodal h5 {
+  color: var(--theme-green);
+}
+
+.darkmodal div {
+  width: 20em;
+}
+
+.darkmodal h6 {
+  font-size: 0.8em;
+  color: red;
+}
+
+.darkmodal section {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: 7.5em;
+  height: 7.5em;
+  text-align: center;
+  margin: 2em auto;
+  border: 1px solid var(--theme-green);
+  cursor: pointer;
+}
+
+.darkmodal section img {
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.darkmodal section:not(:has(img)) svg {
+  display: block;
+}
+
+.profilemodal {
+  background: url("../../resources/img/dashboard-greenbg.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.backstyle {
+  background-color: var(--theme-white);
+  border-radius: 1em;
+}
