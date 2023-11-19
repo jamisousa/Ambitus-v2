@@ -53,6 +53,22 @@
 .cardssection {
   padding-top: 1em;
   display: flex;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.cardssection::-webkit-scrollbar {
+  width: 1rem;
+}
+
+.cardssection::-webkit-scrollbar-track {
+  background: white;
+}
+
+.cardssection::-webkit-scrollbar-thumb {
+  background-color: var(--theme-green);
+  border-radius: 20px;
+  border: 3px solid white;
 }
 
 .maincard {
