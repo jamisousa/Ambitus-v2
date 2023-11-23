@@ -67,7 +67,7 @@ const EventDetails = (props: any) => {
           return response.json() as Promise<any>;
         })
         .then((data) => {
-          const events = data.Eventos;
+          const events = data;
           const hasEventWithId = events.some(
             (ev: { id: number }) => ev.id === id
           );
@@ -77,6 +77,7 @@ const EventDetails = (props: any) => {
           } else {
             setIsSubscribed(false);
           }
+
           setLoading(false);
         })
         .catch(() => {
