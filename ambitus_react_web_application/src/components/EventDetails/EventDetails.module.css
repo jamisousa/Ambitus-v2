@@ -264,6 +264,7 @@
   padding: 1em;
   font-size: 1.2em;
   width: 25em;
+  height: 100%;
 }
 .modalaside p:nth-child(2) {
   padding-top: 0.6em;

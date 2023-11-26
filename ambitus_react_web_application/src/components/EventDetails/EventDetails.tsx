@@ -373,13 +373,6 @@ const EventDetails = (props: any) => {
                         </>
                       )}
                     </button>
-                    <div className={styles.bottombuttontext}>
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#6f9200" }}
-                      />
-                      <h5>Mock experience text here</h5>
-                    </div>
                   </div>
                 </div>
               </div>

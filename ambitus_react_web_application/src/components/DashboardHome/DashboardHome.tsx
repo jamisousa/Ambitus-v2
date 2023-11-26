@@ -9,7 +9,7 @@ import styles from "./DashboardHome.module.css";
 import mockImage from "../../resources/img/mockimage.jpeg";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
-import { override } from "../../utils/spinner/spinner";
+import { override, pageOverride } from "../../utils/spinner/spinner";
 import EventCard from "../EventCard/EventCard";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
 import AchievementCarousel from "../AchievementCarousel/AchievementCarousel";
@@ -25,10 +25,13 @@ const DashboardHome = () => {
     name: "",
     email: "",
     level: "",
+    medals: "",
   });
 
+  const [pageLoading, setPageLoading] = useState(false);
+
   //username cut
-  const username = localStorage.getItem("user_name");
+  const username = userData.name || "";
   const space = username?.indexOf(" ");
   let usernameCut = "";
 
@@ -92,62 +95,77 @@ const DashboardHome = () => {
     }
   };
 
-  //TODO: fetch user data
-  // const fetchUserDataUrl =
-  //   "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/dados";
-  // const fetchUserData = () => {
-  //   const token = localStorage.getItem("token");
+  //fetch user data
 
-  //   if (token) {
-  //     fetch(fetchUserDataUrl, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: token,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         if (!response.ok) {
-  //           throw new Error("Erro na requisição");
-  //         }
-  //         return response.json();
-  //       })
-  //       .then((data) => {
-  //         console.log(data);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //         setEventData((prevData) => ({
-  //           ...prevData,
-  //           error: true,
-  //           loading: false,
-  //         }));
-  //       });
-  //   } else {
-  //     setEventData((prevData) => ({
-  //       ...prevData,
-  //       error: true,
-  //       loading: false,
-  //     }));
-  //   }
-  // };
+  const fetchUserDataUrl =
+    "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/dados";
+  const fetchUserData = () => {
+    setPageLoading(true);
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetch(fetchUserDataUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            setPageLoading(false);
+            throw new Error("Erro na requisição");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setPageLoading(false);
+          setUserData((prevData) => ({
+            ...prevData,
+            name: data.nome,
+            email: data.email,
+            medals: data.medalhas,
+            level: data.nivel,
+          }));
+        })
+        .catch((error) => {
+          console.error(error);
+          setPageLoading(false);
+        });
+    } else {
+      setPageLoading(false);
+    }
+  };
 
   useEffect(() => {
     handleFetchEvents();
-    // fetchUserData();
+    fetchUserData();
   }, []);
 
   return (
     <div className={styles.fullcontent}>
       <div className={styles.maincontent}>
-        <h1>Olá, {usernameCut ? usernameCut : username}</h1>
-        <div className={styles.userlevel}>
-          <div className={styles.lvlcard}>
-            <FontAwesomeIcon icon={faStar} style={{ color: "#6f9200" }} />
-            <h3>Nvl 1000</h3>
-          </div>
-          <h2>Continue assim!</h2>
-        </div>
+        {pageLoading ? (
+          <ClipLoader
+            color={"#FFF"}
+            loading={true}
+            size={100}
+            cssOverride={pageOverride}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        ) : (
+          <>
+            <h1>Olá, {usernameCut ? usernameCut : username}</h1>
+            <div className={styles.userlevel}>
+              <div className={styles.lvlcard}>
+                <FontAwesomeIcon icon={faStar} style={{ color: "#6f9200" }} />
+                <h3>Nvl {userData.level}</h3>
+              </div>
+              <h2>Continue assim!</h2>
+            </div>
+          </>
+        )}
         <div className={styles.maincards}>
           <div className={styles.cardssection}>
             <div className={styles.maincard}>
@@ -163,6 +181,7 @@ const DashboardHome = () => {
             </div>
           </div>
         </div>
+
         <div className={styles.eventssection}>
           <h2>Seus próximos eventos</h2>
           {eventData.loading ? (
@@ -199,8 +218,12 @@ const DashboardHome = () => {
                 />
               ))}
 
-              {eventData.events.length < 1 && (
+              {eventData.events.length < 1 &&
+              !eventData.loading &&
+              !pageLoading ? (
                 <h4>Nenhum evento encontrado.</h4>
+              ) : (
+                ""
               )}
             </div>
           )}

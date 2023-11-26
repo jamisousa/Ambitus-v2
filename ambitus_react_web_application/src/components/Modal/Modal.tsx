@@ -14,7 +14,7 @@ const Modal = ({ isOpen, children }: ModalProps) => {
 
   const { currentContent } = getDashContent();
   const additionalModalStyle =
-    currentContent === "profile" ? styles.profilemodal : "";
+    currentContent === "profile" ? `${styles.profilemodal}` : styles.modal;
 
   const backStyle = currentContent === "profile" ? styles.backstyle : "";
 
@@ -23,9 +23,7 @@ const Modal = ({ isOpen, children }: ModalProps) => {
   return ReactDOM.createPortal(
     <div className={styles.modaloverlay}>
       <div className={backStyle}>
-        <div className={`${modalStyle} ${additionalModalStyle}`}>
-          {children}
-        </div>
+        <div className={`${additionalModalStyle}`}>{children}</div>
       </div>
     </div>,
     modalRoot

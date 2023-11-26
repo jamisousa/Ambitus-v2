@@ -2,9 +2,7 @@ import styles from "./Profile.module.css";
 import mockImage from "../../resources/img/mockimage.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCalendarCheck,
   faCircleInfo,
-  faClipboard,
   faClock,
   faEye,
   faEyeSlash,
@@ -18,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import medalPlaceholder from "../../resources/img/MedalPlaceholder.svg";
 import EventCard from "../EventCard/EventCard";
 import { ClipLoader } from "react-spinners";
-import { override } from "../../utils/spinner/spinner";
+import { override, pageOverride } from "../../utils/spinner/spinner";
 import placeholderImage from "../../resources/img/mockimage.jpeg";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
 import Modal from "../Modal/Modal";
@@ -26,7 +24,6 @@ import { useTheme } from "../../utils/contexts/globalThemeContext";
 
 const Profile = () => {
   //TODO: call api to change profile data
-  //TODO: remove this after api call
   const medalsMock = [
     { title: "Iniciante Ambiental", medalIcon: medalPlaceholder },
     { title: "Ativista Compromissado", medalIcon: medalPlaceholder },
@@ -38,10 +35,6 @@ const Profile = () => {
     { title: "Reciclagem de respeito", medalIcon: medalPlaceholder },
   ];
 
-  const image = localStorage.getItem("user_image");
-  const username = localStorage.getItem("user_name");
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
   const [eventData, setEventData] = useState({
     loading: false,
     error: false,
@@ -60,66 +53,28 @@ const Profile = () => {
     showNewPassword: false,
     error: "",
   });
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    level: "",
+    medals: [],
+  });
+  const [pageLoading, setPageLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalLoading, setIsModalLoading] = useState(false);
   const maxMedals = 6;
   const medalsToShow = medalsMock.slice(0, maxMedals);
   const [isEditingUsername, setIsEditingUsername] = useState(false);
+  const image = localStorage.getItem("user_image");
+  const username = userData?.name || "";
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const displayImage = image ? (
     <img src={image} alt="Imagem do usuário" draggable="false" />
   ) : (
     <img src={mockImage} alt="Imagem de mock" draggable="false" />
   );
-
-  // TODO: fetch events when user is NOT the owner
-  // const fetchEventsUrl =
-  //   "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/meuseventos";
-  // const handleFetchEvents = () => {
-  //   setEventData((prevData) => ({ ...prevData, loading: true, error: false }));
-
-  //   const token = localStorage.getItem("token");
-
-  //   if (token) {
-  //     fetch(fetchEventsUrl, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: token,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         if (!response.ok) {
-  //           throw new Error("Erro na requisição");
-  //         }
-  //         return response.json();
-  //       })
-  //       .then((data) => {
-  //         const filteredEvents = data.filter(
-  //           (event: { isOwner: boolean }) => event.isOwner === false
-  //         );
-  //         setEventData((prevData) => ({
-  //           ...prevData,
-  //           events: filteredEvents,
-  //           loading: false,
-  //         }));
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //         setEventData((prevData) => ({
-  //           ...prevData,
-  //           error: true,
-  //           loading: false,
-  //         }));
-  //       });
-  //   } else {
-  //     setEventData((prevData) => ({
-  //       ...prevData,
-  //       error: true,
-  //       loading: false,
-  //     }));
-  //   }
-  // };
 
   //fetch events
   const fetchEventsUrl =
@@ -144,14 +99,17 @@ const Profile = () => {
           return response.json();
         })
         .then((data) => {
+          const notOwner = data.filter(
+            (data: { isOwner: boolean }) => data.isOwner === false
+          );
+
           setEventData((prevData) => ({
             ...prevData,
-            events: data,
+            events: notOwner,
             loading: false,
           }));
         })
         .catch((error) => {
-          console.error(error);
           setEventData((prevData) => ({
             ...prevData,
             error: true,
@@ -164,6 +122,47 @@ const Profile = () => {
         error: true,
         loading: false,
       }));
+    }
+  };
+
+  //fetch user data
+  const fetchUserDataUrl =
+    "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/dados";
+  const fetchUserData = () => {
+    setPageLoading(true);
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetch(fetchUserDataUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            setPageLoading(false);
+            throw new Error("Erro na requisição");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setPageLoading(false);
+          setUserData((prevData) => ({
+            ...prevData,
+            name: data.nome,
+            email: data.email,
+            medals: data.medalhas,
+            level: data.nivel,
+          }));
+        })
+        .catch((error) => {
+          console.error(error);
+          setPageLoading(false);
+        });
+    } else {
+      setPageLoading(false);
     }
   };
 
@@ -180,6 +179,7 @@ const Profile = () => {
   useEffect(() => {
     setCurrentContent("profile");
     handleFetchEvents();
+    fetchUserData();
   }, [currentContent]);
 
   //portal control
@@ -416,110 +416,148 @@ const Profile = () => {
         ""
       )}
       <div className={styles.fullcontent}>
-        <div className={styles.mainsection}>
-          <div className={styles.profileHeader}>
-            {displayImage}
-            <div className={styles.profileName}>
-              <div className={styles.nameContainer}>
-                <h1>
-                  {formData.newFullname ? formData.newFullname : username}{" "}
-                </h1>
-                <div className={styles.lvlcard}>
-                  <FontAwesomeIcon icon={faStar} style={{ color: "#6f9200" }} />
-                  <h3>Nvl 1000</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.cardssection}>
-            <div className={styles.maincard}>
-              <FontAwesomeIcon icon={faMedal} style={{ color: "#669f2d" }} />
-              <h3>Recompensas</h3>
-            </div>
-            <div className={styles.maincard} onClick={openModal}>
-              <FontAwesomeIcon icon={faGear} style={{ color: "#669f2d" }} />
-              <h3>Configurações</h3>
-            </div>
-          </div>
-        </div>
-        <div className={styles.medalssection}>
-          <div className={styles.mainsection}>
-            <div className={styles.medalsheader}>
-              <div className={styles.medalstitle}>
-                <FontAwesomeIcon icon={faStar} style={{ color: "#FFF" }} />
-                <h1>Medalhas</h1>
-              </div>
-              <div className={styles.medalinfoicon}>
-                <FontAwesomeIcon
-                  icon={faCircleInfo}
-                  style={{ color: "#FFF" }}
-                />
-              </div>
-            </div>
-            <div className={styles.medalicons}>
-              {medalsMock.map((m, index) => (
-                <div
-                  className={`${styles.medal} ${
-                    index >= maxMedals ? styles["hidden-medal"] : ""
-                  }`}
-                  key={index}
-                >
-                  <img src={m.medalIcon} alt={m.title} draggable="false" />
-                  <h3>{m.title}</h3>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className={styles.eventshistory}>
-          <div className={styles.mainsection}>
-            <div className={styles.historyheader}>
-              <div className={styles.historytitle}>
-                <FontAwesomeIcon icon={faClock} style={{ color: "#292525" }} />
-                <h1>Histórico de eventos</h1>
-              </div>
-            </div>
-            {eventData.loading ? (
-              <ClipLoader
-                color={"#000"}
-                loading={true}
-                size={100}
-                cssOverride={override}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
-            ) : (
-              <div
-                className={`${styles.eventcardssection} ${styles["events-container"]}`}
-              >
-                {eventData.events.map((event: any) => (
-                  <EventCard
-                    eventInfo={{
-                      title: event.titulo,
-                      location: event.local,
-                      date: event.data,
-                      category:
-                        event.tipo == "CONSERVACAO_DE_ESPECIES"
-                          ? "CONSERVAÇÃO"
-                          : event.tipo == "CONSCIENTIZACAO_E_EDUCACAO"
-                          ? "CONSCIENTIZAÇÃO"
-                          : event.tipo,
-                      image: event.image
-                        ? `data:image/png;base64,${event.image}`
-                        : placeholderImage,
-                    }}
-                    clickAction={() => handleSwitchContext(event)}
-                    key={event.id}
-                  />
-                ))}
+        {!pageLoading && userData.name && userData.level ? (
+          <>
+            <div className={styles.mainsection}>
+              <div className={styles.profileHeader}>
+                {displayImage}
+                <div className={styles.profileName}>
+                  <div className={styles.nameContainer}>
+                    <h1>
+                      {formData.newFullname ? formData.newFullname : username}{" "}
+                    </h1>
 
-                {eventData.events.length < 1 && (
-                  <h4>Nenhum evento encontrado.</h4>
+                    <div className={styles.lvlcard}>
+                      <FontAwesomeIcon
+                        icon={faStar}
+                        style={{ color: "#6f9200" }}
+                      />
+                      <h3>Nvl {userData?.level}</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.cardssection}>
+                <div className={styles.maincard}>
+                  <FontAwesomeIcon
+                    icon={faMedal}
+                    style={{ color: "#669f2d" }}
+                  />
+                  <h3>Recompensas</h3>
+                </div>
+                <div className={styles.maincard} onClick={openModal}>
+                  <FontAwesomeIcon icon={faGear} style={{ color: "#669f2d" }} />
+                  <h3>Configurações</h3>
+                </div>
+              </div>
+            </div>
+            <div className={styles.medalssection}>
+              <div className={styles.mainsection}>
+                <div className={styles.medalsheader}>
+                  <div className={styles.medalstitle}>
+                    <FontAwesomeIcon icon={faStar} style={{ color: "#FFF" }} />
+                    <h1>Medalhas</h1>
+                  </div>
+                  <div className={styles.medalinfoicon}>
+                    <FontAwesomeIcon
+                      icon={faCircleInfo}
+                      style={{ color: "#FFF" }}
+                    />
+                  </div>
+                </div>
+                {pageLoading ? (
+                  <ClipLoader
+                    color={"#FFF"}
+                    loading={true}
+                    size={100}
+                    cssOverride={pageOverride}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                ) : (
+                  <div className={styles.medalicons}>
+                    {userData &&
+                      userData.medals.map((m, index) => (
+                        <div
+                          className={`${styles.medal} ${
+                            index >= maxMedals ? styles["hidden-medal"] : ""
+                          }`}
+                          key={index}
+                        >
+                          <img src={m.imagem} alt={m.nome} draggable="false" />
+                          <h3>{m.title}</h3>
+                        </div>
+                      ))}
+                  </div>
                 )}
               </div>
-            )}
+            </div>
+            <div className={styles.eventshistory}>
+              <div className={styles.mainsection}>
+                <div className={styles.historyheader}>
+                  <div className={styles.historytitle}>
+                    <FontAwesomeIcon
+                      icon={faClock}
+                      style={{ color: "#292525" }}
+                    />
+                    <h1>Histórico de eventos</h1>
+                  </div>
+                </div>
+                {eventData.loading ? (
+                  <ClipLoader
+                    color={"#000"}
+                    loading={true}
+                    size={100}
+                    cssOverride={override}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                ) : (
+                  <div
+                    className={`${styles.eventcardssection} ${styles["events-container"]}`}
+                  >
+                    {eventData.events.map((event: any) => (
+                      <EventCard
+                        eventInfo={{
+                          title: event.titulo,
+                          location: event.local,
+                          date: event.data,
+                          category:
+                            event.tipo == "CONSERVACAO_DE_ESPECIES"
+                              ? "CONSERVAÇÃO"
+                              : event.tipo == "CONSCIENTIZACAO_E_EDUCACAO"
+                              ? "CONSCIENTIZAÇÃO"
+                              : event.tipo,
+                          image: event.image
+                            ? `data:image/png;base64,${event.image}`
+                            : placeholderImage,
+                        }}
+                        clickAction={() => handleSwitchContext(event)}
+                        key={event.id}
+                      />
+                    ))}
+
+                    {eventData.events.length < 1 && (
+                      <h4>Nenhum evento encontrado.</h4>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div>
+            <br />
+            <ClipLoader
+              color={"#FFF"}
+              loading={true}
+              size={100}
+              cssOverride={pageOverride}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
           </div>
-        </div>
+        )}
       </div>
     </>
   );
