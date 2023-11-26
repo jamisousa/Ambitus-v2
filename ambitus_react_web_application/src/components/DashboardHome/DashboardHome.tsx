@@ -21,6 +21,12 @@ const DashboardHome = () => {
     events: [],
   });
 
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    level: "",
+  });
+
   //username cut
   const username = localStorage.getItem("user_name");
   const space = username?.indexOf(" ");
@@ -86,8 +92,49 @@ const DashboardHome = () => {
     }
   };
 
+  //TODO: fetch user data
+  // const fetchUserDataUrl =
+  //   "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/dados";
+  // const fetchUserData = () => {
+  //   const token = localStorage.getItem("token");
+
+  //   if (token) {
+  //     fetch(fetchUserDataUrl, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: token,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         if (!response.ok) {
+  //           throw new Error("Erro na requisição");
+  //         }
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         console.log(data);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //         setEventData((prevData) => ({
+  //           ...prevData,
+  //           error: true,
+  //           loading: false,
+  //         }));
+  //       });
+  //   } else {
+  //     setEventData((prevData) => ({
+  //       ...prevData,
+  //       error: true,
+  //       loading: false,
+  //     }));
+  //   }
+  // };
+
   useEffect(() => {
     handleFetchEvents();
+    // fetchUserData();
   }, []);
 
   return (

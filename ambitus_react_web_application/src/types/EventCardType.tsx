@@ -11,4 +11,3 @@ export type EventCardProps = {
   clickAction: (e: any) => void;
 };
 
-

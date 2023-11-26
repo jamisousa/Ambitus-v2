@@ -30,6 +30,6 @@ describe("EventCard", () => {
           </ThemeProvider>
         );
 
-    cy.contains("Teste").should("exist");
+    cy.contains("Teste").should("exist"); 
   });
 });
