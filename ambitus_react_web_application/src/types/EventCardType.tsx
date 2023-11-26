@@ -11,13 +11,3 @@ export type EventCardProps = {
   clickAction: (e: any) => void;
 };
 
-const eventsMock: EventCardProps = {
-  eventInfo: {
-    title: "Teste",
-    location: "Teste",
-    date: "Teste",
-    category: "Teste",
-    image: "Teste",
-  },
-  clickAction: () => {},
-};
