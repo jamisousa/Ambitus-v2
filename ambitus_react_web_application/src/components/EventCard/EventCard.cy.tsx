@@ -16,7 +16,7 @@ const eventsMock: EventCardProps = {
 };
 
 describe("EventCard", () => {
-    it("Should render the navigation bar with login links", () => {
+    it("Should render the event cards", () => {
         cy.mount(
           <ThemeProvider>
             <DashContentProvider>
