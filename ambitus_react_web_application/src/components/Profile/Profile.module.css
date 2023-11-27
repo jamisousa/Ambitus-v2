@@ -131,6 +131,14 @@
   max-width: 100%;
 }
 
+.medalicons img {
+  width: 150%;
+}
+
+.medalicons > * {
+  margin: 1em;
+}
+
 .medal h3 {
   text-align: center;
   margin: 0;
