@@ -183,7 +183,7 @@ const DashboardHome = () => {
         </div>
 
         <div className={styles.eventssection}>
-          <h2>Seus próximos eventos</h2>
+          <h2 className={styles.nexteventstitle}>Seus próximos eventos</h2>
           {eventData.loading ? (
             <ClipLoader
               color={"#000"}
@@ -195,7 +195,7 @@ const DashboardHome = () => {
             />
           ) : (
             <div
-              className={`${styles.cardssection} ${styles["events-container"]}`}
+              className={`${styles.eventcardssection} ${styles["events-container"]} `}
             >
               {eventData.events.map((event: any) => (
                 <EventCard
