@@ -485,7 +485,7 @@ const Profile = () => {
                           key={index}
                         >
                           <img src={m.imagem} alt={m.nome} draggable="false" />
-                          <h3>{m.title}</h3>
+                          <h3>{m.nome}</h3>
                         </div>
                       ))}
                   </div>

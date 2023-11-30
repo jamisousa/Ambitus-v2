@@ -131,12 +131,8 @@
   max-width: 100%;
 }
 
-.medalicons img {
-  width: 150%;
-}
-
 .medalicons > * {
-  margin: 1em;
+  margin-right: 2.5em;
 }
 
 .medal h3 {
@@ -147,8 +143,14 @@
 .medal {
   text-align: center;
   color: white;
-  width: fit-content;
-  padding: 2em;
+}
+
+.medal img {
+  width: 11em;
+}
+
+.medalicons h3 {
+  padding-bottom: 2em;
 }
 
 .medalicons::-webkit-scrollbar {

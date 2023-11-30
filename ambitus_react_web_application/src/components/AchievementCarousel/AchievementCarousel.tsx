@@ -5,14 +5,13 @@ import styles from "./AchievementCarousel.module.css";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
-import medalPlaceholder from "../../resources/img/MedalPlaceholder.svg";
-import compromissadoImg from "../../resources/img/Compromissado.png";
-import conscienteImg from "../../resources/img/Consciente.png";
-import inicianteImg from "../../resources/img/Iniciante.png";
-import florestaImg from "../../resources/img/floresta.png";
-import exploradorImg from "../../resources/img/Explorador.png";
-import ecologicoImg from "../../resources/img/Ecológico.png";
-import reciclagemImg from "../../resources/img/Reciclagem.png";
+import compromissadoImg from "../../resources/img/Compromissado.svg";
+import conscienteImg from "../../resources/img/Consciente.svg";
+import inicianteImg from "../../resources/img/Iniciante.svg";
+import florestaImg from "../../resources/img/floresta.svg";
+import exploradorImg from "../../resources/img/Explorador.svg";
+import ecologicoImg from "../../resources/img/Ecológico.svg";
+import reciclagemImg from "../../resources/img/Reciclagem.svg";
 
 const AchievementCarousel = () => {
   const [loading, setLoading] = useState(false);
