@@ -11,7 +11,6 @@
 ">
  <img align="center" alt="AWS" height="30" src="https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white&color=black"
 >
-  <img align="center" alt="Flutter" height="30" src="https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white&color=black">
   <img align="center" alt="Flutter" height="30" src="https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=white&color=black">
   <img align="center" alt="Vite" height="30" src="https://img.shields.io/badge/vite-%23646CFF?style=for-the-badge&logo=vite&logoColor=white&color=black">
   <img align="center" alt="Vite" height="30" src="https://img.shields.io/badge/react-%2320232a?style=for-the-badge&logo=react&logoColor=white&color=black">
