@@ -121,17 +121,6 @@ No link abaixo, você pode acessar a coleção de endpoints da API:
 
 <br>
 
-
-<h4> 👾 Como rodar testes de mutação - Stryker </h4>
-
-<p>Com o repositório WEB clonado e dependências instaladas, no terminal, execute o seguinte comando para abrir o Stryker:</p>
-<pre>
-   stryker run
-</pre>
-<p>Após, o Stryker irá executar sua interface gráfica. Com isso, será criado um relatório de cobertura do testes de mutação. </p>
-
-<br>
-
 <h4>Colaboradores do projeto</h4>
 
 <p align="center">
