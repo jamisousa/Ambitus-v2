@@ -15,7 +15,7 @@ const DashboardContent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!username || !image || !token) {
+    if (!username || !token) {
       navigate("/login");
     }
   }, [currentContent]);

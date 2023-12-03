@@ -24,12 +24,15 @@ const ParticipantsList = (props: any) => {
                 <img src={p.image ? p.image : mockImage} />
                 <div className={styles.participantinfo}>
                   <h3>{p.nome}</h3>
-                  <div className={styles.greenroundedcard}>
+                  <div
+                    className={styles.greenroundedcard}
+                    style={{ fontSize: "0.95em" }}
+                  >
                     <FontAwesomeIcon
                       icon={faStar}
                       style={{ color: "#6f9200" }}
                     />
-                    <h3>Nvl {p.level}</h3>
+                    <h3>Nvl {p.nivel}</h3>
                   </div>
                 </div>
               </div>

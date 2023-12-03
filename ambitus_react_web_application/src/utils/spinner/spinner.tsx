@@ -9,6 +9,6 @@ export const override: React.CSSProperties = {
 export const pageOverride: React.CSSProperties = {
   display: "block",
   margin: "0 auto",
-  borderColor: "#FFF",
+  borderColor: "#6f9200",
   border: "0.2em solid",
 };

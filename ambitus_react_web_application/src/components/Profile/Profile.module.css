@@ -81,6 +81,7 @@
   border-radius: 1em;
   width: 50%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 .maincard svg {
   height: 3em;
@@ -92,6 +93,10 @@
 }
 .maincard:nth-child(1) {
   margin-right: 2em;
+}
+
+.maincard a {
+  text-decoration: none;
 }
 
 .medalssection {
@@ -129,9 +134,22 @@
   display: flex;
   overflow-x: auto;
   max-width: 100%;
+  padding-bottom: 2em;
 }
 
 .medalicons > * {
+  margin-right: 2.5em;
+}
+
+.medaliconsDisabled {
+  display: flex;
+  overflow-x: auto;
+  max-width: 100%;
+  opacity: 0.4;
+  padding-bottom: 2em;
+}
+
+.medaliconsDisabled > * {
   margin-right: 2.5em;
 }
 
@@ -153,6 +171,20 @@
   padding-bottom: 2em;
 }
 
+.medaliconsDisabled::-webkit-scrollbar {
+  width: 100%;
+}
+
+.medaliconsDisabled::-webkit-scrollbar-track {
+  background: var(--theme-white);
+}
+
+.medaliconsDisabled::-webkit-scrollbar-thumb {
+  background-color: var(--theme-green);
+  border-radius: 20px;
+  border: 3px solid var(--theme-white);
+}
+
 .medalicons::-webkit-scrollbar {
   width: 100%;
 }
@@ -165,6 +197,17 @@
   background-color: var(--theme-green);
   border-radius: 20px;
   border: 3px solid var(--theme-white);
+}
+
+.medalmask {
+  z-index: 15;
+  color: var(--theme-white);
+  position: absolute;
+  left: 50%;
+  margin-left: -8em;
+  padding-top: 5em;
+  font-weight: bolder;
+  font-size: 1.4em;
 }
 
 .historyheader {
