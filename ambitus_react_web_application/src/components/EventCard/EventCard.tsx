@@ -12,12 +12,19 @@ import { getDashContent } from "../../utils/contexts/dashboardAction";
 const EventCard = (props: EventCardProps) => {
   const { currentTheme } = useTheme();
   const { currentContent } = getDashContent();
+  const eventTitle =
+    props.eventInfo.title.charAt(0) +
+    props.eventInfo.title.slice(1).toLowerCase();
+
+  const eventCategory =
+    props.eventInfo.category.charAt(0) +
+    props.eventInfo.category.slice(1).toLowerCase();
 
   //style
   const textStyle =
     currentTheme === "light" ? styles.whitetext : styles.darktext;
 
-  const svgStyle = currentTheme === "light" ? "#292525" : "#fefae0";
+  const svgStyle = currentTheme === "light" ? "#2c2727" : "#fefae0";
 
   const chevronStyle =
     currentContent === "profile"
@@ -32,7 +39,7 @@ const EventCard = (props: EventCardProps) => {
         </div>
         <div className={styles.cardinformation}>
           <div className={styles.cardtitle}>
-            <h2>{props.eventInfo.title}</h2>
+            <h2>{eventTitle}</h2>
           </div>
           <div className={styles.cardlocation}>
             <FontAwesomeIcon icon={faLocationDot} style={{ color: svgStyle }} />
@@ -46,11 +53,11 @@ const EventCard = (props: EventCardProps) => {
             <h4>{props.eventInfo.date}</h4>
           </div>
           <div className={styles.categorycard}>
-            <h3>{props.eventInfo.category}</h3>
+            <h3>{eventCategory}</h3>
           </div>
         </div>
         <div className={chevronStyle}>
-          <FontAwesomeIcon icon={faChevronRight} style={{ color: "#9ab34d" }} />
+          <FontAwesomeIcon icon={faChevronRight} style={{ color: "#2c2727" }} />
         </div>
       </div>
     </div>

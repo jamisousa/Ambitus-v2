@@ -12,7 +12,7 @@ function App() {
     } else {
       navigate("/login");
     }
-  });
+  }, [localStorage]);
 
   return (
     <>

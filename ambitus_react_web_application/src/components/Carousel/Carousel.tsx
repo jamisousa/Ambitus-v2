@@ -36,6 +36,16 @@ const IntroCarousel = () => {
       descripton:
         "Encontre os eventos e ações da comunidade que estão acontecendo perto de você e participe daqueles que mais te engajam.",
     },
+    {
+      title: "Engaje-se em atividades ambientais!",
+      descripton:
+        "Conecte-se diretamente com organizações que planejam e executam atividades ambientais e escolha as que mais se alinham aos seus interesses.",
+    },
+    {
+      title: "Conecte-se à comunidade e à natureza!",
+      descripton:
+        "O Ambitus é a sua porta de entrada para um mundo de eventos e ações em prol do meio ambiente. Este aplicativo proporciona uma plataforma interativa onde você pode descobrir, participar e colaborar com organizações envolvidas em atividades ambientais.",
+    },
   ];
 
   //styles
@@ -74,13 +84,13 @@ const IntroCarousel = () => {
             </div>
             <div>
               <img src={carousel2} alt="Imagem Carrosel 2" draggable="false" />
-              <h1>{carouselPlaceholders[0].title}</h1>
-              <h2>{carouselPlaceholders[0].descripton}</h2>
+              <h1>{carouselPlaceholders[1].title}</h1>
+              <h2>{carouselPlaceholders[1].descripton}</h2>
             </div>
             <div>
               <img src={carousel3} alt="Imagem Carrosel 3" draggable="false" />
-              <h1>{carouselPlaceholders[0].title}</h1>
-              <h2>{carouselPlaceholders[0].descripton}</h2>
+              <h1>{carouselPlaceholders[2].title}</h1>
+              <h2>{carouselPlaceholders[2].descripton}</h2>
             </div>
           </Carousel>
           <div className={styles.carouselindicators}>

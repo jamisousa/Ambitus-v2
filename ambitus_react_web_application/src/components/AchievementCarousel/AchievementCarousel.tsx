@@ -2,11 +2,16 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import styles from "./AchievementCarousel.module.css";
-import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
-import medalPlaceholder from "../../resources/img/MedalPlaceholder.svg";
+import compromissadoImg from "../../resources/img/Compromissado.svg";
+import conscienteImg from "../../resources/img/Consciente.svg";
+import inicianteImg from "../../resources/img/Iniciante.svg";
+import florestaImg from "../../resources/img/floresta.svg";
+import exploradorImg from "../../resources/img/Explorador.svg";
+import ecologicoImg from "../../resources/img/Ecológico.svg";
+import reciclagemImg from "../../resources/img/Reciclagem.svg";
 
 const AchievementCarousel = () => {
   const [loading, setLoading] = useState(false);
@@ -15,14 +20,13 @@ const AchievementCarousel = () => {
   const [curIndex, setCurIndex] = useState<number>(0);
 
   const carouselPlaceholders = [
-    { title: "Iniciante Ambiental", medalIcon: medalPlaceholder },
-    { title: "Ativista Compromissado", medalIcon: medalPlaceholder },
-    { title: "Ecológico Experiente", medalIcon: medalPlaceholder },
-    { title: "Protetor da Floresta", medalIcon: medalPlaceholder },
-    { title: "Ecológico Experiente", medalIcon: medalPlaceholder },
-    { title: "Explorador Nato", medalIcon: medalPlaceholder },
-    { title: "Consciente sempre", medalIcon: medalPlaceholder },
-    { title: "Reciclagem de respeito", medalIcon: medalPlaceholder },
+    { title: "Iniciante Ambiental", medalIcon: inicianteImg },
+    { title: "Ativista Compromissado", medalIcon: compromissadoImg },
+    { title: "Protetor da Floresta", medalIcon: florestaImg },
+    { title: "Ecológico Experiente", medalIcon: ecologicoImg },
+    { title: "Explorador Nato", medalIcon: exploradorImg },
+    { title: "Consciente sempre", medalIcon: conscienteImg },
+    { title: "Reciclagem de respeito", medalIcon: reciclagemImg },
   ];
 
   const handleChangeCurIndex = (index: number) => {

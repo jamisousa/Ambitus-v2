@@ -402,7 +402,7 @@ const EventDetails = (props: any) => {
                     <div className={styles.couponblock}>
                       <h2>Código de desconto:</h2>
                       <div className={styles.greenroundedcard}>
-                        <h3>Coupon</h3>
+                        <h3>####</h3>
                       </div>
                       <h3>Código ainda não disponível!</h3>
                     </div>

@@ -295,24 +295,26 @@ const EventsList = () => {
             className={`${styles.cardssection} ${styles["events-container"]}`}
           >
             {eventData.events.map((event: any) => (
-              <EventCard
-                eventInfo={{
-                  title: event.titulo,
-                  location: event.local,
-                  date: event.data,
-                  category:
-                    event.tipo == "CONSERVACAO_DE_ESPECIES"
-                      ? "CONSERVAÇÃO"
-                      : event.tipo == "CONSCIENTIZACAO_E_EDUCACAO"
-                      ? "CONSCIENTIZAÇÃO"
-                      : event.tipo,
-                  image: event.image
-                    ? `data:image/png;base64,${event.image}`
-                    : mockImage,
-                }}
-                clickAction={() => handleSwitchContext(event)}
-                key={event.id}
-              />
+              <div key={event.id}>
+                <EventCard
+                  eventInfo={{
+                    title: event.titulo,
+                    location: event.local,
+                    date: event.data,
+                    category:
+                      event.tipo == "CONSERVACAO_DE_ESPECIES"
+                        ? "CONSERVAÇÃO"
+                        : event.tipo == "CONSCIENTIZACAO_E_EDUCACAO"
+                        ? "CONSCIENTIZAÇÃO"
+                        : event.tipo,
+                    image: event.image
+                      ? `data:image/png;base64,${event.image}`
+                      : mockImage,
+                  }}
+                  clickAction={() => handleSwitchContext(event)}
+                  key={event.id}
+                />
+              </div>
             ))}
 
             {eventData.events.length < 1 && <h4>Nenhum evento encontrado.</h4>}
