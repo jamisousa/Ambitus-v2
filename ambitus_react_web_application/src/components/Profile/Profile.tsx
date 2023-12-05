@@ -28,6 +28,7 @@ import florestaImg from "../../resources/img/floresta.svg";
 import exploradorImg from "../../resources/img/Explorador.svg";
 import ecologicoImg from "../../resources/img/Ecológico.svg";
 import reciclagemImg from "../../resources/img/Reciclagem.svg";
+import EventCardwCoupon from "../EventCardWCoupon/EventCardWCoupon";
 
 const Profile = () => {
   //TODO: call api to change profile data
@@ -125,6 +126,8 @@ const Profile = () => {
             events: notOwner,
             loading: false,
           }));
+
+          console.log(eventData);
         })
         .catch((error) => {
           setEventData((prevData) => ({
@@ -186,19 +189,10 @@ const Profile = () => {
   const { setCurrentContent, setCurrentEvent, currentContent } =
     getDashContent();
 
-  const handleSwitchContext = (selectedEvent: any) => {
-    if (selectedEvent) {
-      setCurrentEvent(selectedEvent);
-      setCurrentContent("event-details");
-    }
-  };
-
   useEffect(() => {
     setCurrentContent("profile");
     handleFetchEvents();
     fetchUserData();
-    console.log(userData);
-    console.log(pageLoading);
   }, [currentContent]);
 
   //portal control
@@ -501,18 +495,20 @@ const Profile = () => {
               </div>
 
               <div className={styles.medalicons}>
-                {userData &&
-                  userData.medals.map((m, index) => (
-                    <div
-                      className={`${styles.medal} ${
-                        index >= maxMedals ? styles["hidden-medal"] : ""
-                      }`}
-                      key={index}
-                    >
-                      <img src={m.imagem} alt={m.nome} draggable="false" />
-                      <h3>{m.nome}</h3>
-                    </div>
-                  ))}
+                {userData.medals &&
+                  userData.medals.map(
+                    (m: { imagem: string; nome: string }, index: number) => (
+                      <div
+                        className={`${styles.medal} ${
+                          index >= maxMedals ? styles["hidden-medal"] : ""
+                        }`}
+                        key={index}
+                      >
+                        <img src={m.imagem} alt={m.nome} draggable="false" />
+                        <h3>{m.nome}</h3>
+                      </div>
+                    )
+                  )}
               </div>
 
               {userData.medals.length < 1 && (
@@ -558,7 +554,7 @@ const Profile = () => {
                 className={`${styles.eventcardssection} ${styles["events-container"]}`}
               >
                 {eventData.events.map((event: any) => (
-                  <EventCard
+                  <EventCardwCoupon
                     eventInfo={{
                       title: event.titulo,
                       location: event.local,
@@ -573,7 +569,6 @@ const Profile = () => {
                         ? `data:image/png;base64,${event.image}`
                         : placeholderImage,
                     }}
-                    clickAction={() => handleSwitchContext(event)}
                     key={event.id}
                   />
                 ))}

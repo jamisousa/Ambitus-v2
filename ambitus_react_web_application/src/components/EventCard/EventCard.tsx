@@ -10,6 +10,9 @@ import { useTheme } from "../../utils/contexts/globalThemeContext";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
 
 const EventCard = (props: EventCardProps) => {
+  console.log("EventCard");
+  console.log(props);
+
   const { currentTheme } = useTheme();
   const { currentContent } = getDashContent();
   const eventTitle =
