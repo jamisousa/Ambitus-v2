@@ -9,11 +9,11 @@ import { SetStateAction, useState, useEffect } from "react";
 import Chip from "../Chip/Chip";
 import mockImage from "../../resources/img/mockimage.jpeg";
 import EventCard from "../EventCard/EventCard";
-import placeholderImage from "../../resources/img/lightAmbitusName-compressed.svg";
 import { getDashContent } from "../../utils/contexts/dashboardAction";
 import { useTheme } from "../../utils/contexts/globalThemeContext";
 import { ClipLoader } from "react-spinners";
 import { override } from "../../utils/spinner/spinner";
+import { useNavigate } from "react-router-dom";
 
 const EventsList = () => {
   const { currentTheme } = useTheme();
@@ -226,16 +226,14 @@ const EventsList = () => {
       <div className={styles.mainsection}>
         <h1>Eventos</h1>
         <div className={styles.cardssection}>
-          <div className={styles.maincard}>
+          <div
+            className={styles.maincard}
+            onClick={() => {
+              setCurrentContent("profile");
+            }}
+          >
             <FontAwesomeIcon icon={faClipboard} style={{ color: "#669f2d" }} />
             <h3>Meus Eventos</h3>
-          </div>
-          <div className={styles.maincard}>
-            <FontAwesomeIcon
-              icon={faCalendarCheck}
-              style={{ color: "#669f2d" }}
-            />
-            <h3>Minhas inscrições</h3>
           </div>
         </div>
 

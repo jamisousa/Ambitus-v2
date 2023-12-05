@@ -17,8 +17,8 @@
 }
 
 .profileHeader img {
-  width: 13em;
-  height: 13em;
+  width: 15em;
+  height: 15em;
   border-radius: 100%;
   margin-right: 1.5em;
   border: 0.5em solid white;
@@ -235,9 +235,6 @@
 .eventcardssection {
   margin-top: -2em;
   margin: auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1em;
 }
 
 .modalinfo {

@@ -168,14 +168,24 @@ const DashboardHome = () => {
         )}
         <div className={styles.maincards}>
           <div className={styles.cardssection}>
-            <div className={styles.maincard}>
+            <div
+              className={styles.maincard}
+              onClick={() => {
+                setCurrentContent("profile");
+              }}
+            >
               <FontAwesomeIcon
                 icon={faCalendarCheck}
                 style={{ color: "#669f2d" }}
               />
               <h3>Minhas inscrições</h3>
             </div>
-            <div className={styles.maincard}>
+            <div
+              className={styles.maincard}
+              onClick={() => {
+                setCurrentContent("profile");
+              }}
+            >
               <FontAwesomeIcon icon={faMedal} style={{ color: "#669f2d" }} />
               <h3>Recompensas</h3>
             </div>

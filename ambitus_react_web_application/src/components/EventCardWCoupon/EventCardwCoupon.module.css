@@ -1,0 +1,39 @@
+.mainsection {
+  display: flex;
+}
+
+.rewardsection {
+  padding-top: 2em;
+  width: 100%;
+  text-align: right;
+}
+
+.rewardsection h3 {
+  font-weight: 500;
+}
+
+.rewardsectioncoupon {
+  float: right;
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.rewardsectioncoupon h3 {
+  font-weight: 500;
+}
+
+.rewardsectioncoupon .couponLabel {
+  margin-right: 1em;
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.greenroundedcard {
+  background-color: rgb(111, 146, 0, 0.3);
+  color: var(--theme-green);
+  border-radius: 2em;
+  width: fit-content;
+  padding: 0.2em 1em;
+  text-align: center;
+}

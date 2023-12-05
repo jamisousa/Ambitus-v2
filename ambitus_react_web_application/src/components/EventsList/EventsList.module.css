@@ -10,6 +10,10 @@
   padding: 5em 15em;
 }
 
+.mainsection h1 {
+  margin-left: 2.4em;
+}
+
 .whitetext h2,
 .whitetext h3,
 .whitetext h4,
@@ -45,6 +49,7 @@
   padding: 1em;
   border-radius: 1em;
   width: 50%;
+  margin-left: 4.5em;
 }
 .maincard svg {
   height: 3em;
