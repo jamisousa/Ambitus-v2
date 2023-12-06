@@ -46,6 +46,7 @@
             ckbMasculino = new CheckBox();
             ckbFeminino = new CheckBox();
             lblSexo = new Label();
+            ckbOutro = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -192,7 +193,7 @@
             // ckbMasculino
             // 
             ckbMasculino.AutoSize = true;
-            ckbMasculino.Location = new Point(346, 365);
+            ckbMasculino.Location = new Point(346, 361);
             ckbMasculino.Name = "ckbMasculino";
             ckbMasculino.Size = new Size(81, 19);
             ckbMasculino.TabIndex = 4;
@@ -202,7 +203,7 @@
             // ckbFeminino
             // 
             ckbFeminino.AutoSize = true;
-            ckbFeminino.Location = new Point(435, 365);
+            ckbFeminino.Location = new Point(346, 382);
             ckbFeminino.Name = "ckbFeminino";
             ckbFeminino.Size = new Size(76, 19);
             ckbFeminino.TabIndex = 5;
@@ -220,12 +221,23 @@
             lblSexo.TabIndex = 18;
             lblSexo.Text = "Sexo";
             // 
+            // ckbOutro
+            // 
+            ckbOutro.AutoSize = true;
+            ckbOutro.Location = new Point(433, 361);
+            ckbOutro.Name = "ckbOutro";
+            ckbOutro.Size = new Size(57, 19);
+            ckbOutro.TabIndex = 26;
+            ckbOutro.Text = "Outro";
+            ckbOutro.UseVisualStyleBackColor = true;
+            // 
             // Cadastro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
             ClientSize = new Size(734, 711);
+            Controls.Add(ckbOutro);
             Controls.Add(lblSexo);
             Controls.Add(ckbFeminino);
             Controls.Add(ckbMasculino);
@@ -271,5 +283,6 @@
         private CheckBox ckbMasculino;
         private CheckBox ckbFeminino;
         private Label lblSexo;
+        private CheckBox ckbOutro;
     }
 }

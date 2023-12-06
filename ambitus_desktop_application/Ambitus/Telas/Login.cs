@@ -1,4 +1,5 @@
 using Entidades;
+using System.Configuration;
 using System.Text;
 using System.Text.Json;
 
@@ -63,26 +64,34 @@ namespace Ambitus.Telas
                     };
 
                     string jsonData = JsonSerializer.Serialize(data);
+                    //HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-                    using (httpClient)
+                    var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        //HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        Login_Response loginResponse = JsonSerializer.Deserialize<Login_Response>(responseContent);
 
-                        var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
+                        string token = loginResponse.token;
+                        string nome = loginResponse.nome;
+                        string image = loginResponse.image;
+                        int nivel = loginResponse.nivel;
 
-                        if (response.IsSuccessStatusCode)
-                        {
-                            MessageBox.Show("Login realizado!");
+                        Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        config.AppSettings.Settings["APIToken"].Value = token;
+                        config.Save(ConfigurationSaveMode.Modified);
+                        ConfigurationManager.RefreshSection("appSettings");
 
-                            this.Close();
+                        this.Hide();
 
-                            Menu_Principal menu = new Menu_Principal();
-                            menu.ShowDialog();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Erro: " + response.ReasonPhrase);
-                        }
+                        MenuPrincipal menu = new();
+                        menu.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro: " + response.ReasonPhrase);
+                        response.Dispose();
                     }
                 }
                 else

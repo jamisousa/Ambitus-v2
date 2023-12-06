@@ -7,6 +7,7 @@ namespace Ambitus.Telas
 {
     public partial class Cadastro : Form
     {
+
         #region Constructor
 
         public Cadastro()
@@ -19,18 +20,18 @@ namespace Ambitus.Telas
         #region Attributes
 
         Dados_Usuario cad = new();
-        string responseContent = string.Empty;
         string url = "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/cadastro";
         HttpClient httpClient = new();
-        //HttpResponseMessage response = new();
 
         #endregion
+
+        #region Methods
 
         public bool Preencher_Campos()
         {
             cad.nome = txtUsuario.Text;
             cad.idade = (DateTime.Now.Year - DateTime.Parse(dtpNascimento.Text).Year);
-            cad.sexo = ckbFeminino.Checked ? "F" : "M";
+            cad.sexo = ckbFeminino.Checked ? "F" : ckbMasculino.Checked ? "M" : "O";
             cad.email = txtEmail.Text;
             cad.senha = txtSenha.Text;
 
@@ -79,13 +80,15 @@ namespace Ambitus.Telas
 
                         if (response.IsSuccessStatusCode)
                         {
-                            MessageBox.Show("Usuário cadastrado com sucesso!");
+                            MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                             this.Close();
                         }
                         else
                         {
-                            MessageBox.Show("Erro: " + response.ReasonPhrase);
+                            MessageBox.Show("Erro: " + response.ReasonPhrase, "Erro",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -100,6 +103,8 @@ namespace Ambitus.Telas
                 return;
             }
         }
+
+        #endregion
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
