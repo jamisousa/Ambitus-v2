@@ -96,7 +96,7 @@ const Profile = () => {
 
   //fetch events
   const fetchEventsUrl =
-    "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos";
+    "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/meuseventos";
   const handleFetchEvents = () => {
     setEventData((prevData) => ({ ...prevData, loading: true, error: false }));
 
@@ -117,17 +117,11 @@ const Profile = () => {
           return response.json();
         })
         .then((data) => {
-          const notOwner = data.filter(
-            (data: { isOwner: boolean }) => data.isOwner === false
-          );
-
           setEventData((prevData) => ({
             ...prevData,
-            events: notOwner,
+            events: data,
             loading: false,
           }));
-
-          console.log(eventData);
         })
         .catch((error) => {
           setEventData((prevData) => ({
@@ -568,6 +562,12 @@ const Profile = () => {
                       image: event.image
                         ? `data:image/png;base64,${event.image}`
                         : placeholderImage,
+                      coupon: {
+                        title: event.cupom?.titulo,
+                        description: event.cupom?.descricao,
+                        date: event.cupom?.validade,
+                        code: event.cupom?.codigo,
+                      },
                     }}
                     key={event.id}
                   />

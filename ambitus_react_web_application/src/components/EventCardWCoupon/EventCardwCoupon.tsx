@@ -1,19 +1,16 @@
 import { getDashContent } from "../../utils/contexts/dashboardAction";
 import EventCard from "../EventCard/EventCard";
 import styles from "./EventCardwCoupon.module.css";
-const handleSwitchContext = (selectedEvent: any) => {
-  const { setCurrentContent, setCurrentEvent, currentContent } =
-    getDashContent();
-
-  if (selectedEvent) {
-    setCurrentEvent(selectedEvent);
-    setCurrentContent("event-details");
-  }
-};
 
 const EventCardwCoupon = (props: any) => {
-  console.log("EventCardwCoupon");
-  console.log(props.eventInfo.title);
+  const { setCurrentContent, setCurrentEvent, currentEvent } = getDashContent();
+
+  const handleSwitchContext = () => {
+    if (currentEvent) {
+      setCurrentEvent(currentEvent);
+      setCurrentContent("event-details");
+    }
+  };
 
   return (
     <div className={styles.fullsection}>
@@ -30,19 +27,24 @@ const EventCardwCoupon = (props: any) => {
                 ? "CONSCIENTIZAÇÃO"
                 : props.eventInfo.category,
             image: props.eventInfo.image,
+            selectedEvent: props.eventInfo.selectedEvent,
           }}
           clickAction={handleSwitchContext}
         />
 
         <div className={styles.rewardsection}>
-          <h2>Mock reward title here</h2>
-          <h3>*Reward description here</h3>
-          <div className={styles.rewardsectioncoupon}>
-            <span className={styles.couponLabel}>código do cupom:</span>
-            <div className={styles.greenroundedcard}>
-              <h3>23236W</h3>
-            </div>
-          </div>
+          <h2>{props.eventInfo.coupon.title}</h2>
+          <h3>{props.eventInfo.coupon.description}</h3>
+          {props.eventInfo.coupon.code && (
+            <>
+              <div className={styles.rewardsectioncoupon}>
+                <span className={styles.couponLabel}>código do cupom:</span>
+                <div className={styles.greenroundedcard}>
+                  <h3>{props.eventInfo.coupon.code}</h3>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

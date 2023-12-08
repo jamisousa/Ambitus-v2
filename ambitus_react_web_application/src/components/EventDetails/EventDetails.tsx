@@ -29,8 +29,17 @@ const EventDetails = (props: any) => {
   const { currentTheme } = useTheme();
   const { setCurrentContent } = getDashContent();
 
-  const { id, image, titulo, descricao, local, data, organizador, tipo } =
-    props.eventinfo;
+  const {
+    id,
+    image,
+    titulo,
+    descricao,
+    local,
+    data,
+    organizador,
+    tipo,
+    cupom,
+  } = props.eventinfo;
 
   const handleContext = () => {
     setCurrentContent("events");
@@ -391,22 +400,23 @@ const EventDetails = (props: any) => {
                         : tipo}
                     </h3>
                   </div>
-                  <div className={styles.rewardsblock}>
-                    <h2>Recompensas</h2>
-                    <p>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Explicabo ipsum, incidunt aliquid molestias deleniti quos
-                      sequi quae! Blanditiis, itaque soluta?
-                    </p>
-                    <br></br>
-                    <div className={styles.couponblock}>
-                      <h2>Código de desconto:</h2>
-                      <div className={styles.greenroundedcard}>
-                        <h3>####</h3>
+                  {cupom.titulo ? (
+                    <div className={styles.rewardsblock}>
+                      <h2>Recompensas</h2>
+                      <p>{cupom.titulo}</p>
+                      <p>{cupom.descricao}</p>
+                      <br></br>
+                      <div className={styles.couponblock}>
+                        <h2>Código de desconto:</h2>
+                        <div className={styles.greenroundedcard}>
+                          <h3>####</h3>
+                        </div>
+                        <h3>Código ainda não disponível!</h3>
                       </div>
-                      <h3>Código ainda não disponível!</h3>
                     </div>
-                  </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               {/*participants section*/}
