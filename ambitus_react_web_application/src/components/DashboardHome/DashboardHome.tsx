@@ -79,7 +79,6 @@ const DashboardHome = () => {
           }));
         })
         .catch((error) => {
-          console.error(error);
           setEventData((prevData) => ({
             ...prevData,
             error: true,
@@ -129,7 +128,6 @@ const DashboardHome = () => {
           }));
         })
         .catch((error) => {
-          console.error(error);
           setPageLoading(false);
         });
     } else {
