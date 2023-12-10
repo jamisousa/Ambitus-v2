@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./ParticipantsList.module.css";
 import { faStar, faUsers } from "@fortawesome/free-solid-svg-icons";
 import mockImage from "../../resources/img/mockimage.jpeg";
-import mockImageAltText from "../../resources/img/mockimagealttext.jpeg";
+import mockImageAltText from "../../resources/img/mockimage.jpeg";
 
 const ParticipantsList = (props: any) => {
   const numberOfParticipants = props.participantsInfo.length;
