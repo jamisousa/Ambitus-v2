@@ -6,7 +6,6 @@ import {
   faChevronLeft,
   faCheck,
   faCircleUser,
-  faStar,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,7 +28,7 @@ const EventDetails = (props: any) => {
   const { currentTheme } = useTheme();
   const { setCurrentContent } = getDashContent();
 
-  const {
+  let {
     id,
     image,
     titulo,
@@ -38,7 +37,7 @@ const EventDetails = (props: any) => {
     data,
     organizador,
     tipo,
-    cupom,
+    cupom = { titulo: null, descricao: null },
   } = props.eventinfo;
 
   const handleContext = () => {
@@ -400,7 +399,7 @@ const EventDetails = (props: any) => {
                         : tipo}
                     </h3>
                   </div>
-                  {cupom.titulo ? (
+                  {cupom && cupom.titulo ? (
                     <div className={styles.rewardsblock}>
                       <h2>Recompensas</h2>
                       <p>{cupom.titulo}</p>
