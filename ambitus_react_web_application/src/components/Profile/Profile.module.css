@@ -1,0 +1,341 @@
+.fullcontent {
+  background: url("../../resources/img/dashboard-greenbg.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0px -7em;
+  height: 100vh;
+  width: 100%;
+}
+
+.mainsection {
+  padding: 5em 15em;
+}
+
+.profileHeader {
+  display: flex;
+  color: var(--theme-white);
+}
+
+.profileHeader img {
+  width: 15em;
+  height: 15em;
+  border-radius: 100%;
+  margin-right: 1.5em;
+  border: 0.5em solid white;
+}
+
+.profileName {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nameContainer {
+  display: flex;
+  align-items: center;
+  padding-left: 0.2em;
+}
+
+.nameContainer h1 {
+  margin: 0;
+  width: 40%;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: white;
+}
+
+.nameContainer {
+  display: block;
+}
+
+.nameContainer h1 {
+  margin: 0;
+  width: 80%;
+}
+
+.lvlcard {
+  display: flex;
+  line-height: 1em;
+  font-size: 1em;
+  background-color: white;
+  color: var(--theme-green);
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  text-align: left;
+  width: fit-content;
+  margin-top: 0.2em;
+}
+
+.lvlcard svg {
+  margin-right: 0.5em;
+}
+
+.cardssection {
+  padding-top: 3em;
+  display: flex;
+}
+
+.maincard {
+  background-color: white;
+  padding: 1em;
+  border-radius: 1em;
+  width: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.maincard svg {
+  height: 3em;
+}
+.maincard h3 {
+  font-weight: 500;
+  margin-top: 0.5em;
+  color: var(--ltheme-darkgray);
+}
+.maincard:nth-child(1) {
+  margin-right: 2em;
+}
+
+.maincard a {
+  text-decoration: none;
+}
+
+.medalssection {
+  background-color: var(--theme-green);
+}
+
+.medalsheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5em;
+}
+
+.medalsheader svg {
+  margin-right: 0.5em;
+  height: 1.5em;
+}
+
+.medalsheader h1 {
+  color: white;
+  font-weight: 500;
+}
+
+.medalstitle {
+  display: flex;
+  align-items: center;
+}
+
+.hidden-medal {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.medalicons {
+  display: flex;
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 2em;
+}
+
+.medalicons > * {
+  margin-right: 2.5em;
+}
+
+.medaliconsDisabled {
+  display: flex;
+  overflow-x: auto;
+  max-width: 100%;
+  opacity: 0.4;
+  padding-bottom: 2em;
+}
+
+.medaliconsDisabled > * {
+  margin-right: 2.5em;
+}
+
+.medal h3 {
+  text-align: center;
+  margin: 0;
+}
+
+.medal {
+  text-align: center;
+  color: white;
+}
+
+.medal img {
+  width: 11em;
+}
+
+.medalicons h3 {
+  padding-bottom: 2em;
+}
+
+.medaliconsDisabled::-webkit-scrollbar {
+  width: 100%;
+}
+
+.medaliconsDisabled::-webkit-scrollbar-track {
+  background: var(--theme-white);
+}
+
+.medaliconsDisabled::-webkit-scrollbar-thumb {
+  background-color: var(--theme-green);
+  border-radius: 20px;
+  border: 3px solid var(--theme-white);
+}
+
+.medalicons::-webkit-scrollbar {
+  width: 100%;
+}
+
+.medalicons::-webkit-scrollbar-track {
+  background: var(--theme-white);
+}
+
+.medalicons::-webkit-scrollbar-thumb {
+  background-color: var(--theme-green);
+  border-radius: 20px;
+  border: 3px solid var(--theme-white);
+}
+
+.medalmask {
+  z-index: 15;
+  color: var(--theme-white);
+  position: absolute;
+  left: 50%;
+  margin-left: -8em;
+  padding-top: 5em;
+  font-weight: bolder;
+  font-size: 1.4em;
+}
+
+.historyheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5em;
+}
+
+.historyheader svg {
+  margin-right: 0.5em;
+  height: 1.5em;
+}
+
+.historyheader h1 {
+  color: var(--theme-darkgray);
+  font-weight: 500;
+}
+
+.historytitle {
+  display: flex;
+  align-items: center;
+}
+
+.eventcardssection {
+  margin-top: -2em;
+  margin: auto;
+}
+
+.modalinfo {
+  display: flex;
+  align-items: center;
+}
+
+.modalinfo img {
+  width: 13em;
+  height: 13em;
+  border-radius: 100%;
+  margin-right: 1.5em;
+  border: 0.5em solid white;
+}
+
+.modalinfo img {
+  position: relative;
+}
+
+.modalinfo img:hover {
+  border: 0.5em solid var(--theme-white);
+  transition: ease 0.2s;
+}
+
+.modalinfo h2 {
+  font-weight: 500;
+  font-size: 2em;
+  margin-top: 3em;
+}
+
+.userimageinfo {
+  display: flex;
+  align-items: center;
+}
+
+.userimageinfo svg {
+  position: absolute;
+  left: 53em;
+  top: 27em;
+  height: 1.5em;
+}
+
+.usernameinfo {
+  display: flex;
+  align-items: center;
+}
+
+.usernameinfo svg {
+  margin-top: 6em;
+  margin-left: 1em;
+  height: 1.5em;
+}
+.fieldgroup {
+  display: flex;
+  align-content: space-between;
+  padding-top: 2em;
+  margin: auto;
+}
+
+.inputContainer input {
+  padding: 1.5em;
+  background-color: transparent;
+  border: 1px solid #000;
+  border-radius: 0.5em;
+}
+
+.labelaboveinput {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.labelaboveinput label {
+  margin-bottom: 5px;
+  font-size: 1.2em;
+}
+
+.fieldgroup .inputContainer {
+  margin-right: 10px;
+}
+
+.fieldgroup .inputContainer:last-child {
+  margin-right: 0;
+}
+
+.inputContainer input {
+  width: 20em;
+}
+
+.iconContainer svg {
+  position: relative;
+  right: -40%;
+  top: -2.5em;
+  cursor: pointer;
+}
+
+.usernameinfo input {
+  padding: 2em;
+  border: 1px solid black;
+  margin-top: 7em;
+  color: black;
+  background-color: transparent;
+  border-radius: 0.5em;
+}

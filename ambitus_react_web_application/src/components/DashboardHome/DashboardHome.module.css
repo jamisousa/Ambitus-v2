@@ -1,0 +1,126 @@
+.fullcontent {
+  background: url("../../resources/img/dashboard-greenbg.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center top;
+  height: 100vh;
+  width: 100%;
+}
+.maincontent {
+  padding: 4em 15em;
+}
+
+.maincontent h1 {
+  color: white;
+  font-size: 2.5em;
+  font-weight: 500;
+}
+
+.userlevel {
+  display: flex;
+  align-items: center;
+}
+
+.userlevel div:nth-child(1) {
+  margin-right: 1em;
+}
+
+.userlevel h2 {
+  color: white;
+  font-weight: 500;
+}
+
+.lvlcard {
+  display: flex;
+  line-height: 1em;
+  font-size: 1em;
+  background-color: white;
+  color: var(--theme-green);
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  text-align: left;
+  width: fit-content;
+  margin-top: 0.2em;
+}
+
+.lvlcard svg {
+  margin-right: 0.5em;
+}
+
+.maincards {
+  padding-top: 1em;
+}
+.cardssection {
+  padding-top: 1em;
+  display: inline-flex;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.eventcardssection {
+  padding-top: 1em;
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.eventcardssection > * {
+  min-width: 50%;
+}
+
+.eventcardssection::-webkit-scrollbar {
+  width: 1rem;
+}
+
+.eventcardssection::-webkit-scrollbar-track {
+  background: white;
+}
+
+.eventcardssection::-webkit-scrollbar-thumb {
+  background-color: var(--theme-green);
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+.maincard {
+  background-color: white;
+  padding: 1em;
+  border-radius: 1em;
+  width: 50%;
+}
+.maincard svg {
+  height: 3em;
+}
+.maincard h3 {
+  font-weight: 500;
+  margin-top: 0.5em;
+  color: var(--ltheme-darkgray);
+}
+.maincard:nth-child(1) {
+  margin-right: 2em;
+}
+
+.eventssection {
+  padding-top: 6.5em;
+}
+
+.eventssection h2 {
+  color: var(--ltheme-darkgray);
+  font-weight: 600;
+}
+
+.nexteventstitle {
+  color: var(--theme-green) !important;
+  font-weight: 600;
+}
+
+.achievementsection {
+  background-color: var(--theme-green);
+}
+
+.achievementsection h2 {
+  width: 20em;
+  color: var(--theme-white);
+  font-weight: 500;
+  font-size: 2em;
+}

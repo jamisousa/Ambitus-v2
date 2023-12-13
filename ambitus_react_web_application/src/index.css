@@ -1,0 +1,63 @@
+:root {
+  @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,300&display=swap");
+  line-height: 1.5;
+  font-weight: 400;
+  color: #000;
+}
+
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+p,
+a,
+img,
+ul,
+ol,
+li,
+form,
+input,
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+* {
+  font-family: "Nunito", sans-serif;
+}
+
+body::-webkit-scrollbar {
+  width: 1rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: white;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--theme-green);
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+/*Carousel 3rd party control*/
+.carousel .control-dots .dot {
+  margin-top: 2em !important;
+}
+
+.carousel .control-dots .dot.selected {
+  background-color: var(--theme-green) !important;
+}
+
+.carousel .control-dots .dot {
+  background-color: #cccccc !important;
+}
+
+.carousel .control-dots .dot::before {
+  color: #ffffff !important;
+}

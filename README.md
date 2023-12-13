@@ -11,9 +11,10 @@
 ">
  <img align="center" alt="AWS" height="30" src="https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white&color=black"
 >
-  <img align="center" alt="Flutter" height="30" src="https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white&color=black">
   <img align="center" alt="Flutter" height="30" src="https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=white&color=black">
-  <img align="center" alt="Flutter" height="30" src="https://img.shields.io/badge/vite-%23646CFF?style=for-the-badge&logo=vite&logoColor=white&color=black">
+  <img align="center" alt="Vite" height="30" src="https://img.shields.io/badge/vite-%23646CFF?style=for-the-badge&logo=vite&logoColor=white&color=black">
+  <img align="center" alt="Vite" height="30" src="https://img.shields.io/badge/react-%2320232a?style=for-the-badge&logo=react&logoColor=white&color=black">
+  <img align="center" alt="Vite" height="30" src="https://img.shields.io/badge/typescript-%23007ACC?style=for-the-badge&logo=typescript&logoColor=white&color=black">
 </section>
 
 <br><br><p></p>
@@ -116,17 +117,6 @@ No link abaixo, você pode acessar a coleção de endpoints da API:
   npx cypress open
 </pre>
 <p>Após, o Cypress irá executar sua interface gráfica. Com isso, você poderá selecionar o navegador de sua preferência para verificar toda a cobertura de testes de componente do projeto. </p>
-
-<br>
-
-
-<h4> 👾 Como rodar testes de mutação - Stryker </h4>
-
-<p>Com o repositório WEB clonado e dependências instaladas, no terminal, execute o seguinte comando para abrir o Stryker:</p>
-<pre>
-   stryker run
-</pre>
-<p>Após, o Stryker irá executar sua interface gráfica. Com isso, será criado um relatório de cobertura do testes de mutação. </p>
 
 <br>
 

@@ -1,0 +1,30 @@
+.mainsection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.darkttext {
+  font-style: italic;
+  font-weight: 100;
+  font-size: 2em;
+  width: 75%;
+  color: var(--theme-darkgray);
+}
+
+.lighttext {
+  font-style: italic;
+  font-weight: 100;
+  font-size: 2em;
+  width: 75%;
+  color: var(--theme-white);
+}
+
+.formsection {
+  width: 70%;
+}
+
+.textsection {
+}
