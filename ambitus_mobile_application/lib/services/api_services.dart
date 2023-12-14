@@ -72,6 +72,23 @@ Future<http.Response> getEvents(String token) async {
   return response;
 }
 
+
+Future<http.Response> getUserData(String token) async {
+  var url = Uri.parse(
+      "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/usuario/dados");
+
+  var response = await http.get(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': token,
+    },
+  );
+
+  return response;
+}
+
+
 Future<http.Response> sendEventSubscription(String token, int id) async {
   var url = Uri.parse(
       "http://ec2-18-223-44-43.us-east-2.compute.amazonaws.com:8082/ambitus-ms/eventos/inscricao/$id");
@@ -220,5 +237,15 @@ Future<void> setUserEmail(String email) async {
 
 Future<String?> getUserEmail() async {
   var res = await storage.read(key: "email");
+  return res;
+}
+
+
+Future<void> setUserLevel(String level) async {
+  await storage.write(key: "level", value: level);
+}
+
+Future<String?> getUserLevel() async {
+  var res = await storage.read(key: "level");
   return res;
 }

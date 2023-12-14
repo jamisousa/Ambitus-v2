@@ -212,6 +212,9 @@ class _loginPageState extends State<loginPage> {
 
                                             await setUserImage(image);
 
+                                             var level = responseBody['nivel'];
+                                            await setUserLevel(level);
+
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
