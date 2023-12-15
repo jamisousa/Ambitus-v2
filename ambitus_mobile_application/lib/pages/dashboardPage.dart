@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pi5_flutter_application/model/model.dart';
 import 'package:pi5_flutter_application/pages/eventDetailPage.dart';
 import 'package:pi5_flutter_application/pages/eventManagementPage.dart';
+import 'package:pi5_flutter_application/pages/profile.dart';
 import 'package:pi5_flutter_application/pages/resourcesPage.dart';
 import 'package:pi5_flutter_application/pages/userEventsPage.dart';
 import 'package:pi5_flutter_application/services/api_services.dart';
@@ -234,7 +235,7 @@ class _dashboardPageState extends State<dashboardPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const userEventsPage()));
+                                              const  ProfilePage()));
                                 },
                                 child: userImage == null || userImage == ""
                                     ? Container(
@@ -311,7 +312,7 @@ class _dashboardPageState extends State<dashboardPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const resourcesPage()));
+                                        const userEventsPage()));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -330,14 +331,14 @@ class _dashboardPageState extends State<dashboardPage> {
                                         height: 100),
                                   ),
                                   title: const Text(
-                                    "Materiais",
+                                    "Gerenciar eventos",
                                     style: TextStyle(
                                         fontSize: 18,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   subtitle: const Text(
-                                      "Ver materiais sobre preservação",
+                                      "Ver eventos cadastrados e inscritos",
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.black,

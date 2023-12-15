@@ -195,6 +195,8 @@ class _loginPageState extends State<loginPage> {
                                               response.statusCode == 202) {
                                             var responseBody =
                                                 jsonDecode(response.body);
+
+
                                             var token =
                                                 responseBody['token'] as String;
 
@@ -211,6 +213,11 @@ class _loginPageState extends State<loginPage> {
                                                         as String;
 
                                             await setUserImage(image);
+
+                                            var level = responseBody['nivel']
+                                                .toString();
+                                            await setUserLevel(level);
+
 
                                             Navigator.push(
                                               context,

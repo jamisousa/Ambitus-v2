@@ -54,3 +54,60 @@ class Participant {
     );
   }
 }
+
+class Medal {
+  final int id;
+  final String nome;
+  final String descricao;
+  final int reqNivel;
+  final String imagem;
+
+  Medal({
+    required this.id,
+    required this.nome,
+    required this.descricao,
+    required this.reqNivel,
+    required this.imagem,
+  });
+
+  factory Medal.fromJson(Map<String, dynamic> json) {
+    return Medal(
+      id: json['id'],
+      nome: json['nome'],
+      descricao: json['descricao'],
+      reqNivel: json['req_nivel'],
+      imagem: json['imagem'],
+    );
+  }
+}
+
+class UserData {
+  final String nome;
+  final String email;
+  final String imagem;
+  final String nivel;
+  final List<Medal> medals;
+
+  UserData({
+    required this.nome,
+    required this.email,
+    required this.imagem,
+    required this.nivel,
+    required this.medals,
+  });
+
+  factory UserData.fromJson(Map<String, dynamic> json) {
+    var medalList = json['medalhas'] as List<dynamic>;
+    List<Medal> parsedMedals = medalList.map((medal) {
+      return Medal.fromJson(medal);
+    }).toList();
+
+    return UserData(
+      nome: json['nome'],
+      email: json['email'],
+      imagem: json['imagem'],
+      nivel: json['nivel'],
+      medals: parsedMedals,
+    );
+  }
+}
