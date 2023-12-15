@@ -249,3 +249,13 @@ Future<String?> getUserLevel() async {
   var res = await storage.read(key: "level");
   return res;
 }
+
+
+Future<void> setUserMedals(String medals) async {
+  await storage.write(key: "medals", value: medals);
+}
+
+Future<String> getUserMedals() async {
+  var res = await storage.read(key: "medals");
+  return res ?? ''; 
+}
