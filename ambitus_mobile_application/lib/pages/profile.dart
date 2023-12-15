@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pi5_flutter_application/pages/eventDetailPage.dart';
 
 import '../model/model.dart';
@@ -119,20 +120,28 @@ class _profilePageState extends State<ProfilePage> {
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 202) {
-        var responseBody = jsonDecode(response.body);
+        var responseBody =
+            utf8.decode(response.bodyBytes); // Conversão para UTF-8
+        var decodedResponse = jsonDecode(responseBody);
 
-        print(responseBody);
+        var medalsList = decodedResponse['medalhas'] as List<dynamic>;
 
-        var medalsList = responseBody['medalhas'] as List<dynamic>;
-        var newMedals = medalsList
-            .map((medal) => {
-                  'id': medal['id'],
-                  'nome': medal['nome'],
-                  'descricao': medal['descricao'],
-                  'req_nivel': medal['req_nivel'],
-                  'imagem': medal['imagem'].toString().split(',').last,
-                })
-            .toList();
+        var newMedals = medalsList.map((medal) {
+          var decodedName = medal['nome'];
+
+          //corrigindo o nome da medalha "Ecológico Experiente" p evitar erros de render
+          if (decodedName == 'Ecológico Experiente') {
+            decodedName = 'Ecologico Experiente';
+          }
+
+          return {
+            'id': medal['id'],
+            'nome': decodedName,
+            'descricao': medal['descricao'],
+            'req_nivel': medal['req_nivel'],
+            'imagem': medal['imagem'].toString().split(',').last,
+          };
+        }).toList();
 
         setState(() {
           userMedals = newMedals;
@@ -193,16 +202,34 @@ class _profilePageState extends State<ProfilePage> {
                           padding: EdgeInsets.all(16.0),
                           child: Container(
                             constraints: BoxConstraints(maxWidth: 150),
-                            child: FilledButton.icon(
-                              onPressed: () {},
-                              icon: const Icon(Icons.star),
-                              label: Row(
-                                children: [
-                                  const Text('Lev.'),
-                                  const SizedBox(width: 4),
-                                  Text(userLevel ?? ''),
-                                ],
-                              ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xff606c38), // Cor de fundo
+                              borderRadius: BorderRadius.circular(
+                                  10), // Borda arredondada
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 12),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  color: Colors.white, // Cor do ícone
+                                ),
+                                const SizedBox(width: 4),
+                                const Text(
+                                  'Lev.',
+                                  style: TextStyle(
+                                    color: Colors.white, // Cor do texto
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  userLevel ?? '',
+                                  style: TextStyle(
+                                    color: Colors.white, // Cor do texto
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -230,14 +257,18 @@ class _profilePageState extends State<ProfilePage> {
           ),
           Container(
             height: 250,
-            color: Colors.green,
+            color: const Color(0xff606c38),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text('Medalhas'),
+                  padding: EdgeInsets.only(
+                      top: 16.0, left: 16.0, right: 16.0, bottom: 8.0),
+                  child: Text(
+                    'Medalhas',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
                 Flexible(
                   child: ListView.builder(
@@ -246,35 +277,36 @@ class _profilePageState extends State<ProfilePage> {
                     itemCount: userMedals.length,
                     itemBuilder: (context, index) {
                       var medal = userMedals[index];
+                      var medalName = medal['nome'];
+
+                      if (medalName == 'Ecológico Experiente') {
+                        medalName = 'Ecologico Experiente';
+                      }
+
                       return Container(
                         width: 150,
                         height: 150,
                         margin: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: const Color(0xff606c38),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
+                            SvgPicture.memory(
+                              base64Decode(medal['imagem']),
                               width: 100,
                               height: 100,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: MemoryImage(
-                                    base64Decode(medal['imagem']),
-                                  ),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
+                              fit: BoxFit.contain,
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              medal['nome'],
+                              medalName,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
+                                color: Colors.white,
                               ),
                               textAlign: TextAlign.center,
                             ),
