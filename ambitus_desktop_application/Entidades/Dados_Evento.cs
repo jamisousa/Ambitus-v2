@@ -15,5 +15,7 @@
         public string tipo { get; set; } = string.Empty;
 
         public string imagem { get; set; } = string.Empty;
+
+        public Dados_Cupom? cupom { get; set; }
     }
 }

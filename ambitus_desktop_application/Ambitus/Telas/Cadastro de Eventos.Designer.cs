@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             pnCupom = new Panel();
+            dtpValidadeCupom = new DateTimePicker();
+            lblValidade = new Label();
+            txtCodigoCupom = new TextBox();
+            lblCodigo = new Label();
             lblNomeCupom = new Label();
             txtNomeCupom = new TextBox();
             txtDescricaoCupom = new TextBox();
             lblDescricaoCupom = new Label();
-            lblImgCupom = new Label();
-            pbImgCupom = new PictureBox();
             pnCadEvento = new Panel();
             label3 = new Label();
             cbbTipos = new ComboBox();
@@ -52,27 +54,70 @@
             lblCadastrar = new Label();
             btnCriarEvento = new Button();
             ofdEvento = new OpenFileDialog();
-            label1 = new Label();
-            label2 = new Label();
+            lblEvento = new Label();
+            lblCupom = new Label();
             pnCupom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbImgCupom).BeginInit();
             pnCadEvento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbImgEvento).BeginInit();
             SuspendLayout();
             // 
             // pnCupom
             // 
+            pnCupom.Controls.Add(dtpValidadeCupom);
+            pnCupom.Controls.Add(lblValidade);
+            pnCupom.Controls.Add(txtCodigoCupom);
+            pnCupom.Controls.Add(lblCodigo);
             pnCupom.Controls.Add(lblNomeCupom);
             pnCupom.Controls.Add(txtNomeCupom);
             pnCupom.Controls.Add(txtDescricaoCupom);
             pnCupom.Controls.Add(lblDescricaoCupom);
-            pnCupom.Controls.Add(lblImgCupom);
-            pnCupom.Controls.Add(pbImgCupom);
             pnCupom.Enabled = false;
             pnCupom.Location = new Point(631, 139);
             pnCupom.Name = "pnCupom";
-            pnCupom.Size = new Size(431, 562);
+            pnCupom.Size = new Size(431, 273);
             pnCupom.TabIndex = 27;
+            pnCupom.Visible = false;
+            // 
+            // dtpValidadeCupom
+            // 
+            dtpValidadeCupom.CustomFormat = "dd/MM/yyyy";
+            dtpValidadeCupom.Format = DateTimePickerFormat.Short;
+            dtpValidadeCupom.Location = new Point(99, 222);
+            dtpValidadeCupom.Name = "dtpValidadeCupom";
+            dtpValidadeCupom.Size = new Size(101, 23);
+            dtpValidadeCupom.TabIndex = 23;
+            dtpValidadeCupom.Value = new DateTime(2023, 12, 4, 20, 39, 5, 0);
+            // 
+            // lblValidade
+            // 
+            lblValidade.AutoSize = true;
+            lblValidade.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblValidade.ForeColor = Color.Black;
+            lblValidade.Location = new Point(11, 222);
+            lblValidade.Name = "lblValidade";
+            lblValidade.Size = new Size(82, 18);
+            lblValidade.TabIndex = 27;
+            lblValidade.Text = "Validade:";
+            // 
+            // txtCodigoCupom
+            // 
+            txtCodigoCupom.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtCodigoCupom.Location = new Point(11, 174);
+            txtCodigoCupom.Multiline = true;
+            txtCodigoCupom.Name = "txtCodigoCupom";
+            txtCodigoCupom.Size = new Size(408, 30);
+            txtCodigoCupom.TabIndex = 24;
+            // 
+            // lblCodigo
+            // 
+            lblCodigo.AutoSize = true;
+            lblCodigo.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCodigo.ForeColor = Color.Black;
+            lblCodigo.Location = new Point(11, 153);
+            lblCodigo.Name = "lblCodigo";
+            lblCodigo.Size = new Size(69, 18);
+            lblCodigo.TabIndex = 25;
+            lblCodigo.Text = "Código:";
             // 
             // lblNomeCupom
             // 
@@ -99,7 +144,7 @@
             txtDescricaoCupom.Location = new Point(11, 101);
             txtDescricaoCupom.Multiline = true;
             txtDescricaoCupom.Name = "txtDescricaoCupom";
-            txtDescricaoCupom.Size = new Size(408, 152);
+            txtDescricaoCupom.Size = new Size(408, 30);
             txtDescricaoCupom.TabIndex = 22;
             // 
             // lblDescricaoCupom
@@ -112,28 +157,6 @@
             lblDescricaoCupom.Size = new Size(95, 18);
             lblDescricaoCupom.TabIndex = 23;
             lblDescricaoCupom.Text = "Descrição:";
-            // 
-            // lblImgCupom
-            // 
-            lblImgCupom.AutoSize = true;
-            lblImgCupom.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblImgCupom.ForeColor = Color.Black;
-            lblImgCupom.Location = new Point(11, 266);
-            lblImgCupom.Name = "lblImgCupom";
-            lblImgCupom.Size = new Size(160, 18);
-            lblImgCupom.TabIndex = 21;
-            lblImgCupom.Text = "Imagem do Cupom:";
-            // 
-            // pbImgCupom
-            // 
-            pbImgCupom.BorderStyle = BorderStyle.FixedSingle;
-            pbImgCupom.Image = Properties.Resources.pngwing_com;
-            pbImgCupom.Location = new Point(11, 302);
-            pbImgCupom.Name = "pbImgCupom";
-            pbImgCupom.Size = new Size(408, 247);
-            pbImgCupom.SizeMode = PictureBoxSizeMode.Zoom;
-            pbImgCupom.TabIndex = 20;
-            pbImgCupom.TabStop = false;
             // 
             // pnCadEvento
             // 
@@ -304,7 +327,7 @@
             btnCriarEvento.FlatStyle = FlatStyle.Flat;
             btnCriarEvento.Font = new Font("Arial Rounded MT Bold", 20.25F, FontStyle.Italic, GraphicsUnit.Point);
             btnCriarEvento.ForeColor = Color.FromArgb(144, 218, 101);
-            btnCriarEvento.Location = new Point(782, 745);
+            btnCriarEvento.Location = new Point(262, 904);
             btnCriarEvento.Name = "btnCriarEvento";
             btnCriarEvento.Size = new Size(139, 43);
             btnCriarEvento.TabIndex = 28;
@@ -316,36 +339,36 @@
             // 
             ofdEvento.FileName = "Imagem_Do_Evento";
             // 
-            // label1
+            // lblEvento
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial Narrow", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            label1.ForeColor = Color.FromArgb(111, 146, 0);
-            label1.Location = new Point(297, 106);
-            label1.Name = "label1";
-            label1.Size = new Size(79, 29);
-            label1.TabIndex = 29;
-            label1.Text = "Evento";
+            lblEvento.AutoSize = true;
+            lblEvento.Font = new Font("Arial Narrow", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblEvento.ForeColor = Color.FromArgb(111, 146, 0);
+            lblEvento.Location = new Point(297, 106);
+            lblEvento.Name = "lblEvento";
+            lblEvento.Size = new Size(79, 29);
+            lblEvento.TabIndex = 29;
+            lblEvento.Text = "Evento";
             // 
-            // label2
+            // lblCupom
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Arial Narrow", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            label2.ForeColor = Color.FromArgb(111, 146, 0);
-            label2.Location = new Point(810, 106);
-            label2.Name = "label2";
-            label2.Size = new Size(81, 29);
-            label2.TabIndex = 30;
-            label2.Text = "Cupom";
+            lblCupom.AutoSize = true;
+            lblCupom.Font = new Font("Arial Narrow", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblCupom.ForeColor = Color.FromArgb(111, 146, 0);
+            lblCupom.Location = new Point(810, 106);
+            lblCupom.Name = "lblCupom";
+            lblCupom.Size = new Size(81, 29);
+            lblCupom.TabIndex = 30;
+            lblCupom.Text = "Cupom";
             // 
             // Cadastro_de_Eventos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
-            ClientSize = new Size(1192, 915);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            ClientSize = new Size(1192, 985);
+            Controls.Add(lblCupom);
+            Controls.Add(lblEvento);
             Controls.Add(btnCriarEvento);
             Controls.Add(pnCupom);
             Controls.Add(pnCadEvento);
@@ -357,7 +380,6 @@
             Load += Cadastro_de_Eventos_Load;
             pnCupom.ResumeLayout(false);
             pnCupom.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pbImgCupom).EndInit();
             pnCadEvento.ResumeLayout(false);
             pnCadEvento.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbImgEvento).EndInit();
@@ -372,8 +394,6 @@
         private TextBox txtNomeCupom;
         private TextBox txtDescricaoCupom;
         private Label lblDescricaoCupom;
-        private Label lblImgCupom;
-        private PictureBox pbImgCupom;
         private Panel pnCadEvento;
         private CheckBox ckbCupom;
         private Label lblNomeEvento;
@@ -389,9 +409,13 @@
         private Label lblCadastrar;
         private Button btnCriarEvento;
         private OpenFileDialog ofdEvento;
-        private Label label1;
-        private Label label2;
+        private Label lblEvento;
+        private Label lblCupom;
         private Label label3;
         private ComboBox cbbTipos;
+        private DateTimePicker dtpValidadeCupom;
+        private Label lblValidade;
+        private TextBox txtCodigoCupom;
+        private Label lblCodigo;
     }
 }

@@ -37,12 +37,33 @@ namespace Ambitus.Telas
             Popular_cbbTipos();
 
             dtpDataEvento.Format = DateTimePickerFormat.Custom;
-            dtpDataEvento.CustomFormat = "dd/MM/yyyy hh:mm";
+            dtpDataEvento.CustomFormat = "dd/MM/yyyy HH:mm";
+
+            this.Size = new Size(730, 1024);
+            lblEvento.Location = new Point(310, 100);
+            lblCadastrar.Location = new Point(200, 30);
         }
 
         #endregion
 
         #region Methods
+
+        public void Formatar_Tela()
+        {
+            if (ckbCupom.Checked)
+            {
+                this.Size = new Size(1208, 1024);
+                //pnCadEvento.Location = new Point(131, 139);
+                lblEvento.Location = new Point(297, 106);
+                lblCadastrar.Location = new Point(428, 31);
+            }
+            else
+            {
+                this.Size = new Size(730, 1024);
+                lblEvento.Location = new Point(310, 100);
+                lblCadastrar.Location = new Point(200, 30);
+            }
+        }
 
         public void Popular_cbbTipos()
         {
@@ -53,7 +74,7 @@ namespace Ambitus.Telas
             table.Rows.Add("Reciclagem", "RECICLAGEM");
             table.Rows.Add("Limpeza de Ambientes", "LIMPEZA_DE_AMBIENTES");
             table.Rows.Add("Reflorestamento", "REFLORESTAMENTO");
-            table.Rows.Add("Concientização e Educação", "CONCIENTIZACAO_E_EDUCACAO");
+            table.Rows.Add("Concientização e Educação", "CONSCIENTIZACAO_E_EDUCACAO");
             table.Rows.Add("Conservação", "CONSERVACAO");
 
             cbbTipos.DataSource = table;
@@ -70,13 +91,21 @@ namespace Ambitus.Telas
             evento.data = dtpDataEvento.Text.Substring(0, 10);
             evento.hora = dtpDataEvento.Text.Substring(11);
             evento.tipo = cbbTipos.SelectedValue.ToString();
+            evento.cupom = ckbCupom.Checked ? new Dados_Cupom()
+            {
+                titulo = txtNomeCupom.Text,
+                descricao = txtDescricaoCupom.Text,
+                codigo = txtCodigoCupom.Text,
+                validade = dtpValidadeCupom.Text
+            } : null;
 
             if (evento.titulo == string.Empty ||
                 evento.descricao == string.Empty ||
                 evento.local == string.Empty ||
                 evento.data == string.Empty ||
                 evento.hora == string.Empty ||
-                evento.tipo == string.Empty)
+                evento.tipo == string.Empty ||
+                evento.cupom == null)
             {
                 MessageBox.Show("Um ou mais campos não foram preenchidos!", "Aviso",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -115,66 +144,35 @@ namespace Ambitus.Telas
             }
         }
 
-        #endregion
-
-        private void pbImgEvento_Click(object sender, EventArgs e)
-        {
-            ofdEvento.Filter = "Imagens|*.jpg;*.jpeg;*.png;*.bmp";
-
-            if (ofdEvento.ShowDialog() == DialogResult.OK)
-            {
-                string caminho = ofdEvento.FileName;
-                string base64 = ConvertImageToBase64(caminho);
-                byte[] bytes = File.ReadAllBytes(caminho);
-
-                Preencher_ImagemEvento(base64);
-
-                using (MemoryStream ms = new(bytes))
-                {
-                    Image image = Image.FromStream(ms);
-                    pbImgEvento.Image = image;
-                    pbImgEvento.SizeMode = PictureBoxSizeMode.StretchImage;
-                }
-            }
-        }
-
-        private void ckbCupom_CheckedChanged(object sender, EventArgs e)
-        {
-            pnCupom.Enabled = ckbCupom.Checked;
-        }
-
-        private async void btnCriarEvento_Click(object sender, EventArgs e)
+        public async Task Criar_Evento()
         {
             try
             {
                 if (Preencher_Campos())
                 {
-                    using (httpClient)
+                    var dadosEvento = new
                     {
-                        var data = new
-                        {
-                            evento.titulo,
-                            evento.descricao,
-                            evento.local,
-                            evento.data,
-                            evento.hora,
-                            evento.tipo,
-                            evento.imagem
-                        };
+                        evento.titulo,
+                        evento.descricao,
+                        evento.local,
+                        evento.data,
+                        evento.hora,
+                        evento.tipo,
+                        evento.imagem,
+                        evento.cupom
+                    };
 
-                        var jsonData = JsonSerializer.Serialize(data);
+                    var jsonData = JsonSerializer.Serialize(dadosEvento);
 
-                        string token = ConfigurationManager.AppSettings["APIToken"];
+                    string token = ConfigurationManager.AppSettings["APIToken"];
 
-                        //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                        httpClient.DefaultRequestHeaders.Add("Authorization", token);
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    httpClient.DefaultRequestHeaders.Clear();
+                    httpClient.DefaultRequestHeaders.Add("Authorization", token);
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                        var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
+                    var response = await httpClient.PostAsync(url, new StringContent(jsonData, Encoding.UTF8, "application/json"));
 
-                        responseAwnser = response.IsSuccessStatusCode;
-
-                    }
+                    responseAwnser = response.IsSuccessStatusCode;
 
                     if (responseAwnser)
                     {
@@ -200,5 +198,46 @@ namespace Ambitus.Telas
                 return;
             }
         }
+
+        #endregion
+
+        #region Events
+
+        private void pbImgEvento_Click(object sender, EventArgs e)
+        {
+            ofdEvento.Filter = "Imagens|*.jpg;*.jpeg;*.png;*.bmp";
+
+            if (ofdEvento.ShowDialog() == DialogResult.OK)
+            {
+                string caminho = ofdEvento.FileName;
+                string base64 = ConvertImageToBase64(caminho);
+                byte[] bytes = File.ReadAllBytes(caminho);
+
+                Preencher_ImagemEvento(base64);
+
+                using (MemoryStream ms = new(bytes))
+                {
+                    Image image = Image.FromStream(ms);
+                    pbImgEvento.Image = image;
+                    pbImgEvento.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+            }
+        }
+
+        private void ckbCupom_CheckedChanged(object sender, EventArgs e)
+        {
+            lblCupom.Visible = ckbCupom.Checked;
+            pnCupom.Visible = ckbCupom.Checked;
+            pnCupom.Enabled = ckbCupom.Checked;
+
+            Formatar_Tela();
+        }
+
+        private void btnCriarEvento_Click(object sender, EventArgs e)
+        {
+            Criar_Evento();
+        }
+
+        #endregion
     }
 }
